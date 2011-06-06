@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Rectangle" x="112" width="329" height="435" measuredWidth="329" measuredHeight="435">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Rectangle" x="136" y="104" width="281" height="233" measuredWidth="281" measuredHeight="233">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="142" y="22" width="275" text="Current Match" measuredWidth="275" measuredHeight="67">
+    <font size="32"/>
+  </widgets>
+  <widgets xsi:type="model:Button" x="142" y="352" width="111" height="55" text="OK" measuredWidth="111" measuredHeight="55">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" x="278" y="352" width="111" height="55" text="Cancel" measuredWidth="111" measuredHeight="55">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="152" y="120" text="22 June 2011" measuredWidth="103" measuredHeight="29">
+    <font size="12" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" x="176" y="184" width="49" text="8" measuredWidth="49" measuredHeight="48" textAlignment="Center">
+    <font size="22"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" x="312" y="184" width="49" text="11" measuredWidth="49" measuredHeight="48" textAlignment="Center">
+    <font size="22"/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="296" y="120" text="Race to 13" measuredWidth="83" measuredHeight="29">
+    <font size="12" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="168" y="148" text="Vaugan" measuredWidth="64" measuredHeight="29">
+    <font size="12" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="312" y="148" text="Shervin" measuredWidth="63" measuredHeight="29">
+    <font size="12" bold="true"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Rectangle" x="112" width="329" height="435" measuredWidth="329" measuredHeight="435">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Rectangle" x="136" y="104" width="281" height="201" measuredWidth="281" measuredHeight="201">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" x="203" y="183" width="158" text="Vaugan" measuredWidth="158" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="144" y="183" text="Player 1" measuredWidth="46" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" x="203" y="223" width="158" text="Shervin" measuredWidth="158" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="144" y="223" text="Player 2" measuredWidth="46" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:DateField" x="203" y="136" width="76" text="  /  /  " measuredWidth="76" measuredHeight="23"/>
+  <widgets xsi:type="model:Combo" x="312" y="136" width="80" text="Race to" measuredWidth="80" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="152" y="136" text="Date" measuredWidth="29" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Icon" x="377" y="186" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Icon" x="377" y="227" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Label" x="155" y="22" width="237" text="New Match" measuredWidth="237" measuredHeight="67">
+    <font size="32"/>
+  </widgets>
+  <widgets xsi:type="model:Button" x="142" y="344" width="111" height="55" text="OK" measuredWidth="111" measuredHeight="55">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" x="278" y="344" width="111" height="55" text="Cancel" measuredWidth="111" measuredHeight="55">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.vaugan.csf.match" android:installLocation="internalOnly">
+    <application android:icon="@drawable/icon" android:label="CSFMatch" android:enabled="true">        
+        <activity android:launchMode="standard" android:name="MainMenu">
+	        <intent-filter>
+	            <action android:name="android.intent.action.MAIN" />
+	            <category android:name="android.intent.category.LAUNCHER" />
+	        </intent-filter>
+        </activity>
+        <activity android:name="MatchDisplay"></activity>
+        <activity android:name=".MatchCreate"></activity>
+        <activity android:name="MatchList"></activity>
+        <activity android:name="PlayerEdit"></activity>
+        <activity android:name="PlayerList"></activity>
+    </application>
+</manifest> 

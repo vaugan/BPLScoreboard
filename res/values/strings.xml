@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PoolStatV3</string>
+    <string name="no_notes">No players in database</string>
+    <string name="menu_insert">Add Player</string>
+    <string name="menu_delete">Delete Player</string>
+    <string name="title">Name</string>
+    <string name="body">Surname</string>
+    <string name="cell">Cell</string>
+    <string name="confirm">Confirm</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="edit_match">Edit Match</string>
+    <string name="viewplayers">View Players</string>
+    <string name="newmatch">New Match</string>
+    <string name="viewstats">View Stats</string>    
+</resources>
