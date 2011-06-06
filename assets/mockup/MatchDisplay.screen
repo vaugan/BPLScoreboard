@@ -1,38 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:Rectangle" x="112" width="329" height="435" measuredWidth="329" measuredHeight="435">
+  <widgets xsi:type="model:Rectangle" x="8" y="56" width="553" height="321" measuredWidth="553" measuredHeight="321" background="#f3f3f3">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Rectangle" x="136" y="104" width="281" height="233" measuredWidth="281" measuredHeight="233">
+  <widgets xsi:type="model:Rectangle" x="32" y="80" width="505" height="232" measuredWidth="505" measuredHeight="232">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" x="142" y="22" width="275" text="Current Match" measuredWidth="275" measuredHeight="67">
-    <font size="32"/>
-  </widgets>
-  <widgets xsi:type="model:Button" x="142" y="352" width="111" height="55" text="OK" measuredWidth="111" measuredHeight="55">
+  <widgets xsi:type="model:Button" x="279" y="320" width="105" height="41" text="OK" measuredWidth="105" measuredHeight="41">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" x="278" y="352" width="111" height="55" text="Cancel" measuredWidth="111" measuredHeight="55">
+  <widgets xsi:type="model:Button" x="416" y="320" width="107" height="41" text="Cancel" measuredWidth="107" measuredHeight="41">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" x="152" y="120" text="22 June 2011" measuredWidth="103" measuredHeight="29">
+  <widgets xsi:type="model:Label" x="275" y="88" text="22 June 2011" measuredWidth="103" measuredHeight="29">
     <font size="12" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:TextField" x="176" y="184" width="49" text="8" measuredWidth="49" measuredHeight="48" textAlignment="Center">
-    <font size="22"/>
+  <widgets xsi:type="model:TextField" x="56" y="124" width="57" text="5" locked="true" measuredWidth="57" measuredHeight="58" textAlignment="Center" background="#f3f3f3">
+    <font size="28"/>
   </widgets>
-  <widgets xsi:type="model:TextField" x="312" y="184" width="49" text="11" measuredWidth="49" measuredHeight="48" textAlignment="Center">
-    <font size="22"/>
-  </widgets>
-  <widgets xsi:type="model:Label" x="296" y="120" text="Race to 13" measuredWidth="83" measuredHeight="29">
+  <widgets xsi:type="model:Label" x="430" y="88" text="Race to 13" measuredWidth="83" measuredHeight="29">
     <font size="12" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Label" x="168" y="148" text="Vaugan" measuredWidth="64" measuredHeight="29">
-    <font size="12" bold="true"/>
+  <widgets xsi:type="model:Label" x="56" y="80" text="Vaugan" measuredWidth="102" measuredHeight="45">
+    <font size="20" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Label" x="312" y="148" text="Shervin" measuredWidth="63" measuredHeight="29">
-    <font size="12" bold="true"/>
+  <widgets xsi:type="model:Label" x="56" y="182" text="Shervin" measuredWidth="101" measuredHeight="45">
+    <font size="20" bold="true"/>
   </widgets>
+  <widgets xsi:type="model:Image" x="178" y="268"/>
+  <widgets xsi:type="model:Image" x="120" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/Z.png"/>
+  <widgets xsi:type="model:Image" x="151" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/A.png"/>
+  <widgets xsi:type="model:Image" x="182" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/C.png"/>
+  <widgets xsi:type="model:Image" x="213" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/D.png"/>
+  <widgets xsi:type="model:Image" x="244" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/E.png"/>
+  <widgets xsi:type="model:Image" x="275" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/B.png"/>
+  <widgets xsi:type="model:Image" x="306" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/Z.png"/>
+  <widgets xsi:type="model:Image" x="337" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/B.png"/>
+  <widgets xsi:type="model:Image" x="368" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/E.png"/>
+  <widgets xsi:type="model:Image" x="399" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/B.png"/>
+  <widgets xsi:type="model:Image" x="430" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/Z.png"/>
+  <widgets xsi:type="model:Image" x="430" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="461" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="492" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:TextField" x="56" y="231" width="57" text="7" locked="true" measuredWidth="57" measuredHeight="58" textAlignment="Center" background="#f3f3f3">
+    <font size="28"/>
+  </widgets>
+  <widgets xsi:type="model:Image" x="120" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/A.png"/>
+  <widgets xsi:type="model:Image" x="151" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/Z.png"/>
+  <widgets xsi:type="model:Image" x="182" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/D.png"/>
+  <widgets xsi:type="model:Image" x="213" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/C.png"/>
+  <widgets xsi:type="model:Image" x="244" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/B.png"/>
+  <widgets xsi:type="model:Image" x="275" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/E.png"/>
+  <widgets xsi:type="model:Image" x="306" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/A.png"/>
+  <widgets xsi:type="model:Image" x="337" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/E.png"/>
+  <widgets xsi:type="model:Image" x="368" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/B.png"/>
+  <widgets xsi:type="model:Image" x="399" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/E.png"/>
+  <widgets xsi:type="model:Image" x="430" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/A.png"/>
+  <widgets xsi:type="model:Image" x="337" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="368" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="399" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="244" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="275" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="306" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="151" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="182" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="213" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="120" y="150" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="461" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="492" y="119" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="461" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="492" y="226" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="430" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="461" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="492" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="337" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="368" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="399" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="244" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="275" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="306" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="151" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="182" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="213" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Image" x="120" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
   <hRuler/>
   <vRuler/>
   <font/>
