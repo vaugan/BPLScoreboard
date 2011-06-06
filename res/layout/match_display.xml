@@ -3,41 +3,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
 	android:layout_height="match_parent">
+    <EditText android:id="@+id/player1name" android:layout_height="wrap_content" android:text="Player 1" android:layout_weight="0" android:layout_width="wrap_content"></EditText>
 	
 	<LinearLayout android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-
-		<EditText android:id="@+id/player1name" 
-		  android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:layout_weight="1"/>
-		<EditText android:id="@+id/player1score" 
-		  android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:textSize="40dp" 
-			android:layout_weight="1"/>			
+		android:layout_height="wrap_content" android:layout_weight="1">
+		<EditText android:layout_height="wrap_content" android:id="@+id/player1score" android:textSize="40dp" android:layout_width="wrap_content" android:text="0" android:layout_weight="0"></EditText>
+		<ImageView android:layout_height="wrap_content" android:id="@+id/imageView1" android:src="@drawable/A" android:layout_width="wrap_content"></ImageView>
+		<EditText android:layout_height="wrap_content" android:layout_weight="1" android:textSize="20dp" android:layout_width="match_parent" android:id="@+id/player1runningscore" android:text="ACED"></EditText>			
 	</LinearLayout>
-	
-		<EditText android:id="@+id/runningscore" 
-		  android:layout_width="match_parent"
-			android:layout_height="wrap_content" 
-			android:textSize="20dp" 
-			android:layout_weight="1"/>	
+	<EditText android:layout_height="wrap_content" android:id="@+id/player2name" android:layout_width="wrap_content" android:text="Player 2" android:layout_weight="0"></EditText>	
 		
 	<LinearLayout android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-
-		<EditText android:id="@+id/player2name" 
-		  android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:layout_weight="1"/>
+		android:layout_height="wrap_content" android:layout_weight="1">
 		<EditText android:id="@+id/player2score" 
 		  android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
-			android:textSize="40dp" 
-			android:layout_weight="1"/>			
+			android:textSize="40dp" android:layout_weight="0" android:text="0"/>
+		<EditText android:layout_height="wrap_content" android:id="@+id/player2runningscore" android:textSize="20dp" android:layout_width="match_parent" android:layout_weight="0" android:text="ZDBC"></EditText>			
 	</LinearLayout>	
 
 </LinearLayout>
