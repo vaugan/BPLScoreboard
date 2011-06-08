@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -92,16 +93,16 @@ public class MatchList extends ListActivity {
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+        menu.add(0, DELETE_ID, 0, R.string.menu_delete_match);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case DELETE_ID:
-//                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-//                mDbHelper.deleteNote(info.id);
-//                fillData();
+                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+               mDbHelper.deleteMatch(info.id);
+               fillData();
                 return true;
         }
         return super.onContextItemSelected(item);

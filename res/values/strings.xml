@@ -3,7 +3,7 @@
     <string name="app_name">CSF Match</string>
     <string name="no_notes">No entries in database</string>
     <string name="menu_insert">Add Player</string>
-    <string name="menu_delete">Delete Player</string>
+    <string name="menu_delete_match">Delete Match</string>
     <string name="title">Name</string>
     <string name="body">Surname</string>
     <string name="cell">Cell</string>
@@ -12,5 +12,6 @@
     <string name="create_match">Create Match</string>
     <string name="viewplayers">View Players</string>
     <string name="newmatch">New Match</string>
-    <string name="viewstats">View All Matches</string>    
+    <string name="viewstats">View All Matches</string>
+    <string name="menu_delete_player">Delete Player</string>    
 </resources>
