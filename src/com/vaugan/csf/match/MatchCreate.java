@@ -24,6 +24,7 @@ import com.vaugan.csf.match.R;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,8 @@ import android.widget.Toast;
 public class MatchCreate extends Activity {
 
     private EditText mDateTimeText;
+    private EditText mVenueText;
+    private EditText mBestOfText;
     private EditText mP1Text;
     private EditText mP2Text;
     private EditText mResultText;
@@ -48,12 +51,14 @@ public class MatchCreate extends Activity {
 	        setContentView(R.layout.match_edit);
 	        setTitle(R.string.edit_match);
 	
-	      //  mDateTimeText = (EditText) findViewById(R.id.datetime);
-	        mP1Text = (EditText) findViewById(R.id.player1name);
-	        mP2Text = (EditText) findViewById(R.id.player2name);
-	        mResultText = (EditText) findViewById(R.id.runningscore);
+	        mDateTimeText = (EditText) findViewById(R.id.editDate);
+	        mVenueText = (EditText)findViewById(R.id.editVenue);
+	        mBestOfText = (EditText)findViewById(R.id.editMatchBestOf);
+	        mP1Text = (EditText) findViewById(R.id.editPlayer1);
+	        mP2Text = (EditText) findViewById(R.id.editPlayer2);
+	        //mResultText = (EditText)"incomplete";
 	
-	        Button confirmButton = (Button) findViewById(R.id.confirm);
+	        Button confirmButton = (Button) findViewById(R.id.btnStartMatch);
 	
 	        mRowId = (savedInstanceState == null) ? null :
 	            (Long) savedInstanceState.getSerializable(MatchDbAdapter.KEY_ROWID);
@@ -91,6 +96,10 @@ public class MatchCreate extends Activity {
             startManagingCursor(note);
             mDateTimeText.setText(note.getString(
                     note.getColumnIndexOrThrow(MatchDbAdapter.KEY_DATETIME)));
+            mVenueText.setText(note.getString(
+                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_VENUE)));
+            mBestOfText.setText(note.getString(
+                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_BEST_OF)));
             mP1Text.setText(note.getString(
                     note.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
             mP2Text.setText(note.getString(
@@ -121,17 +130,19 @@ public class MatchCreate extends Activity {
 
     private void saveState() {
         String dateTime = mDateTimeText.getText().toString();
+        String venue = mVenueText.getText().toString();
+        String bestof = mBestOfText.getText().toString();
         String p1 = mP1Text.getText().toString();
         String p2 = mP2Text.getText().toString();
-        String result = mResultText.getText().toString();
+        String result = "not finished";
 
         if (mRowId == null) {
-            long id = mDbHelper.createMatch(dateTime, p1, p2, result);
+            long id = mDbHelper.createMatch(dateTime, venue, bestof, p1, p2, result);
             if (id > 0) {
                 mRowId = id;
             }
         } else {
-            mDbHelper.updateMatch(mRowId, dateTime, p1, p2, result);
+            mDbHelper.updateMatch(mRowId, dateTime, venue, bestof, p1, p2, result);
         }
     }
 

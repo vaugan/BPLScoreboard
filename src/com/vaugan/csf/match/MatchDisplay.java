@@ -28,12 +28,12 @@ public class MatchDisplay extends Activity {
     private EditText mBodyText;
     private EditText mCellText;
     private Long mRowId;
-    private PlayerDbAdapter mDbHelper;
+    private MatchDbAdapter mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHelper = new PlayerDbAdapter(this);
+        mDbHelper = new MatchDbAdapter(this);
         mDbHelper.open();
 
         setContentView(R.layout.match_display);
@@ -47,7 +47,7 @@ public class MatchDisplay extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 //        saveState();
-//        outState.putSerializable(PlayerDbAdapter.KEY_ROWID, mRowId);
+//        outState.putSerializable(MatchDbAdapter.KEY_ROWID, mRowId);
     }
 
     @Override

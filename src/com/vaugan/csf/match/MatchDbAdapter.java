@@ -33,6 +33,8 @@ public class MatchDbAdapter {
     public static final String KEY_P1 = "player1";
     public static final String KEY_P2 = "player2";
     public static final String KEY_RESULT = "result";
+    public static final String KEY_VENUE = "venue";
+    public static final String KEY_BEST_OF = "bestof";
     public static final String KEY_ROWID = "_id";
 
     private static final String TAG = "MatchDbAdapter";
@@ -44,11 +46,11 @@ public class MatchDbAdapter {
      */
     private static final String DATABASE_CREATE =
         "create table matches (_id integer primary key autoincrement, "
-        + "datetime text not null, player1 text not null, player2 text not null, result text not null);";
+        + "datetime text not null, venue text not null,bestof text not null,player1 text not null, player2 text not null, result text not null);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "matches";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private final Context mCtx;
 
@@ -68,7 +70,7 @@ public class MatchDbAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS ");
+            db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
             onCreate(db);
         }
     }
@@ -112,9 +114,11 @@ public class MatchDbAdapter {
      * @param body the body of the note
      * @return rowId or -1 if failed
      */
-    public long createMatch(String datetime, String p1, String p2, String result) {
+    public long createMatch(String datetime, String venue, String bestof, String p1, String p2, String result) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_DATETIME, datetime);
+        initialValues.put(KEY_VENUE, venue);
+        initialValues.put(KEY_BEST_OF, bestof);
         initialValues.put(KEY_P1, p1);
         initialValues.put(KEY_P2, p2);
         initialValues.put(KEY_RESULT, result);
@@ -141,7 +145,7 @@ public class MatchDbAdapter {
     public Cursor fetchAllMatches() {
 
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_DATETIME,
-        		KEY_P1, KEY_P2, KEY_RESULT}, null, null, null, null, null);
+        		KEY_VENUE, KEY_BEST_OF,KEY_P1, KEY_P2, KEY_RESULT}, null, null, null, null, null);
     }
 
     /**
@@ -156,8 +160,8 @@ public class MatchDbAdapter {
         Cursor mCursor =
 
             mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-            		KEY_DATETIME,KEY_P1, KEY_P2, KEY_RESULT}, KEY_ROWID + "=" + rowId, null,
-                    null, null, null, null);
+            		KEY_DATETIME,KEY_VENUE, KEY_BEST_OF,KEY_P1, KEY_P2, KEY_RESULT}, KEY_ROWID + "=" + rowId, null,
+                    null, null,null,null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -175,9 +179,11 @@ public class MatchDbAdapter {
      * @param body value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
-    public boolean updateMatch(long rowId, String datetime, String p1, String p2, String result) {
+    public boolean updateMatch(long rowId, String datetime,String venue, String bestof, String p1, String p2, String result) {
         ContentValues args = new ContentValues();
         args.put(KEY_DATETIME, datetime);
+        args.put(KEY_VENUE, venue);
+        args.put(KEY_BEST_OF, bestof);
         args.put(KEY_P1, p1);
         args.put(KEY_P2, p2);
         args.put(KEY_RESULT, result);
