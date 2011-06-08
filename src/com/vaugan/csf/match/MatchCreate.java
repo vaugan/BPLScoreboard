@@ -22,10 +22,12 @@ import com.vaugan.csf.match.MatchDbAdapter;
 import com.vaugan.csf.match.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.method.DateTimeKeyListener;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,7 +42,10 @@ public class MatchCreate extends Activity {
     private EditText mResultText;
     private Long mRowId;
     private MatchDbAdapter mDbHelper;
-
+ 
+    protected static final int ACTIVITY_MATCH_DISPLAY = 0;
+    protected static final int ACTIVITY_MAIN_MENU = 4;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +53,8 @@ public class MatchCreate extends Activity {
 	        mDbHelper = new MatchDbAdapter(this);
 	        mDbHelper.open();
 	
-	        setContentView(R.layout.match_edit);
-	        setTitle(R.string.edit_match);
+	        setContentView(R.layout.match_create);
+	        setTitle(R.string.create_match);
 	
 	        mDateTimeText = (EditText) findViewById(R.id.editDate);
 	        mVenueText = (EditText)findViewById(R.id.editVenue);
@@ -58,8 +63,7 @@ public class MatchCreate extends Activity {
 	        mP2Text = (EditText) findViewById(R.id.editPlayer2);
 	        //mResultText = (EditText)"incomplete";
 	
-	        Button confirmButton = (Button) findViewById(R.id.btnStartMatch);
-	
+	        
 	        mRowId = (savedInstanceState == null) ? null :
 	            (Long) savedInstanceState.getSerializable(MatchDbAdapter.KEY_ROWID);
 			if (mRowId == null) {
@@ -70,14 +74,26 @@ public class MatchCreate extends Activity {
 	
 			populateFields();
 	
-//	        confirmButton.setOnClickListener(new View.OnClickListener() {
-//	
-//	            public void onClick(View view) {
-//	                setResult(RESULT_OK);
-//	                finish();
-//	            }
-//	
-//	        });
+            Button startMatchButton = (Button) findViewById(R.id.btnStartMatch);
+            startMatchButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(MatchCreate.this, MatchDisplay.class);
+                    startActivityForResult(i, ACTIVITY_MATCH_DISPLAY);    
+                }
+            });   
+
+            Button cancelButton = (Button) findViewById(R.id.btnCancel);
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(MatchCreate.this, MainMenu.class);
+                    startActivityForResult(i, ACTIVITY_MAIN_MENU);    
+                }
+            });   
+
         }catch (Exception e) {
             // handle any errors
             Log.e("csfmatch", "Error in activity", e);  // log the error

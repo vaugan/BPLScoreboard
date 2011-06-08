@@ -59,10 +59,10 @@ public class MatchList extends ListActivity {
         startManagingCursor(notesCursor);
 
         // Create an array to specify the fields we want to display in the list (only TITLE)
-        String[] from = new String[]{MatchDbAdapter.KEY_DATETIME, MatchDbAdapter.KEY_P1, MatchDbAdapter.KEY_P2};
+        String[] from = new String[]{MatchDbAdapter.KEY_DATETIME, MatchDbAdapter.KEY_VENUE, MatchDbAdapter.KEY_P1, MatchDbAdapter.KEY_P2};
 
         // and an array of the fields we want to bind those fields to (in this case just text1)
-        int[] to = new int[]{R.id.dateTime, R.id.p1, R.id.p2};
+        int[] to = new int[]{R.id.dateTime, R.id.rowvenue, R.id.p1, R.id.p2};
 
         // Now create a simple cursor adapter and set it to display
         SimpleCursorAdapter notes = 

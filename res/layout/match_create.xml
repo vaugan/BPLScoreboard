@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/TextView03" android:text="Venue"></TextView>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName" android:id="@+id/editVenue"></EditText>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/TextView02" android:text="Best of"></TextView>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:id="@+id/editMatchBestOf"></EditText>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/textView2" android:text="Date"></TextView>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="date" android:id="@+id/editDate"></EditText>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/textView1" android:text="Player 1"></TextView>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName" android:id="@+id/editPlayer1">
+        <requestFocus></requestFocus>
+    </EditText>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/TextView01" android:text="Player 2"></TextView>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName" android:id="@+id/editPlayer2"></EditText>
+    <LinearLayout android:id="@+id/linearLayout1" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:id="@+id/btnStartMatch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Start Match!"></Button>
+        <Button android:id="@+id/btnCancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cancel"></Button>
+    </LinearLayout>	
+
+</LinearLayout>
