@@ -3,38 +3,44 @@
   <widgets xsi:type="model:Rectangle" x="112" width="329" height="435" measuredWidth="329" measuredHeight="435">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Rectangle" x="136" y="104" width="281" height="217" measuredWidth="281" measuredHeight="217">
+  <widgets xsi:type="model:Rectangle" x="136" y="104" width="281" height="241" measuredWidth="281" measuredHeight="241">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" x="208" y="182" width="158" text="Vaugan" measuredWidth="158" measuredHeight="45">
+  <widgets xsi:type="model:TextField" x="203" y="208" width="174" text="Vaugan" measuredWidth="174" measuredHeight="45">
     <font size="20"/>
   </widgets>
-  <widgets xsi:type="model:Label" x="144" y="183" text="Player 1" measuredWidth="61" measuredHeight="29">
+  <widgets xsi:type="model:Label" x="139" y="209" text="Player 1" measuredWidth="61" measuredHeight="29">
     <font size="12"/>
   </widgets>
-  <widgets xsi:type="model:TextField" x="208" y="240" width="158" text="Shervin" measuredWidth="158" measuredHeight="45">
+  <widgets xsi:type="model:TextField" x="203" y="266" width="174" text="Shervin" measuredWidth="174" measuredHeight="45">
     <font size="20"/>
   </widgets>
-  <widgets xsi:type="model:Label" x="144" y="248" text="Player 2" measuredWidth="61" measuredHeight="29">
+  <widgets xsi:type="model:Label" x="139" y="274" text="Player 2" measuredWidth="61" measuredHeight="29">
     <font size="12"/>
   </widgets>
   <widgets xsi:type="model:DateField" x="203" y="136" width="76" text="  /  /  " measuredWidth="76" measuredHeight="23"/>
-  <widgets xsi:type="model:Combo" x="312" y="136" width="80" text="Race to" measuredWidth="80" measuredHeight="29">
+  <widgets xsi:type="model:Combo" x="312" y="133" width="88" text="Race to" measuredWidth="88" measuredHeight="29">
     <font size="12"/>
   </widgets>
   <widgets xsi:type="model:Label" x="152" y="136" text="Date" measuredWidth="37" measuredHeight="29">
     <font size="12"/>
   </widgets>
-  <widgets xsi:type="model:Icon" x="377" y="182" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
-  <widgets xsi:type="model:Icon" x="377" y="240" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Icon" x="383" y="210" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Icon" x="383" y="268" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
   <widgets xsi:type="model:Label" x="155" y="22" width="237" text="New Match" measuredWidth="237" measuredHeight="67">
     <font size="32"/>
   </widgets>
-  <widgets xsi:type="model:Button" x="142" y="344" width="111" height="55" text="OK" measuredWidth="111" measuredHeight="55">
+  <widgets xsi:type="model:Button" x="137" y="370" width="111" height="55" text="OK" measuredWidth="111" measuredHeight="55">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" x="278" y="344" width="111" height="55" text="Cancel" measuredWidth="111" measuredHeight="55">
+  <widgets xsi:type="model:Button" x="273" y="370" width="111" height="55" text="Cancel" measuredWidth="111" measuredHeight="55">
     <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" x="203" y="168" width="197" text="Venue" measuredWidth="197" measuredHeight="29">
+    <font size="12"/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="152" y="164" text="Venue" measuredWidth="49" measuredHeight="29">
+    <font size="12"/>
   </widgets>
   <hRuler/>
   <vRuler/>
