@@ -29,7 +29,7 @@ public class MainMenu extends Activity {
 
     protected static final int ACTIVITY_MATCH_DISPLAY = 0;
 	protected static final int ACTIVITY_PLAYER_DISPLAY = 1;
-	protected static final int ACTIVITY_MATCH_EDIT = 2;
+	protected static final int ACTIVITY_MATCH_CREATE = 2;
 	protected static final int ACTIVITY_MATCH_LIST = 3;
 
 	@Override
@@ -49,7 +49,8 @@ public class MainMenu extends Activity {
             @Override
 			public void onClick(View view) {
                 Intent i = new Intent(MainMenu.this, MatchCreate.class);
-                startActivityForResult(i, ACTIVITY_MATCH_EDIT);        
+                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivityForResult(i, ACTIVITY_MATCH_CREATE);        
           	
             	setResult(RESULT_OK);
                // finish();

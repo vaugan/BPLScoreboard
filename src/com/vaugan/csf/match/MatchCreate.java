@@ -33,7 +33,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MatchCreate extends Activity {
-
+    
+    private static final String TAG = "MatchCreate";
     private EditText mDateTimeText;
     private EditText mVenueText;
     private EditText mBestOfText;
@@ -63,13 +64,18 @@ public class MatchCreate extends Activity {
 	        mP2Text = (EditText) findViewById(R.id.editPlayer2);
 	        //mResultText = (EditText)"incomplete";
 	
+            Log.v(TAG,"mRowID____1="+mRowId);
 	        
 	        mRowId = (savedInstanceState == null) ? null :
 	            (Long) savedInstanceState.getSerializable(MatchDbAdapter.KEY_ROWID);
+	        
+            Log.v(TAG,"mRowID____2="+mRowId);
+	        
 			if (mRowId == null) {
 				Bundle extras = getIntent().getExtras();
 				mRowId = extras != null ? extras.getLong(MatchDbAdapter.KEY_ROWID)
 										: null;
+                Log.v(TAG,"mRowID____3="+mRowId);
 			}
 	
 			populateFields();
@@ -79,7 +85,12 @@ public class MatchCreate extends Activity {
 
                 @Override
                 public void onClick(View view) {
+                    saveState();
                     Intent i = new Intent(MatchCreate.this, MatchDisplay.class);
+                    Log.v(TAG,"mRowID="+mRowId);
+                    Log.v(TAG,"MatchDbAdapter.KEY_ROWID="+MatchDbAdapter.KEY_ROWID);
+                    
+                    i.putExtra("com.vaugan.csf.match.rowid", mRowId); 
                     startActivityForResult(i, ACTIVITY_MATCH_DISPLAY);    
                 }
             });   

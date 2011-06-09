@@ -22,6 +22,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class MatchList extends ListActivity {
+    private static final String TAG = "MatchList";    
     private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
     private static final int ACTIVITY_MAIN=2;
@@ -117,7 +119,11 @@ public class MatchList extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(this, MatchDisplay.class);
-        i.putExtra(MatchDbAdapter.KEY_ROWID, id);
+        
+        Log.v(TAG, "id="+id);
+        
+        i.putExtra("com.vaugan.csf.match.rowid", id); 
+       // i.putExtra(MatchDbAdapter.KEY_ROWID, id);
         startActivityForResult(i, ACTIVITY_EDIT);
     }
 
