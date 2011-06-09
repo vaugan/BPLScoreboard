@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:Rectangle" x="8" y="56" width="553" height="321" measuredWidth="553" measuredHeight="321" background="#f3f3f3">
+  <widgets xsi:type="model:Rectangle" x="8" y="16" width="553" height="361" measuredWidth="553" measuredHeight="361" background="#f3f3f3">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Rectangle" x="32" y="80" width="505" height="232" measuredWidth="505" measuredHeight="232">
+  <widgets xsi:type="model:Rectangle" x="32" y="81" width="505" height="232" measuredWidth="505" measuredHeight="232">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" x="279" y="320" width="105" height="41" text="OK" measuredWidth="105" measuredHeight="41">
+  <widgets xsi:type="model:Button" x="310" y="320" width="105" height="41" text="OK" measuredWidth="105" measuredHeight="41">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" x="416" y="320" width="107" height="41" text="Cancel" measuredWidth="107" measuredHeight="41">
+  <widgets xsi:type="model:Button" x="430" y="320" width="107" height="41" text="Cancel" measuredWidth="107" measuredHeight="41">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" x="275" y="88" text="22 June 2011" measuredWidth="103" measuredHeight="29">
+  <widgets xsi:type="model:Label" x="40" y="40" text="22 June 2011" measuredWidth="103" measuredHeight="29">
     <font size="12" bold="true"/>
   </widgets>
   <widgets xsi:type="model:TextField" x="56" y="124" width="57" text="5" locked="true" measuredWidth="57" measuredHeight="58" textAlignment="Center" background="#f3f3f3">
     <font size="28"/>
   </widgets>
-  <widgets xsi:type="model:Label" x="430" y="88" text="Race to 13" measuredWidth="83" measuredHeight="29">
+  <widgets xsi:type="model:Label" x="434" y="40" text="Race to 13" measuredWidth="83" measuredHeight="29">
     <font size="12" bold="true"/>
   </widgets>
   <widgets xsi:type="model:Label" x="56" y="80" text="Vaugan" measuredWidth="102" measuredHeight="45">
@@ -83,6 +83,18 @@
   <widgets xsi:type="model:Image" x="182" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
   <widgets xsi:type="model:Image" x="213" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
   <widgets xsi:type="model:Image" x="120" y="257" measuredWidth="36" measuredHeight="36" src="../../res/drawable-ldpi/empty.png"/>
+  <widgets xsi:type="model:Label" x="213" y="36" text="Ballbreakers" measuredWidth="124" measuredHeight="38">
+    <font size="16" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" x="97" y="156" text="1" measuredWidth="16" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" x="97" y="263" text="2" measuredWidth="16" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" x="32" y="326" text="Match in progress" measuredWidth="141" measuredHeight="29">
+    <font size="12" bold="true"/>
+  </widgets>
   <hRuler/>
   <vRuler/>
   <font/>
