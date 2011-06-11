@@ -12,5 +12,6 @@
         <activity android:name="MatchList"></activity>
         <activity android:name="PlayerEdit"></activity>
         <activity android:name="PlayerList"></activity>
+        <activity android:name=".FrameCodeChooser" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 </manifest> 

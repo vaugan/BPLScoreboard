@@ -19,10 +19,15 @@ package com.vaugan.csf.match;
 import com.vaugan.csf.match.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class MatchDisplay extends Activity {
 
@@ -48,7 +53,9 @@ public class MatchDisplay extends Activity {
     private EditText mP2Text;
 
     private EditText mResultText;
-
+    private ImageView P1_frame1;
+    protected static final int  ACTIVITY_FRAME_IMAGE_SELECTOR = 5;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +78,50 @@ public class MatchDisplay extends Activity {
         mP2Text = (EditText) findViewById(R.id.player2name);
         
         populateFields() ;
-    }
+        
+        P1_frame1 = (ImageView) findViewById(R.id.P1_frame1);      
+        P1_frame1.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+//                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);        
+            
+                setResult(RESULT_OK);
+               // finish();
+            }
+        });           
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        
+    Bundle extras = intent.getExtras();
+//    int imageid = extras.getInt("image_id");
+//   ImageView  Image_A= (ImageView) findViewById(imageid);
+//   Drawable image = Image_A.getDrawable();
+    Log.v(TAG, "Return this value from Frame Selector dialog"+extras.toString());
+    
+    switch(requestCode) {
+    case ACTIVITY_FRAME_IMAGE_SELECTOR:
+        Log.v(TAG, "Returned from frameselector activity! ");   
+//        P1_frame1.setImageDrawable(image);
+//        P1_frame1.setImageDrawable(extras.getString);
+
+        break;
+//    case ACTIVITY_EDIT:
+//        Long mRowId = extras.getLong(NotesDbAdapter.KEY_ROWID);
+//        if (mRowId != null) {
+//            String editTitle = extras.getString(NotesDbAdapter.KEY_TITLE);
+//            String editBody = extras.getString(NotesDbAdapter.KEY_BODY);
+//            mDbHelper.updateNote(mRowId, editTitle, editBody);
+//        }
+//        fillData();
+//        break;
+        }
+    }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -92,6 +141,8 @@ public class MatchDisplay extends Activity {
         // populateFields();
     }
 
+
+    
     private void saveState() {
         // String title = mTitleText.getText().toString();
         // String body = mBodyText.getText().toString();
