@@ -5,67 +5,13 @@
 	android:layout_height="match_parent">
     <EditText android:id="@+id/player1name" android:layout_height="wrap_content" android:text="Player 1" android:layout_weight="0" android:layout_width="wrap_content"></EditText>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1">
-        <EditText android:layout_weight="0" android:text="0" android:id="@+id/player1score" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="60dp"></EditText>
-        <LinearLayout android:layout_height="match_parent" android:layout_width="wrap_content" android:id="@+id/linearLayout4" android:orientation="vertical">
-            <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/LinearLayout02">
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame1"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame2"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame3"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame4"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame5"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame6"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame7"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame8"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame9"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame10"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame11"></ImageView>
-            </LinearLayout>
-            <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/LinearLayout01">
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame12"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame13"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame14"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame15"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame16"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame17"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame18"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame19"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame20"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame21"></ImageView>
-                <ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P1_frame22"></ImageView>
-            </LinearLayout>
-        </LinearLayout>
+        <EditText android:layout_weight="0" android:text="0" android:id="@+id/player1score" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="50dp"></EditText>
+        <GridView android:layout_width="wrap_content" android:id="@+id/gvPlayer1" android:columnWidth="5dp" android:layout_height="wrap_content"></GridView>
     </LinearLayout>
 	<EditText android:layout_height="wrap_content" android:id="@+id/player2name" android:layout_width="wrap_content" android:text="Player 2" android:layout_weight="0"></EditText>
 	<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/LinearLayout04">
-		<EditText android:layout_weight="0" android:text="0" android:id="@+id/EditText01" android:textSize="60dp" android:layout_height="wrap_content" android:layout_width="wrap_content"></EditText>
-		<LinearLayout android:layout_height="match_parent" android:orientation="vertical" android:layout_width="wrap_content" android:id="@+id/LinearLayout03">
-			<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/LinearLayout05">
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame1"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame2"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame3"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame4"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame5"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame6"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame7"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame8"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame9"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame10"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame11"></ImageView>
-			</LinearLayout>
-			<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/LinearLayout06">
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame12"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame13"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame14"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame15"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame16"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame17"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame18"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame19"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame20"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame21"></ImageView>
-				<ImageView android:layout_height="wrap_content" android:layout_width="40dip" android:src="@drawable/empty" android:id="@+id/P2_frame22"></ImageView>
-			</LinearLayout>
-		</LinearLayout>
+		<EditText android:layout_weight="0" android:text="0" android:id="@+id/EditText01" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="50dp"></EditText>
+		<GridView android:layout_height="match_parent"  android:layout_width="wrap_content" android:columnWidth="10dp" android:id="@+id/gvPlayer2" android:numColumns="auto_fit"></GridView>
 	</LinearLayout>	
 
 </LinearLayout>

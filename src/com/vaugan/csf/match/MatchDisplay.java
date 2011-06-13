@@ -25,9 +25,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MatchDisplay extends Activity {
 
@@ -53,7 +57,7 @@ public class MatchDisplay extends Activity {
     private EditText mP2Text;
 
     private EditText mResultText;
-    private ImageView P1_frame1;
+
     protected static final int  ACTIVITY_FRAME_IMAGE_SELECTOR = 5;
     
     @Override
@@ -79,19 +83,43 @@ public class MatchDisplay extends Activity {
         
         populateFields() ;
         
-        P1_frame1 = (ImageView) findViewById(R.id.P1_frame1);      
-        P1_frame1.setOnClickListener(new View.OnClickListener() {
+   
+        //Player1 Scorecard
+        GridView gridviewPlayer1Scorecard = (GridView) findViewById(R.id.gvPlayer1);
+        gridviewPlayer1Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES/2);
+        gridviewPlayer1Scorecard.setAdapter(new ScoreCodeImageAdapter(MatchDisplay.this));
 
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
-//                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);        
-            
-                setResult(RESULT_OK);
-               // finish();
+        gridviewPlayer1Scorecard.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MatchDisplay.this, "" + position, Toast.LENGTH_SHORT).show();
             }
-        });           
+        });
+        
+//        To Launch Framechooser
+//        P1_frame1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+////                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//                startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);        
+//            
+//                setResult(RESULT_OK);
+//               // finish();
+//            }
+//        });          
+        
+        //Player2 Scorecard
+        GridView gridviewPlayer2Scorecard = (GridView) findViewById(R.id.gvPlayer2);
+        gridviewPlayer2Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES/2);
+        gridviewPlayer2Scorecard.setAdapter(new ScoreCodeImageAdapter(MatchDisplay.this));
+
+        
+        gridviewPlayer2Scorecard.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MatchDisplay.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+      
     }
     
     @Override

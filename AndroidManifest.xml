@@ -7,7 +7,7 @@
 	            <category android:name="android.intent.category.LAUNCHER" />
 	        </intent-filter>
         </activity>
-        <activity android:name="MatchDisplay"></activity>
+        <activity android:name="MatchDisplay" android:screenOrientation="landscape"></activity>
         <activity android:name=".MatchCreate"></activity>
         <activity android:name="MatchList"></activity>
         <activity android:name="PlayerEdit"></activity>
