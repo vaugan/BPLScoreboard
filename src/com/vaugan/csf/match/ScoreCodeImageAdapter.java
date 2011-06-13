@@ -16,6 +16,9 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
         mContext = c;
     }
 
+    public void updateScore(int position, int framecode) {
+        mTempScore[position] = framecode;
+    }
     public int getCount() {
         return MAXIMUM_FRAMES;
     }
@@ -35,14 +38,9 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(40, 40));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            imageView.setMaxHeight(5);
             imageView.setPadding(0,0,0,0);
             imageView.setAdjustViewBounds(true);
-            
-//            imageView.setLayoutParams(new GridView.LayoutParams(480/3, 480/3));
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            imageView.setPadding(0, 0, 0, 0);
-//            imageView.setAdjustViewBounds(true);
+
         } else {
             imageView = (ImageView) convertView;
         }
@@ -51,6 +49,8 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
         return imageView;
     }
 
+
+    
     // references to our images
     private Integer[] mTempScore = {
             0, 
