@@ -1,23 +1,44 @@
 package com.vaugan.csf.match;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import com.vaugan.csf.match.FrameCodeAPI;
 
 public class ScoreCodeImageAdapter extends BaseAdapter {
     private Context mContext;
+    private static final String TAG = "ScoreCodeImageAdapter";
     
     protected static int MAXIMUM_FRAMES = 24;
+    protected int mTotalScore = 0;
 
     public ScoreCodeImageAdapter(Context c) {
         mContext = c;
     }
 
-    public void updateScore(int position, int framecode) {
-        mTempScore[position] = framecode;
+    public int updateScore(int position, int framecode) {
+        mCurrentScore[position] = framecode;
+        Log.v(TAG, "updateScore: framecode=" + framecode);   
+        
+        mTotalScore=0;
+        for (int i = 0; i < mCurrentScore.length; i++) {
+            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]);   
+            switch (mCurrentScore[i])
+            {
+                case 0: //intentional fall thru
+                case 1: //intentional fall thru
+                case 2: //intentional fall thru
+                case 5:
+                    mTotalScore++;
+                    Log.v(TAG, "Incrementing mTotalScore, mCurrentScore[]:=" + mCurrentScore[i]);   
+                    break;
+            }
+        }
+        return mTotalScore;
     }
     public int getCount() {
         return MAXIMUM_FRAMES;
@@ -45,14 +66,20 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[mTempScore[position]]);
+        imageView.setImageResource(FrameCodeAPI.mFrameResultImages[mCurrentScore[position]]);
         return imageView;
     }
 
-
+public void resetScore()
+{
+    mTotalScore=0;
+    for (int i = 0; i < mCurrentScore.length; i++) {
+        mCurrentScore[i] = 8;
+    }
+}
     
     // references to our images
-    private Integer[] mTempScore = {
+    private Integer[] mCurrentScore = {
             0, 
             1,
             0, 
@@ -79,16 +106,5 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
             8
             };
 
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.a, 
-            R.drawable.b,
-            R.drawable.c, 
-            R.drawable.d,
-            R.drawable.e, 
-            R.drawable.f,
-            R.drawable.g, 
-            R.drawable.z,
-            R.drawable.empty
-            };
+
 }

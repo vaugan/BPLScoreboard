@@ -10,7 +10,7 @@
     </LinearLayout>
 	<EditText android:layout_height="wrap_content" android:id="@+id/player2name" android:layout_width="wrap_content" android:text="Player 2" android:layout_weight="0"></EditText>
 	<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/LinearLayout04">
-		<EditText android:layout_weight="0" android:text="0" android:id="@+id/EditText01" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="50dp"></EditText>
+		<EditText android:layout_weight="0" android:text="0" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="50dp" android:id="@+id/player2score"></EditText>
 		<GridView android:layout_height="match_parent"  android:layout_width="wrap_content" android:columnWidth="10dp" android:id="@+id/gvPlayer2" android:numColumns="auto_fit"></GridView>
 	</LinearLayout>	
 

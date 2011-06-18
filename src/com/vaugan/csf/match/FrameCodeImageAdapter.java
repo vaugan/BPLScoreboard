@@ -15,7 +15,7 @@ public class FrameCodeImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return FrameCodeAPI.mFrameResultImages.length;
     }
 
     public Object getItem(int position) {
@@ -38,20 +38,9 @@ public class FrameCodeImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageResource(FrameCodeAPI.mFrameResultImages[position]);
         return imageView;
     }
 
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.a, 
-            R.drawable.b,
-            R.drawable.c, 
-            R.drawable.d,
-            R.drawable.e, 
-            R.drawable.f,
-            R.drawable.g, 
-            R.drawable.z,
-            R.drawable.empty
-            };
+
 }

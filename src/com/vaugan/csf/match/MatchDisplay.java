@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewDebug.IntToString;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +60,9 @@ public class MatchDisplay extends Activity {
     private GridView gridviewPlayer1Scorecard;
     private GridView gridviewPlayer2Scorecard;
 
+    private EditText mP1Score;
+    private EditText mP2Score;
+
     protected static final int  ACTIVITY_FRAME_IMAGE_SELECTOR = 5;
     
     @Override
@@ -81,7 +85,9 @@ public class MatchDisplay extends Activity {
 //        mBestOfText = (EditText)findViewById(R.id.editMatchBestOf);
         mP1Text = (EditText) findViewById(R.id.player1name);
         mP2Text = (EditText) findViewById(R.id.player2name);
-        
+
+        mP1Score  = (EditText) findViewById(R.id.player1score);
+        mP2Score  = (EditText) findViewById(R.id.player2score);       
         populateFields() ;
         
    
@@ -89,7 +95,7 @@ public class MatchDisplay extends Activity {
         gridviewPlayer1Scorecard = (GridView) findViewById(R.id.gvPlayer1);
         gridviewPlayer1Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES/2);
         gridviewPlayer1Scorecard.setAdapter(new ScoreCodeImageAdapter(MatchDisplay.this));
-
+        ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).resetScore();
         gridviewPlayer1Scorecard.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 
@@ -118,7 +124,7 @@ public class MatchDisplay extends Activity {
         gridviewPlayer2Scorecard = (GridView) findViewById(R.id.gvPlayer2);        
         gridviewPlayer2Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES/2);
         gridviewPlayer2Scorecard.setAdapter(new ScoreCodeImageAdapter(MatchDisplay.this));
-
+        ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).resetScore();
         
         gridviewPlayer2Scorecard.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -139,6 +145,7 @@ public class MatchDisplay extends Activity {
     Bundle extras = intent.getExtras();
     int player = extras.getInt("player");
     int pos = extras.getInt("pos");
+    int score=0;
 
 //    int imageid = extras.getInt("image_id");
 //   ImageView  Image_A= (ImageView) findViewById(imageid);
@@ -147,26 +154,39 @@ public class MatchDisplay extends Activity {
     
     switch(requestCode) {
     case ACTIVITY_FRAME_IMAGE_SELECTOR:
-        int icon_index = -1;
+        int p1_icon_index = 8;
+        int p2_icon_index = 8;
+        
         if (resultCode == Activity.RESULT_OK) { 
-                icon_index = extras.getInt("selected_icon");
+                
                 if (player == 1)
                 {
-                    Log.v(TAG, "Returned from frameselector activity! Selected icon=" + icon_index);   
-                    ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).updateScore(pos, icon_index);    
-                    ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).notifyDataSetChanged();
+                    p1_icon_index = extras.getInt("selected_icon");
+                    p2_icon_index = FrameCodeAPI.getInverseCodeImage(p1_icon_index);
                 }
                 else
                 {
-                    Log.v(TAG, "Returned from frameselector activity! Selected icon=" + icon_index);   
-                    ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).updateScore(pos, icon_index);    
-                    ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).notifyDataSetChanged();
+                    p2_icon_index = extras.getInt("selected_icon");
+                    p1_icon_index = FrameCodeAPI.getInverseCodeImage(p2_icon_index);
                 }
+                
+                //Update P1 score
+                Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);   
+                score=((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).updateScore(pos, p1_icon_index);    
+                Log.v(TAG, "mP1Score=" + score);   
+                ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).notifyDataSetChanged();
+                mP1Score.setText(Integer.toString(score));
+
+                //Update P2 score
+                Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);   
+                score= ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).updateScore(pos, p2_icon_index);    
+                Log.v(TAG, "mP2Score=" + score);   
+                ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).notifyDataSetChanged();
+                mP2Score.setText(Integer.toString(score));
          }
          else
-            
         {
-            Log.v(TAG, "Returned from frameselector activity! ERROR!!!! resultCode["+resultCode+"] iconidx=" + icon_index);              
+            Log.v(TAG, "Returned from frameselector activity! ERROR!!!! resultCode["+resultCode);              
         }
 
         break;
