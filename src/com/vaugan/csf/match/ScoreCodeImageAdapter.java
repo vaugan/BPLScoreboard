@@ -19,6 +19,24 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
     public ScoreCodeImageAdapter(Context c) {
         mContext = c;
     }
+    
+    public String getScoreString()
+    {
+        String matchResultString = "";
+        for (int i = 0; i < mCurrentScore.length; i++) {
+            matchResultString += CSFCodes[mCurrentScore[i]];
+        }
+        return matchResultString;
+    }
+    
+    public void updateCurrentScoreArray(String scoreString) {
+        
+        Log.v(TAG, "updateCurrentScoreArray: resultString=" + scoreString);       
+        for (int i = 0; i < mCurrentScore.length; i++) {
+            mCurrentScore[i] = FrameCodeAPI.indexOfChar (scoreString.charAt(i), CSFCodes);
+            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]+"  scoreString.charAt(i)= "+ scoreString.charAt(i));   
+        }
+    }
 
     public int updateScore(int position, int framecode) {
         mCurrentScore[position] = framecode;
@@ -67,6 +85,8 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
         }
 
         imageView.setImageResource(FrameCodeAPI.mFrameResultImages[mCurrentScore[position]]);
+        Log.v(TAG, "getView : mCurrentScore[" +position+"]= "+mCurrentScore[position]);   
+        
         return imageView;
     }
 
@@ -106,5 +126,17 @@ public void resetScore()
             8
             };
 
+    private char[] CSFCodes = {
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'Z',
+    'M'
+    };
 
 }
+

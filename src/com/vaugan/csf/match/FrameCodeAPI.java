@@ -45,4 +45,15 @@ public class FrameCodeAPI {
 
         return -1;
     }
+
+    public static <T> int indexOfChar(char needle, char[] haystack)
+    {
+        for (int i=0; i<haystack.length; i++)
+        {
+            if (haystack[i]==(needle)) return i;
+        }
+
+        return -1;
+    }
+
 }

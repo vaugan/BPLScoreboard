@@ -3,7 +3,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
 	android:layout_height="match_parent">
-    <EditText android:id="@+id/player1name" android:layout_height="wrap_content" android:text="Player 1" android:layout_weight="0" android:layout_width="wrap_content"></EditText>
+    <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent">
+        <EditText android:text="Player 1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/player1name" android:layout_weight="0">
+            <requestFocus></requestFocus>
+        </EditText>
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/textView1" android:text="Best of"></TextView>
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:text="TextView" android:id="@+id/tvBestOf"></TextView>
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:text="P1ResultString" android:id="@+id/tvP1ResultString"></TextView>
+    </LinearLayout>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1">
         <EditText android:layout_weight="0" android:text="0" android:id="@+id/player1score" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="50dp"></EditText>
         <GridView android:layout_width="wrap_content" android:id="@+id/gvPlayer1" android:columnWidth="5dp" android:layout_height="wrap_content"></GridView>
