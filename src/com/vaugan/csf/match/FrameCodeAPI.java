@@ -1,8 +1,11 @@
 package com.vaugan.csf.match;
 
+import android.util.Log;
+
 public class FrameCodeAPI {
     
-    
+    private static final String TAG = "FrameCodeAPI";
+   
     // references to our images
     static protected Integer[] mFrameResultImages = {
             R.drawable.a, 
@@ -28,12 +31,20 @@ public class FrameCodeAPI {
         R.drawable.empty
         };
 
-    public static int getInverseCodeImage(int Code)
+    public static int getInverseCodeInteger(int Code)
     {
-
-        int indexOfYellow = indexOf(mFrameResultInverseImages[Code], mFrameResultImages);
-        return indexOfYellow;
+//        Log.v(TAG, "getInverseCodeImage: Code=" + Code); 
+//        Log.v(TAG, "getInverseCodeImage: mFrameResultInverseImages[Code=" + mFrameResultInverseImages[Code]); 
+        int index = indexOf(mFrameResultInverseImages[Code], mFrameResultImages);
+        return index;
     }
+    
+    public static char getInverseCodeChar(char Code)
+    {
+        int index = indexOfChar(Code, ScoreCodeImageAdapter.CSFCodes);
+        return ScoreCodeImageAdapter.CSFCodesInverse[index];
+    }
+    
     
     public static <T> int indexOf(T needle, T[] haystack)
     {

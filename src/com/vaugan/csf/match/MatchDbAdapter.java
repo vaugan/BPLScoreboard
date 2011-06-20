@@ -146,6 +146,7 @@ public class MatchDbAdapter {
             mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
             		KEY_DATETIME,KEY_VENUE, KEY_BEST_OF,KEY_P1, KEY_P2, KEY_RESULT}, KEY_ROWID + "=" + rowId, null,
                     null, null,null,null);
+
         if (mCursor != null) {
             mCursor.moveToFirst();
         }

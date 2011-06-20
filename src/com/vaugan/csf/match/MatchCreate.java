@@ -143,7 +143,7 @@ public class MatchCreate extends Activity {
         String bestof = mBestOfText.getText().toString();
         String p1 = mP1Text.getText().toString();
         String p2 = mP2Text.getText().toString();
-        String result = "not finished";
+        String result = "MMMMMMMMMMMMMMMMMMMMMMMM";
 
         if (mRowId == null) {
             long id = mDbHelper.createMatch(dateTime, venue, bestof, p1, p2, result);

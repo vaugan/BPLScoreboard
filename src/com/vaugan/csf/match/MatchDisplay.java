@@ -107,8 +107,22 @@ public class MatchDisplay extends Activity {
                 startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
-      
+        
+        if (mRowId != null) {
+            Cursor temp_match = mDbHelper.fetchMatch(mRowId);
+            startManagingCursor(temp_match);
+            
+            ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).updateCurrentScoreArray(temp_match.getString(temp_match
+                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_RESULT)));       
+            String inverseResultString = ScoreCodeImageAdapter.getInverseScoreArray(temp_match.getString(temp_match
+                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_RESULT)));
+            ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).updateCurrentScoreArray(inverseResultString);        
+            
+            temp_match.close();
+        }
+
         populateFields() ;
+
     }
     
     @Override
@@ -137,12 +151,12 @@ public class MatchDisplay extends Activity {
                 if (player == 1)
                 {
                     p1_icon_index = extras.getInt("selected_icon");
-                    p2_icon_index = FrameCodeAPI.getInverseCodeImage(p1_icon_index);
+                    p2_icon_index = FrameCodeAPI.getInverseCodeInteger(p1_icon_index);
                 }
                 else
                 {
                     p2_icon_index = extras.getInt("selected_icon");
-                    p1_icon_index = FrameCodeAPI.getInverseCodeImage(p2_icon_index);
+                    p1_icon_index = FrameCodeAPI.getInverseCodeInteger(p2_icon_index);
                 }
                 
                 //Update P1 score
@@ -192,6 +206,7 @@ public class MatchDisplay extends Activity {
     protected void onPause() {
         super.onPause();
         saveState();
+
     }
 
     @Override
@@ -199,11 +214,17 @@ public class MatchDisplay extends Activity {
         super.onResume();
         populateFields();
     }
+    
+    @Override
+    protected void onDestroy() {
+        super.onResume();
+        mDbHelper.close();
+    }
 
 
     
     private void saveState() {
-        String result = ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).getScoreString();
+        String result = ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).getScoreString();
 
         if (mRowId != null) {
             mDbHelper.updateMatchResult(mRowId, result);
@@ -230,10 +251,16 @@ public class MatchDisplay extends Activity {
             mResultText.setText(match.getString(match
                     .getColumnIndexOrThrow(MatchDbAdapter.KEY_RESULT)));   
             
-            ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).updateCurrentScoreArray(mResultText.getText().toString());
+           // ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).updateCurrentScoreArray(mResultText.getText().toString());
 
             ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).notifyDataSetChanged();
+            int score=((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).getScoreInteger();    
+            mP1Score.setText(Integer.toString(score));
+            
+            score=((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).getScoreInteger();    
+            mP2Score.setText(Integer.toString(score));
 
+            match.close();
         }
     }
 

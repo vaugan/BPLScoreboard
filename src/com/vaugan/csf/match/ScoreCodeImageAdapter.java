@@ -34,17 +34,32 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
         Log.v(TAG, "updateCurrentScoreArray: resultString=" + scoreString);       
         for (int i = 0; i < mCurrentScore.length; i++) {
             mCurrentScore[i] = FrameCodeAPI.indexOfChar (scoreString.charAt(i), CSFCodes);
-            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]+"  scoreString.charAt(i)= "+ scoreString.charAt(i));   
+//            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]+"  scoreString.charAt(i)= "+ scoreString.charAt(i));   
         }
     }
 
+    public static String getInverseScoreArray(String scoreString) {
+        
+        String inverseResultString = "";
+        Log.v(TAG, "getInverseScoreArray of " +scoreString);   
+        for (int i = 0; i < scoreString.length(); i++) {
+//            Log.v(TAG, "scoreString[" + i +"] = " + scoreString.charAt(i));  
+//            Log.v(TAG, "FrameCodeAPI.getInverseCodeImage(scoreString.charAt(i)) = " + FrameCodeAPI.getInverseCodeChar(scoreString.charAt(i))); 
+            inverseResultString += FrameCodeAPI.getInverseCodeChar(scoreString.charAt(i));
+        }
+        Log.v(TAG, "inverseResultString[" + inverseResultString);   
+        return inverseResultString;
+
+    }
+    
+    
     public int updateScore(int position, int framecode) {
         mCurrentScore[position] = framecode;
         Log.v(TAG, "updateScore: framecode=" + framecode);   
         
         mTotalScore=0;
         for (int i = 0; i < mCurrentScore.length; i++) {
-            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]);   
+//            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]);   
             switch (mCurrentScore[i])
             {
                 case 0: //intentional fall thru
@@ -58,6 +73,25 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
         }
         return mTotalScore;
     }
+    
+    public int getScoreInteger() {
+        mTotalScore=0;
+        for (int i = 0; i < mCurrentScore.length; i++) {
+//            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]);   
+            switch (mCurrentScore[i])
+            {
+                case 0: //intentional fall thru
+                case 1: //intentional fall thru
+                case 2: //intentional fall thru
+                case 5:
+                    mTotalScore++;
+                    Log.v(TAG, "Incrementing mTotalScore, mCurrentScore[]:=" + mCurrentScore[i]);   
+                    break;
+            }
+        }
+        return mTotalScore;
+    }
+   
     public int getCount() {
         return MAXIMUM_FRAMES;
     }
@@ -83,10 +117,7 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-
         imageView.setImageResource(FrameCodeAPI.mFrameResultImages[mCurrentScore[position]]);
-        Log.v(TAG, "getView : mCurrentScore[" +position+"]= "+mCurrentScore[position]);   
-        
         return imageView;
     }
 
@@ -126,7 +157,7 @@ public void resetScore()
             8
             };
 
-    private char[] CSFCodes = {
+    static public char[] CSFCodes = {
     'A',
     'B',
     'C',
@@ -137,6 +168,17 @@ public void resetScore()
     'Z',
     'M'
     };
-
+    
+    static public char[] CSFCodesInverse = {
+        'Z',
+        'E',
+        'D',
+        'C',
+        'B',
+        'G',
+        'F',
+        'A',
+        'M'
+        };
 }
 
