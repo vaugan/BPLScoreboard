@@ -3,7 +3,7 @@ package com.vaugan.csf.match;
 import android.util.Log;
 
 public class FrameCodeAPI {
-    
+		/** The Tag constant */
     private static final String TAG = "FrameCodeAPI";
    
     // references to our images
