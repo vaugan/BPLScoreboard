@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.vaugan.csf.match" android:installLocation="internalOnly">
-    <application android:icon="@drawable/icon" android:label="CSFMatch" android:enabled="true">        
+    <application android:label="CSFMatch" android:enabled="true">        
         <activity android:launchMode="standard" android:name="MainMenu">
 	        <intent-filter>
 	            <action android:name="android.intent.action.MAIN" />
