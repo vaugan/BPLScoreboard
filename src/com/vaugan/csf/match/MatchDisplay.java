@@ -65,12 +65,12 @@ public class MatchDisplay extends Activity {
         mP1Text = (EditText) findViewById(R.id.player1name);
         mP2Text = (EditText) findViewById(R.id.player2name);
 
-        mP1Score  = (EditText) findViewById(R.id.player1score);
-        mP2Score  = (EditText) findViewById(R.id.player2score);       
+        mP1Score  = (EditText) findViewById(R.id.set1Player1Score);
+        mP2Score  = (EditText) findViewById(R.id.set1Player2Score);       
 
         //Player1 Scorecard       
-        gridviewPlayer1Scorecard = (GridView) findViewById(R.id.gvPlayer1);
-        gridviewPlayer1Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES/2);
+        gridviewPlayer1Scorecard = (GridView) findViewById(R.id.set1Player1FrameCodes);
+        gridviewPlayer1Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES);
         gridviewPlayer1Scorecard.setAdapter(new ScoreCodeImageAdapter(MatchDisplay.this));
         ((ScoreCodeImageAdapter)gridviewPlayer1Scorecard.getAdapter()).resetScore();
         
@@ -86,8 +86,8 @@ public class MatchDisplay extends Activity {
         
         
         //Player1 Scorecard   
-        gridviewPlayer2Scorecard = (GridView) findViewById(R.id.gvPlayer2);        
-        gridviewPlayer2Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES/2);
+        gridviewPlayer2Scorecard = (GridView) findViewById(R.id.set1Player2FrameCodes);        
+        gridviewPlayer2Scorecard.setNumColumns(ScoreCodeImageAdapter.MAXIMUM_FRAMES);
         gridviewPlayer2Scorecard.setAdapter(new ScoreCodeImageAdapter(MatchDisplay.this));
         ((ScoreCodeImageAdapter)gridviewPlayer2Scorecard.getAdapter()).resetScore();
 

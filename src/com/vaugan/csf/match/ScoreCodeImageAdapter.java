@@ -13,7 +13,7 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
     private Context mContext;
     private static final String TAG = "ScoreCodeImageAdapter";
     
-    protected static int MAXIMUM_FRAMES = 24;
+    protected static int MAXIMUM_FRAMES = 7;
     protected int mTotalScore = 0;
 
     public ScoreCodeImageAdapter(Context c) {

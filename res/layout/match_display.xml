@@ -1,23 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="match_parent"
-	android:layout_height="match_parent">
-    <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent">
-        <EditText android:text="Player 1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/player1name" android:layout_weight="0">
-            <requestFocus></requestFocus>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/MatchDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00" >
+
+        <EditText
+            android:id="@+id/player1name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Player 1" >
+
+            <requestFocus>
+            </requestFocus>
         </EditText>
-        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:text="TextView" android:id="@+id/tvBestOf"></TextView>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:text="TextView" android:id="@+id/tvP1ResultString"></TextView>
+
+        <EditText
+            android:id="@+id/player2name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:ems="10"
+            android:text="Player 2" />
+
+        <TextView
+            android:id="@+id/tvBestOf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvP1ResultString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAppearance="?android:attr/textAppearanceSmall" >
+        </TextView>
     </LinearLayout>
-    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1">
-        <EditText android:layout_weight="0" android:text="0" android:id="@+id/player1score" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="50dp"></EditText>
-        <GridView android:layout_width="wrap_content" android:id="@+id/gvPlayer1" android:columnWidth="5dp" android:layout_height="wrap_content"></GridView>
+
+    <LinearLayout
+        android:id="@+id/Set1"
+        android:layout_width="match_parent"
+        android:layout_height="78dp" >
+
+        <GridView
+            android:id="@+id/set1Player1FrameCodes"
+            android:layout_width="266dp"
+            android:layout_height="69dp"
+            android:gravity="fill"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform" >
+        </GridView>
+
+        <EditText
+            android:id="@+id/set1Player1Score"
+            android:layout_width="76dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="0"
+            android:textSize="50dp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="83dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Set 1" />
+
+        <EditText
+            android:id="@+id/set1Player2Score"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="0"
+            android:textSize="50dp" />
+
+        <GridView
+            android:id="@+id/set1Player2FrameCodes"
+            android:layout_width="496dp"
+            android:layout_height="81dp"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform" >
+        </GridView>
     </LinearLayout>
-	<EditText android:layout_height="wrap_content" android:id="@+id/player2name" android:layout_width="wrap_content" android:text="Player 2" android:layout_weight="0"></EditText>
-	<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/LinearLayout04">
-		<EditText android:layout_weight="0" android:text="0" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="50dp" android:id="@+id/player2score"></EditText>
-		<GridView android:layout_height="match_parent"  android:layout_width="wrap_content" android:columnWidth="10dp" android:id="@+id/gvPlayer2" android:numColumns="auto_fit"></GridView>
-	</LinearLayout>	
+
+    <LinearLayout
+        android:id="@+id/Set2"
+        android:layout_width="match_parent"
+        android:layout_height="78dp" >
+
+        <GridView
+            android:id="@+id/set2Player1FrameCodes"
+            android:layout_width="266dp"
+            android:layout_height="69dp"
+            android:gravity="fill"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform" >
+        </GridView>
+
+        <EditText
+            android:id="@+id/set2Player1Score"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="0"
+            android:textSize="50dp" />
+
+        <EditText
+            android:id="@+id/EditText02"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Set 2" />
+
+        <EditText
+            android:id="@+id/set2Player2Score"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="0"
+            android:textSize="50dp" />
+
+        <GridView
+            android:id="@+id/set2Player2FrameCodes"
+            android:layout_width="496dp"
+            android:layout_height="81dp"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform" >
+        </GridView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Set3"
+        android:layout_width="match_parent"
+        android:layout_height="78dp" >
+
+        <GridView
+            android:id="@+id/set3Player1FrameCodes"
+            android:layout_width="266dp"
+            android:layout_height="69dp"
+            android:gravity="fill"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform" >
+        </GridView>
+
+        <EditText
+            android:id="@+id/set3Player1Score"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="0"
+            android:textSize="50dp" />
+
+        <EditText
+            android:id="@+id/EditText05"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Set 3" />
+
+        <EditText
+            android:id="@+id/set3Player2Score"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="0"
+            android:textSize="50dp" />
+
+        <GridView
+            android:id="@+id/set3Player2FrameCodes"
+            android:layout_width="496dp"
+            android:layout_height="81dp"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform" >
+        </GridView>
+    </LinearLayout>
 
 </LinearLayout>
