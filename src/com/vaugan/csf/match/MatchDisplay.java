@@ -32,11 +32,6 @@ public class MatchDisplay extends Activity {
 
     private MatchDbAdapter mDbHelper;
 
-    private EditText mDateTimeText;
-
-    private EditText mVenueText;
-
-    private TextView mBestOfText;
     private TextView mResultText;
 
     private EditText mP1Text;
@@ -66,9 +61,6 @@ public class MatchDisplay extends Activity {
         setContentView(R.layout.match_display);
         setTitle(R.string.edit_note);
 
-//        mDateTimeText = (EditText) findViewById(R.id.editDate);
-//        mVenueText = (EditText)findViewById(R.id.editVenue);
-        mBestOfText = (TextView)findViewById(R.id.tvBestOf);
         mResultText = (TextView)findViewById(R.id.tvP1ResultString);
         mP1Text = (EditText) findViewById(R.id.player1name);
         mP2Text = (EditText) findViewById(R.id.player2name);
@@ -246,8 +238,7 @@ public class MatchDisplay extends Activity {
                     .getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
             mP2Text.setText(match.getString(match
                     .getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));
-            mBestOfText.setText(match.getString(match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_BEST_OF)));
+
             mResultText.setText(match.getString(match
                     .getColumnIndexOrThrow(MatchDbAdapter.KEY_RESULT)));   
             

@@ -7,7 +7,6 @@
         <EditText android:text="Player 1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/player1name" android:layout_weight="0">
             <requestFocus></requestFocus>
         </EditText>
-        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/textView1" android:text="Best of"></TextView>
         <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:text="TextView" android:id="@+id/tvBestOf"></TextView>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:text="TextView" android:id="@+id/tvP1ResultString"></TextView>
     </LinearLayout>
