@@ -104,7 +104,8 @@
     <LinearLayout
         android:id="@+id/Set2"
         android:layout_width="match_parent"
-        android:layout_height="78dp" >
+        android:layout_height="78dp"
+        android:visibility="invisible" >
 
         <GridView
             android:id="@+id/set2Player1FrameCodes"
@@ -150,7 +151,8 @@
     <LinearLayout
         android:id="@+id/Set3"
         android:layout_width="match_parent"
-        android:layout_height="78dp" >
+        android:layout_height="78dp"
+        android:visibility="invisible" >
 
         <GridView
             android:id="@+id/set3Player1FrameCodes"

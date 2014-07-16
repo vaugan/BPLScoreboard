@@ -1,5 +1,9 @@
-package com.vaugan.csf.match;
+package com.vaugan.bpl.model;
 
+
+
+
+import com.vaugan.bpl.R;
 
 import android.util.Log;
 
@@ -42,8 +46,8 @@ public class FrameCodeAPI {
     
     public static char getInverseCodeChar(char Code)
     {
-        int index = indexOfChar(Code, ScoreCodeImageAdapter.CSFCodes);
-        return ScoreCodeImageAdapter.CSFCodesInverse[index];
+        int index = indexOfChar(Code, SetLogic.CSFCodes);
+        return SetLogic.CSFCodesInverse[index];
     }
     
     

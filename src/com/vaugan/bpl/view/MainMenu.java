@@ -1,6 +1,7 @@
-package com.vaugan.csf.match;
+package com.vaugan.bpl.view;
 
-import com.vaugan.csf.match.R;
+
+import com.vaugan.bpl.R;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.vaugan.csf.match;
+package com.vaugan.bpl.model;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,16 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import com.vaugan.csf.match.FrameCodeAPI;
 
-public class ScoreCodeImageAdapter extends BaseAdapter {
+import com.vaugan.bpl.model.FrameCodeAPI;
+
+public class SetLogic extends BaseAdapter {
     private Context mContext;
-    private static final String TAG = "ScoreCodeImageAdapter";
+    private static final String TAG = "MatchLogic";
     
-    protected static int MAXIMUM_FRAMES = 7;
+//    public static final int MAX_SETS_IN_MATCH = 3;
+//    public static final int SETS_TO_WIN_MATCH = 2;
+    public static int MAX_FRAMES_IN_SET = 7;
+    public static final int FRAMES_TO_WIN_SET = 4;    
     protected int mTotalScore = 0;
 
-    public ScoreCodeImageAdapter(Context c) {
+    public SetLogic(Context c) {
         mContext = c;
     }
     
@@ -93,7 +97,7 @@ public class ScoreCodeImageAdapter extends BaseAdapter {
     }
    
     public int getCount() {
-        return MAXIMUM_FRAMES;
+        return MAX_FRAMES_IN_SET;
     }
 
     public Object getItem(int position) {
@@ -129,6 +133,18 @@ public void resetScore()
     }
 }
     
+
+public static boolean isSetWon(String setResultString)
+{
+	//Calculate if a player won the set
+	return false;
+}
+
+public static boolean isMatchWon(String set1ResultString, String set2ResultString, String set3ResultString)
+{
+	//Calculate if a player won the match
+	return false;
+}
     // references to our images
     private Integer[] mCurrentScore = {
             0, 

@@ -1,4 +1,4 @@
-package com.vaugan.csf.match;
+package com.vaugan.bpl.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,20 +9,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Simple match database access helper class.
+ * Simple notes database access helper class. Defines the basic CRUD operations
+ * for the notepad example, and gives the ability to list all notes as well as
+ * retrieve or modify a specific note.
+ * 
+ * This has been improved from the first version of this tutorial through the
+ * addition of better error handling and also using returning a Cursor instead
+ * of using a collection of inner classes (which is less scalable and not
+ * recommended).
  */
-public class MatchDbAdapter {
+public class PlayerDbAdapter {
 
-
-    public static final String KEY_P1 = "player1";
-    public static final String KEY_P2 = "player2";
-    public static final String KEY_SET1_RESULT = "set1_result";
-    public static final String KEY_SET2_RESULT = "set2_result";
-    public static final String KEY_SET3_RESULT = "set3_result";
-
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_BODY = "body";
+    public static final String KEY_CELL = "cell";
     public static final String KEY_ROWID = "_id";
 
-    private static final String TAG = "MatchDbAdapter";
+    private static final String TAG = "PoolDbAdapter";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
@@ -30,12 +33,12 @@ public class MatchDbAdapter {
      * Database creation sql statement
      */
     private static final String DATABASE_CREATE =
-        "create table matches (_id integer primary key autoincrement, "
-        + "player1 text not null, player2 text not null, set1_result text not null, set2_result text not null, set3_result text not null);";
+        "create table players (_id integer primary key autoincrement, "
+        + "title text not null, body text not null, cell text not null);";
 
     private static final String DATABASE_NAME = "data";
-    private static final String DATABASE_TABLE = "matches";
-    private static final int DATABASE_VERSION = 6;
+    private static final String DATABASE_TABLE = "players";
+    private static final int DATABASE_VERSION = 3;
 
     private final Context mCtx;
 
@@ -55,7 +58,7 @@ public class MatchDbAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS players");
             onCreate(db);
         }
     }
@@ -66,12 +69,12 @@ public class MatchDbAdapter {
      * 
      * @param ctx the Context within which to work
      */
-    public MatchDbAdapter(Context ctx) {
+    public PlayerDbAdapter(Context ctx) {
         this.mCtx = ctx;
     }
 
     /**
-     * Open the  database. If it cannot be opened, try to create a new
+     * Open the notes database. If it cannot be opened, try to create a new
      * instance of the database. If it cannot be created, throw an exception to
      * signal the failure
      * 
@@ -79,7 +82,7 @@ public class MatchDbAdapter {
      *         initialization call)
      * @throws SQLException if the database could be neither opened or created
      */
-    public MatchDbAdapter open() throws SQLException {
+    public PlayerDbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
         return this;
@@ -99,14 +102,11 @@ public class MatchDbAdapter {
      * @param body the body of the note
      * @return rowId or -1 if failed
      */
-    public long createMatch(String p1, String p2, String set1Result, String set2Result, String set3Result) {
+    public long createNote(String title, String body, String cell) {
         ContentValues initialValues = new ContentValues();
-
-        initialValues.put(KEY_P1, p1);
-        initialValues.put(KEY_P2, p2);
-        initialValues.put(KEY_SET1_RESULT, set1Result);
-        initialValues.put(KEY_SET2_RESULT, set2Result);
-        initialValues.put(KEY_SET3_RESULT, set3Result);
+        initialValues.put(KEY_TITLE, title);
+        initialValues.put(KEY_BODY, body);
+        initialValues.put(KEY_CELL, cell);
 
         return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
@@ -117,20 +117,21 @@ public class MatchDbAdapter {
      * @param rowId id of note to delete
      * @return true if deleted, false otherwise
      */
-    public boolean deleteMatch(long rowId) {
+    public boolean deleteNote(long rowId) {
 
         return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
     /**
-     * Return a Cursor over the list of all  in the database
+     * Return a Cursor over the list of all notes in the database
      * 
-     * @return Cursor over all 
+     * @return Cursor over all notes
      */
-    public Cursor fetchAllMatches() {
+    public Cursor fetchAllPlayers() {
 
-        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, null, null, null, null, null);
-    } 
+        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
+                KEY_BODY, KEY_CELL}, null, null, null, null, null);
+    }
 
     /**
      * Return a Cursor positioned at the note that matches the given rowId
@@ -139,14 +140,13 @@ public class MatchDbAdapter {
      * @return Cursor positioned to matching note, if found
      * @throws SQLException if note could not be found/retrieved
      */
-    public Cursor fetchMatch(long rowId) throws SQLException {
+    public Cursor fetchNote(long rowId) throws SQLException {
 
         Cursor mCursor =
 
             mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-            		KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, KEY_ROWID + "=" + rowId, null,
-                    null, null,null, null);
-
+                    KEY_TITLE, KEY_BODY, KEY_CELL}, KEY_ROWID + "=" + rowId, null,
+                    null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -164,23 +164,11 @@ public class MatchDbAdapter {
      * @param body value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
-    public boolean updateMatch(long rowId, String p1, String p2, String set1Result, String set2Result, String set3Result) {
+    public boolean updateNote(long rowId, String title, String body, String cell) {
         ContentValues args = new ContentValues();
-
-        args.put(KEY_P1, p1);
-        args.put(KEY_P2, p2);
-        args.put(KEY_SET1_RESULT, set1Result);
-        args.put(KEY_SET2_RESULT, set2Result);
-        args.put(KEY_SET3_RESULT, set3Result);
-
-        return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
-    }
-
-    public boolean updateMatchResult(long rowId, String set1Result, String set2Result, String set3Result) {
-        ContentValues args = new ContentValues();
-        args.put(KEY_SET1_RESULT, set1Result);
-        args.put(KEY_SET2_RESULT, set2Result);
-        args.put(KEY_SET3_RESULT, set3Result);
+        args.put(KEY_TITLE, title);
+        args.put(KEY_BODY, body);
+        args.put(KEY_CELL, cell);
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }

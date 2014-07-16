@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.vaugan.csf.match" android:installLocation="internalOnly">
-    <uses-sdk android:minSdkVersion="15"/>
-    <application android:label="CSFMatch" android:enabled="true">        
-        <activity android:launchMode="standard" android:name="MainMenu">
-	        <intent-filter>
-	            <action android:name="android.intent.action.MAIN" />
-	            <category android:name="android.intent.category.LAUNCHER" />
-	        </intent-filter>
+<manifest package="com.vaugan.bpl"
+    android:installLocation="internalOnly" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-sdk android:minSdkVersion="15" />
+
+    <application
+        android:enabled="true"
+        android:label="CSFMatch" >
+        <activity android:name="com.vaugan.bpl.view.MainMenu" >
+			<intent-filter>
+			<action android:name="android.intent.action.MAIN" />
+			<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>         
         </activity>
-        <activity android:name="MatchDisplay" android:screenOrientation="landscape"></activity>
-        <activity android:name=".MatchCreate"></activity>
-        <activity android:name="MatchList"></activity>
-        <activity android:name="PlayerEdit"></activity>
-        <activity android:name="PlayerList"></activity>
-        <activity android:name=".FrameCodeChooser" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity
+            android:name="com.vaugan.bpl.view.MatchDisplay"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name="com.vaugan.bpl.view.MatchCreate" >
+        </activity>
+        <activity android:name="com.vaugan.bpl.view.MatchList" >
+        </activity>
+        <activity android:name="com.vaugan.bpl.view.PlayerEdit" >
+        </activity>
+        <activity android:name="com.vaugan.bpl.view.PlayerList" >
+        </activity>
+        <activity
+            android:name="com.vaugan.bpl.model.FrameCodeChooser"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
-</manifest> 
+
+</manifest>

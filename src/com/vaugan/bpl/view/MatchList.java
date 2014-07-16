@@ -1,7 +1,7 @@
-package com.vaugan.csf.match;
+package com.vaugan.bpl.view;
 
-import com.vaugan.csf.match.R;
-
+import com.vaugan.bpl.R;
+import com.vaugan.bpl.model.MatchDbAdapter;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;

@@ -1,4 +1,4 @@
-package com.vaugan.csf.match;
+package com.vaugan.bpl.model;
 
 import android.content.Context;
 import android.view.View;
