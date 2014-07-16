@@ -20,6 +20,7 @@ public class FrameCodeChooser extends Activity {
         Bundle extras = this.getIntent().getExtras();
         final int pos = extras.getInt("pos");
         final int player = extras.getInt("player");
+        final int set = extras.getInt("set");
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new FrameCodeImageAdapter(FrameCodeChooser.this));
@@ -30,6 +31,7 @@ public class FrameCodeChooser extends Activity {
                 resultIntent.putExtra("selected_icon", position);
                 resultIntent.putExtra("player", player);
                 resultIntent.putExtra("pos", pos);
+                resultIntent.putExtra("set", set);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
 //                Toast.makeText(FrameCodeChooser.this, "" + position, Toast.LENGTH_SHORT).show();

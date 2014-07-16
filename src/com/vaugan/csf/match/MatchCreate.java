@@ -22,7 +22,9 @@ public class MatchCreate extends Activity {
 //    private EditText mBestOfText;
     private EditText mP1Text;
     private EditText mP2Text;
-    private EditText mResultText;
+    private EditText mSet1Result;
+//    private EditText mSet2Result;
+//    private EditText mSet3Result;
     private Long mRowId;
     private MatchDbAdapter mDbHelper;
  
@@ -113,8 +115,8 @@ public class MatchCreate extends Activity {
                     note.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
             mP2Text.setText(note.getString(
                     note.getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));
-            mResultText.setText(note.getString(
-                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_RESULT)));
+            mSet1Result.setText(note.getString(
+                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));
         }
     }
 
@@ -140,15 +142,17 @@ public class MatchCreate extends Activity {
     private void saveState() {
         String p1 = mP1Text.getText().toString();
         String p2 = mP2Text.getText().toString();
-        String result = "MMMMMMMMMMMMMMMMMMMMMMMM";
+        String set1Result = "MMMMMMM";
+        String set2Result = "MMMMMMM";
+        String set3Result = "MMMMMMM";
 
         if (mRowId == null) {
-            long id = mDbHelper.createMatch( p1, p2, result);
+            long id = mDbHelper.createMatch( p1, p2, set1Result, set2Result, set3Result);
             if (id > 0) {
                 mRowId = id;
             }
         } else {
-            mDbHelper.updateMatch(mRowId, p1, p2, result);
+            mDbHelper.updateMatch(mRowId, p1, p2, set1Result, set2Result, set3Result);
         }
     }
 

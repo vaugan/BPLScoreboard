@@ -138,23 +138,6 @@ public void resetScore()
             4, 
             5,
             6,
-            6,
-            7,
-            5,
-            2,
-            1, //12
-            0, 
-            1,
-            0, 
-            3,
-            4, 
-            7,
-            8,
-            8,
-            8,
-            8,
-            8,
-            8
             };
 
     static public char[] CSFCodes = {
