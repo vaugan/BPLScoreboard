@@ -12,7 +12,7 @@ import com.vaugan.bpl.model.FrameCodeAPI;
 
 public class SetLogic extends BaseAdapter {
     private Context mContext;
-    private static final String TAG = "MatchLogic";
+    private static final String TAG = "SetLogic";
     
 //    public static final int MAX_SETS_IN_MATCH = 3;
 //    public static final int SETS_TO_WIN_MATCH = 2;
@@ -137,6 +137,7 @@ public void resetScore()
 public static boolean isSetWon(String setResultString)
 {
 	//Calculate if a player won the set
+	
 	return false;
 }
 

@@ -11,14 +11,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewDebug.IntToString;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -198,19 +201,19 @@ public class MatchDisplay extends Activity {
         });
         
         
-        if (mRowId != null) {
-            Cursor temp_match = mDbHelper.fetchMatch(mRowId);
-            startManagingCursor(temp_match);
-            
-            ((SetLogic)gvS1P1FrameCodes.getAdapter()).updateCurrentScoreArray(temp_match.getString(temp_match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));       
-            String inverseResultString = SetLogic.getInverseScoreArray(temp_match.getString(temp_match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));
-            ((SetLogic)gvS1P2FrameCodes.getAdapter()).updateCurrentScoreArray(inverseResultString);        
-
-
-            temp_match.close();
-        }
+//        if (mRowId != null) {
+//            Cursor temp_match = mDbHelper.fetchMatch(mRowId);
+//            startManagingCursor(temp_match);
+//            
+//            ((SetLogic)gvS1P1FrameCodes.getAdapter()).updateCurrentScoreArray(temp_match.getString(temp_match
+//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));       
+//            String inverseResultString = SetLogic.getInverseScoreArray(temp_match.getString(temp_match
+//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));
+//            ((SetLogic)gvS1P2FrameCodes.getAdapter()).updateCurrentScoreArray(inverseResultString);        
+//
+//
+//            temp_match.close();
+//        }
 
         populateFields() ;
 
@@ -322,13 +325,103 @@ public class MatchDisplay extends Activity {
 	//        fillData();
 	//        break;
 	        }
+	    
+	    	updateSetVisibility(set);
         }
         else
 	   {
 	       Log.v(TAG, "Returned from frameselector activity! ERROR!!!! resultCode["+resultCode);              
 	   }        
     }
-    @Override
+    private void updateSetVisibility(int set) {
+    	
+    	
+		switch (set){
+		case 1:
+			if ((((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET) ||
+				(((SetLogic)gvS1P2FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET))
+				{
+					Log.v(TAG, "Set 1 is won by a player. Disabling input...");
+					LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set1);
+					for ( int i = 0; i < myLayout.getChildCount();  i++ ){
+					    View view = myLayout.getChildAt(i);
+					    view.setEnabled(false); // Or whatever you want to do with the view.
+					 }
+
+					myLayout.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View arg0) {
+					     Toast.makeText(getApplicationContext(), "This set is over", Toast.LENGTH_SHORT).show();
+						
+					}
+					});
+
+					
+					
+					findViewById(R.id.Set2).setVisibility(View.VISIBLE);
+				}
+			
+			break;
+		case 2:
+			if ((((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET) ||
+					(((SetLogic)gvS2P2FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET))
+					{
+						LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set2);
+						for ( int i = 0; i < myLayout.getChildCount();  i++ ){
+						    View view = myLayout.getChildAt(i);
+						    view.setEnabled(false); // Or whatever you want to do with the view.
+						 }
+		
+						myLayout.setOnClickListener(new OnClickListener(){
+		
+						@Override
+						public void onClick(View arg0) {
+						     Toast.makeText(getApplicationContext(), "This set is over", Toast.LENGTH_SHORT).show();
+							
+						}
+						});
+						findViewById(R.id.Set3).setVisibility(View.VISIBLE);
+						Log.v(TAG, "Set 2 is won by a player. Disabling input...");
+					}
+				
+			break;
+		case 3:
+			//TODO: Check match score -could be be 2-0 sets, hence game over.
+			
+			if ((((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET) ||
+					(((SetLogic)gvS3P2FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET))
+					{
+				
+						LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set3);
+						for ( int i = 0; i < myLayout.getChildCount();  i++ ){
+						    View view = myLayout.getChildAt(i);
+						    view.setEnabled(false); // Or whatever you want to do with the view.
+						 }
+		
+						myLayout.setOnClickListener(new OnClickListener(){
+		
+						@Override
+						public void onClick(View arg0) {
+						     Toast.makeText(getApplicationContext(), "This set is over", Toast.LENGTH_SHORT).show();
+							
+						}
+						});
+						Log.v(TAG, "Set 3 is won by a player. Disabling input... The Match is over!");
+					}
+				
+			break;
+		
+		default:
+			break;
+		}    	
+
+    	
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         saveState();
