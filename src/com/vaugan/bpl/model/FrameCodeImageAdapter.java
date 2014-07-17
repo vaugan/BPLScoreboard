@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class FrameCodeImageAdapter extends BaseAdapter {
     private Context mContext;
@@ -31,8 +32,9 @@ public class FrameCodeImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imageView.setPadding(2, 2, 2, 2);
         } else {
             imageView = (ImageView) convertView;

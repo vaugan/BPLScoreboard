@@ -15,7 +15,7 @@
             android:id="@+id/player1name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0"
+            android:layout_weight="0.4"
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -44,7 +44,6 @@
             android:id="@+id/set2P1ResultString"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -56,7 +55,6 @@
             android:id="@+id/set3P1ResultString"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -66,9 +64,9 @@
 
         <EditText
             android:id="@+id/player2name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
@@ -147,11 +145,11 @@
             android:id="@+id/set1Player1FrameCodes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0.25"
+            android:layout_gravity="center|left"
+            android:layout_weight="0.2"
             android:gravity="fill"
-            android:numColumns="4"
-            android:stretchMode="spacingWidthUniform" >
+            android:numColumns="7"
+            android:stretchMode="columnWidth" >
 
         </GridView>
 
@@ -200,10 +198,10 @@
             android:id="@+id/set1Player2FrameCodes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0.25"
-            android:numColumns="4"
-            android:stretchMode="spacingWidthUniform" >
+            android:layout_gravity="center|left"
+            android:layout_weight="0.2"
+            android:numColumns="7"
+            android:stretchMode="columnWidth" >
 
         </GridView>
     </LinearLayout>
@@ -220,10 +218,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="0.25"
+            android:layout_weight="0.2"
             android:gravity="fill"
             android:numColumns="4"
-            android:stretchMode="spacingWidthUniform" >
+            android:stretchMode="columnWidth" >
 
         </GridView>
 
@@ -272,9 +270,9 @@
             android:id="@+id/set2Player2FrameCodes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
+            android:layout_weight="0.2"
             android:numColumns="4"
-            android:stretchMode="spacingWidthUniform" >
+            android:stretchMode="columnWidth" >
 
         </GridView>
     </LinearLayout>
@@ -290,10 +288,10 @@
             android:id="@+id/set3Player1FrameCodes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
+            android:layout_weight="0.2"
             android:gravity="fill"
             android:numColumns="4"
-            android:stretchMode="spacingWidthUniform" >
+            android:stretchMode="columnWidth" >
 
         </GridView>
 
@@ -339,9 +337,9 @@
             android:id="@+id/set3Player2FrameCodes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
+            android:layout_weight="0.2"
             android:numColumns="4"
-            android:stretchMode="spacingWidthUniform" >
+            android:stretchMode="columnWidth" >
 
         </GridView>
     </LinearLayout>
