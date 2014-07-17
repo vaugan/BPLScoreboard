@@ -40,11 +40,22 @@ public class MatchDisplay extends Activity {
     private EditText mP1Text;
     private EditText mP2Text;
     
+//    Model Stuff - move out later
+    int p1SetScore=0;
+    int p2SetScore=0;
+
+    
     //Array of P1 and P2 sets
-    private SetLogic aP1Sets[] = new SetLogic[3];
-    private SetLogic aP2Sets[] = new SetLogic[3];
+    private SetLogic aP1Sets[] = new SetLogic[MatchLogic.MAX_SETS_IN_MATCH];
+    private SetLogic aP2Sets[] = new SetLogic[MatchLogic.MAX_SETS_IN_MATCH];
+    
+    private View aSetsUI[] = new View[MatchLogic.MAX_SETS_IN_MATCH];
+    
+//    Match
     private EditText p1MatchScore;
     private EditText p2MatchScore;
+    private EditText p1CurrentSetScore;
+    private EditText p2CurrentSetScore;
     
     
     //Set1
@@ -80,13 +91,21 @@ public class MatchDisplay extends Activity {
         {
         	aP1Sets[i] = new SetLogic(MatchDisplay.this);
         	aP2Sets[i] = new SetLogic(MatchDisplay.this);
+
         }
+        aSetsUI[0] = (LinearLayout) findViewById(R.id.Set1);
+        aSetsUI[1] = (LinearLayout) findViewById(R.id.Set2);
+        aSetsUI[2] = (LinearLayout) findViewById(R.id.Set3);
         
         Log.v(TAG, "mRowId="+mRowId);
         
         setContentView(R.layout.match_display);
         setTitle(R.string.edit_note);
 
+        //##############################
+        //#####    Match Fields    #####
+        //##############################
+        
         mSet1P1ResultString = (TextView)findViewById(R.id.set1P1ResultString);
         mSet2P1ResultString = (TextView)findViewById(R.id.set2P1ResultString);
         mSet3P1ResultString = (TextView)findViewById(R.id.set3P1ResultString);
@@ -94,6 +113,9 @@ public class MatchDisplay extends Activity {
         mP2Text = (EditText) findViewById(R.id.player2name);
         p1MatchScore = (EditText) findViewById(R.id.matchP1Score);
         p2MatchScore = (EditText) findViewById(R.id.matchP2Score);
+        p1CurrentSetScore = (EditText) findViewById(R.id.currentSetP1Score);
+        p2CurrentSetScore = (EditText) findViewById(R.id.currentSetP2Score);
+        
 
         //##############################
         //#####      Set 1         #####
@@ -111,7 +133,7 @@ public class MatchDisplay extends Activity {
               Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
               i.putExtra("player", 1);
               i.putExtra("pos", position);
-              i.putExtra("set", 1);
+              i.putExtra("set", 0);
               startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
@@ -129,7 +151,7 @@ public class MatchDisplay extends Activity {
                 Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
                 i.putExtra("player", 2);
                 i.putExtra("pos", position);
-                i.putExtra("set", 1);
+                i.putExtra("set", 0);
                 startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
@@ -150,7 +172,7 @@ public class MatchDisplay extends Activity {
               Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
               i.putExtra("player", 1);
               i.putExtra("pos", position);
-              i.putExtra("set", 2);
+              i.putExtra("set", 1);
               startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
@@ -168,7 +190,7 @@ public class MatchDisplay extends Activity {
                 Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
                 i.putExtra("player", 2);
                 i.putExtra("pos", position);
-                i.putExtra("set", 2);
+                i.putExtra("set", 1);
                 startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
@@ -191,7 +213,7 @@ public class MatchDisplay extends Activity {
               Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
               i.putExtra("player", 1);
               i.putExtra("pos", position);
-              i.putExtra("set", 3);
+              i.putExtra("set", 2);
               startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
@@ -209,7 +231,7 @@ public class MatchDisplay extends Activity {
                 Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
                 i.putExtra("player", 2);
                 i.putExtra("pos", position);
-                i.putExtra("set", 3);
+                i.putExtra("set", 2);
                 startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
@@ -245,7 +267,6 @@ public class MatchDisplay extends Activity {
 	    int player = extras.getInt("player");
 	    int pos = extras.getInt("pos");
 	    int set = extras.getInt("set");
-	    int score=0;
 	
 	//    int imageid = extras.getInt("image_id");
 	//   ImageView  Image_A= (ImageView) findViewById(imageid);
@@ -269,59 +290,59 @@ public class MatchDisplay extends Activity {
 	        }
 	            
 			switch (set){
-			case 1:
+			case 0:
 			    //Update P1 score
-			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);   
-			    score=((SetLogic)gvS1P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);    
-			    Log.v(TAG, "mS1P1Score=" + score);   
+			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);
+			    p1SetScore=((SetLogic)gvS1P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);
+			    Log.v(TAG, "mS1P1Score=" + p1SetScore);
 			    ((SetLogic)gvS1P1FrameCodes.getAdapter()).notifyDataSetChanged();
-			    etS1P1Score.setText(Integer.toString(score));
+			    etS1P1Score.setText(Integer.toString(p1SetScore));
 			
-			    Log.v(TAG, "S1P1ResultString=" + ((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());   
+			    Log.v(TAG, "S1P1ResultString=" + ((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());
 			    mSet1P1ResultString.setText(((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
-			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);   
-			    score= ((SetLogic)gvS1P2FrameCodes.getAdapter()).updateScore(pos, p2_icon_index);    
-			    Log.v(TAG, "mP2Score=" + score);   
+			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
+			    p2SetScore= ((SetLogic)gvS1P2FrameCodes.getAdapter()).updateScore(pos, p2_icon_index);
+			    Log.v(TAG, "mP2Score=" + p2SetScore);   
 			    ((SetLogic)gvS1P2FrameCodes.getAdapter()).notifyDataSetChanged();
-			    etS1P2Score.setText(Integer.toString(score));
+			    etS1P2Score.setText(Integer.toString(p2SetScore));
 				break;
-			case 2:
+			case 1:
 			    //Update P1 score
-			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);   
-			    score=((SetLogic)gvS2P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);    
-			    Log.v(TAG, "mS2P1Score=" + score);   
+			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);
+			    p1SetScore=((SetLogic)gvS2P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);
+			    Log.v(TAG, "mS2P1Score=" + p1SetScore);
 			    ((SetLogic)gvS2P1FrameCodes.getAdapter()).notifyDataSetChanged();
-			    etS2P1Score.setText(Integer.toString(score));
+			    etS2P1Score.setText(Integer.toString(p1SetScore));
 			
-			    Log.v(TAG, "S2P1ResultString=" + ((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());   
+			    Log.v(TAG, "S2P1ResultString=" + ((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());
 			    mSet2P1ResultString.setText(((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
-			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);   
-			    score= ((SetLogic)gvS2P2FrameCodes.getAdapter()).updateScore(pos, p2_icon_index);    
-			    Log.v(TAG, "mP2Score=" + score);   
+			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
+			    p2SetScore= ((SetLogic)gvS2P2FrameCodes.getAdapter()).updateScore(pos, p2_icon_index);
+			    Log.v(TAG, "mP2Score=" + p2SetScore);
 			    ((SetLogic)gvS2P2FrameCodes.getAdapter()).notifyDataSetChanged();
-			    etS2P2Score.setText(Integer.toString(score));
+			    etS2P2Score.setText(Integer.toString(p2SetScore));
 				break;
-			case 3:
+			case 2:
 			    //Update P1 score
-			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);   
-			    score=((SetLogic)gvS3P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);    
-			    Log.v(TAG, "mS3P1Score=" + score);   
+			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);
+			    p1SetScore=((SetLogic)gvS3P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);
+			    Log.v(TAG, "mS3P1Score=" + p1SetScore);
 			    ((SetLogic)gvS3P1FrameCodes.getAdapter()).notifyDataSetChanged();
-			    etS3P1Score.setText(Integer.toString(score));
+			    etS3P1Score.setText(Integer.toString(p1SetScore));
 			
-			    Log.v(TAG, "S3P1ResultString=" + ((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());   
+			    Log.v(TAG, "S3P1ResultString=" + ((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());
 			    mSet3P1ResultString.setText(((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
-			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);   
-			    score= ((SetLogic)gvS3P2FrameCodes.getAdapter()).updateScore(pos, p2_icon_index);    
-			    Log.v(TAG, "mP2Score=" + score);   
+			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
+			    p2SetScore= ((SetLogic)gvS3P2FrameCodes.getAdapter()).updateScore(pos, p2_icon_index);
+			    Log.v(TAG, "mP2Score=" + p2SetScore);
 			    ((SetLogic)gvS3P2FrameCodes.getAdapter()).notifyDataSetChanged();
-			    etS3P2Score.setText(Integer.toString(score));
+			    etS3P2Score.setText(Integer.toString(p2SetScore));
 			    break;
 			
 			default:
@@ -351,11 +372,14 @@ public class MatchDisplay extends Activity {
     }
 
 	private void updateMatchStatus() {
-		if (MatchLogic.isMatchOver(aP1Sets, aP2Sets)) {
-			// Match is over so disable everything and put up message.
-			Toast.makeText(getApplicationContext(), "Game Over!",
-					Toast.LENGTH_LONG);
-		}
+//		if (MatchLogic.isMatchOver(aP1Sets, aP2Sets)) {
+//			// Match is over so disable everything and put up message.
+//			Toast.makeText(getApplicationContext(), "Game Over!",
+//					Toast.LENGTH_LONG);
+//		}
+
+		p1CurrentSetScore.setText(Integer.toString(p1SetScore));
+		p2CurrentSetScore.setText(Integer.toString(p2SetScore));
 
 		p1MatchScore.setText(Integer.toString(MatchLogic.getMatchScore(aP1Sets)));
 		p2MatchScore.setText(Integer.toString(MatchLogic.getMatchScore(aP2Sets)));
@@ -363,91 +387,117 @@ public class MatchDisplay extends Activity {
 	}
 
 	private void updateSetVisibility(int set) {
-    	
-    	
-		switch (set){
-		case 1:
-			if ((((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET) ||
-				(((SetLogic)gvS1P2FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET))
-				{
-					Log.v(TAG, "Set 1 is won by a player. Disabling input...");
-					LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set1);
-					for ( int i = 0; i < myLayout.getChildCount();  i++ ){
-					    View view = myLayout.getChildAt(i);
-					    view.setEnabled(false); // Or whatever you want to do with the view.
-					 }
 
-					myLayout.setOnClickListener(new OnClickListener(){
+//		if ((aP1Sets[set].isSetWon() > 0) || (aP2Sets[set].isSetWon() > 0)) {
+//			Log.v(TAG, "Set[" + set + "]is won by a player. Disabling input...");
+//			
+//			for (int i = 0; i < ((LinearLayout)aSetsUI[set]).getChildCount(); i++) {
+//				View view = aSetsUI[set].getChildAt(i);
+//				view.setEnabled(false); 
+//			}
+//
+//			aSetsUI[set].setOnClickListener(new OnClickListener() {
+//
+//				@Override
+//				public void onClick(View arg0) {
+//					Toast.makeText(getApplicationContext(), "This set is over",
+//							Toast.LENGTH_SHORT).show();
+//
+//				}
+//			});
+//
+//			//Enable next set
+//			if (set < MatchLogic.MAX_SETS_IN_MATCH)
+//			{
+//				aSetsUI[set+1].setVisibility(View.VISIBLE);
+//			}
+//		}
+		
+		
+		switch (set) {
+		case 0:
+			if ((((SetLogic) gvS1P1FrameCodes.getAdapter()).getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)
+					|| (((SetLogic) gvS1P2FrameCodes.getAdapter())
+							.getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)) {
+				Log.v(TAG, "Set 1 is won by a player. Disabling input...");
+				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set1);
+				for (int i = 0; i < myLayout.getChildCount(); i++) {
+					View view = myLayout.getChildAt(i);
+					view.setEnabled(false); // Or whatever you want to do with
+											// the view.
+				}
+
+				myLayout.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View arg0) {
-					     Toast.makeText(getApplicationContext(), "This set is over", Toast.LENGTH_SHORT).show();
-						
-					}
-					});
+						Toast.makeText(getApplicationContext(),
+								"This set is over", Toast.LENGTH_SHORT).show();
 
-					
-					
-					findViewById(R.id.Set2).setVisibility(View.VISIBLE);
+					}
+				});
+
+				findViewById(R.id.Set2).setVisibility(View.VISIBLE);
+			}
+
+			break;
+		case 1:
+			if ((((SetLogic) gvS2P1FrameCodes.getAdapter()).getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)
+					|| (((SetLogic) gvS2P2FrameCodes.getAdapter())
+							.getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)) {
+				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set2);
+				for (int i = 0; i < myLayout.getChildCount(); i++) {
+					View view = myLayout.getChildAt(i);
+					view.setEnabled(false); // Or whatever you want to do with
+											// the view.
 				}
-			
+
+				myLayout.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						Toast.makeText(getApplicationContext(),
+								"This set is over", Toast.LENGTH_SHORT).show();
+
+					}
+				});
+				findViewById(R.id.Set3).setVisibility(View.VISIBLE);
+				Log.v(TAG, "Set 2 is won by a player. Disabling input...");
+			}
+
 			break;
 		case 2:
-			if ((((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET) ||
-					(((SetLogic)gvS2P2FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET))
-					{
-						LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set2);
-						for ( int i = 0; i < myLayout.getChildCount();  i++ ){
-						    View view = myLayout.getChildAt(i);
-						    view.setEnabled(false); // Or whatever you want to do with the view.
-						 }
-		
-						myLayout.setOnClickListener(new OnClickListener(){
-		
-						@Override
-						public void onClick(View arg0) {
-						     Toast.makeText(getApplicationContext(), "This set is over", Toast.LENGTH_SHORT).show();
-							
-						}
-						});
-						findViewById(R.id.Set3).setVisibility(View.VISIBLE);
-						Log.v(TAG, "Set 2 is won by a player. Disabling input...");
+			// TODO: Check match score -could be be 2-0 sets, hence game over.
+			if ((((SetLogic) gvS3P1FrameCodes.getAdapter()).getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)
+					|| (((SetLogic) gvS3P2FrameCodes.getAdapter())
+							.getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)) {
+
+				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set3);
+				for (int i = 0; i < myLayout.getChildCount(); i++) {
+					View view = myLayout.getChildAt(i);
+					view.setEnabled(false); // Or whatever you want to do with
+											// the view.
+				}
+
+				myLayout.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						Toast.makeText(getApplicationContext(),
+								"This set is over", Toast.LENGTH_SHORT).show();
+
 					}
-				
+				});
+				Log.v(TAG,
+						"Set 3 is won by a player. Disabling input... The Match is over!");
+			}
+
 			break;
-		case 3:
-			//TODO: Check match score -could be be 2-0 sets, hence game over.
-			
-			if ((((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET) ||
-					(((SetLogic)gvS3P2FrameCodes.getAdapter()).getScoreInteger()==SetLogic.FRAMES_TO_WIN_SET))
-					{
-				
-						LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set3);
-						for ( int i = 0; i < myLayout.getChildCount();  i++ ){
-						    View view = myLayout.getChildAt(i);
-						    view.setEnabled(false); // Or whatever you want to do with the view.
-						 }
-		
-						myLayout.setOnClickListener(new OnClickListener(){
-		
-						@Override
-						public void onClick(View arg0) {
-						     Toast.makeText(getApplicationContext(), "This set is over", Toast.LENGTH_SHORT).show();
-							
-						}
-						});
-						Log.v(TAG, "Set 3 is won by a player. Disabling input... The Match is over!");
-					}
-				
-			break;
-		
+
 		default:
 			break;
-		}    	
+		}		
 
-    	
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
