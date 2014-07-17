@@ -21,6 +21,28 @@ public class MatchLogic {
     public MatchLogic(Context c) {
         mContext = c;
     }
+
+
+	public static boolean isMatchOver(SetLogic[] aP1Sets, SetLogic[] aP2Sets) {
+	
+		if ((getMatchScore(aP1Sets) >= SETS_TO_WIN_MATCH) || 
+			(getMatchScore(aP2Sets) >= SETS_TO_WIN_MATCH)) 
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public static int getMatchScore(SetLogic[] aSets) {
+		int matchScore = 0;
+		for (int i=0;i<MatchLogic.MAX_SETS_IN_MATCH;i++)
+		{
+			matchScore += aSets[i].isSetWon();
+		}
+		return matchScore;
+	}
+
+
     
 //    public String getScoreString()
 //    {

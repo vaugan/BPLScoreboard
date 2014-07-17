@@ -40,6 +40,13 @@ public class MatchDisplay extends Activity {
     private EditText mP1Text;
     private EditText mP2Text;
     
+    //Array of P1 and P2 sets
+    private SetLogic aP1Sets[] = new SetLogic[3];
+    private SetLogic aP2Sets[] = new SetLogic[3];
+    private EditText p1MatchScore;
+    private EditText p2MatchScore;
+    
+    
     //Set1
     private GridView gvS1P1FrameCodes;
     private GridView gvS1P2FrameCodes;
@@ -69,6 +76,11 @@ public class MatchDisplay extends Activity {
         Bundle extras = this.getIntent().getExtras();
         mRowId = extras.getLong("com.vaugan.csf.match.rowid");
         
+        for (int i=0;i<MatchLogic.MAX_SETS_IN_MATCH;i++)
+        {
+        	aP1Sets[i] = new SetLogic(MatchDisplay.this);
+        	aP2Sets[i] = new SetLogic(MatchDisplay.this);
+        }
         
         Log.v(TAG, "mRowId="+mRowId);
         
@@ -80,6 +92,8 @@ public class MatchDisplay extends Activity {
         mSet3P1ResultString = (TextView)findViewById(R.id.set3P1ResultString);
         mP1Text = (EditText) findViewById(R.id.player1name);
         mP2Text = (EditText) findViewById(R.id.player2name);
+        p1MatchScore = (EditText) findViewById(R.id.matchP1Score);
+        p2MatchScore = (EditText) findViewById(R.id.matchP2Score);
 
         //##############################
         //#####      Set 1         #####
@@ -88,7 +102,7 @@ public class MatchDisplay extends Activity {
         etS1P1Score  = (EditText) findViewById(R.id.set1Player1Score);
         gvS1P1FrameCodes = (GridView) findViewById(R.id.set1Player1FrameCodes);
         gvS1P1FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
-        gvS1P1FrameCodes.setAdapter(new SetLogic(MatchDisplay.this));
+        gvS1P1FrameCodes.setAdapter(aP1Sets[0]);
         ((SetLogic)gvS1P1FrameCodes.getAdapter()).resetScore();
         
         gvS1P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
@@ -107,7 +121,7 @@ public class MatchDisplay extends Activity {
         etS1P2Score  = (EditText) findViewById(R.id.set1Player2Score);       
         gvS1P2FrameCodes = (GridView) findViewById(R.id.set1Player2FrameCodes);        
         gvS1P2FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
-        gvS1P2FrameCodes.setAdapter(new SetLogic(MatchDisplay.this));
+        gvS1P2FrameCodes.setAdapter(aP2Sets[0]);
         ((SetLogic)gvS1P2FrameCodes.getAdapter()).resetScore();
 
         gvS1P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
@@ -127,7 +141,7 @@ public class MatchDisplay extends Activity {
         etS2P1Score  = (EditText) findViewById(R.id.set2Player1Score);
         gvS2P1FrameCodes = (GridView) findViewById(R.id.set2Player1FrameCodes);
         gvS2P1FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
-        gvS2P1FrameCodes.setAdapter(new SetLogic(MatchDisplay.this));
+        gvS2P1FrameCodes.setAdapter(aP1Sets[1]);
         ((SetLogic)gvS2P1FrameCodes.getAdapter()).resetScore();
         
         gvS2P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
@@ -146,7 +160,7 @@ public class MatchDisplay extends Activity {
         etS2P2Score  = (EditText) findViewById(R.id.set2Player2Score);       
         gvS2P2FrameCodes = (GridView) findViewById(R.id.set2Player2FrameCodes);        
         gvS2P2FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
-        gvS2P2FrameCodes.setAdapter(new SetLogic(MatchDisplay.this));
+        gvS2P2FrameCodes.setAdapter(aP2Sets[1]);
         ((SetLogic)gvS2P2FrameCodes.getAdapter()).resetScore();
 
         gvS2P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
@@ -168,7 +182,7 @@ public class MatchDisplay extends Activity {
         etS3P1Score  = (EditText) findViewById(R.id.set3Player1Score);
         gvS3P1FrameCodes = (GridView) findViewById(R.id.set3Player1FrameCodes);
         gvS3P1FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
-        gvS3P1FrameCodes.setAdapter(new SetLogic(MatchDisplay.this));
+        gvS3P1FrameCodes.setAdapter(aP1Sets[2]);
         ((SetLogic)gvS3P1FrameCodes.getAdapter()).resetScore();
         
         gvS3P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
@@ -187,7 +201,7 @@ public class MatchDisplay extends Activity {
         etS3P2Score  = (EditText) findViewById(R.id.set3Player2Score);       
         gvS3P2FrameCodes = (GridView) findViewById(R.id.set3Player2FrameCodes);        
         gvS3P2FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
-        gvS3P2FrameCodes.setAdapter(new SetLogic(MatchDisplay.this));
+        gvS3P2FrameCodes.setAdapter(aP2Sets[2]);
         ((SetLogic)gvS3P2FrameCodes.getAdapter()).resetScore();
 
         gvS3P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
@@ -217,6 +231,7 @@ public class MatchDisplay extends Activity {
 
         populateFields() ;
 
+        
     }
     
     @Override
@@ -327,13 +342,27 @@ public class MatchDisplay extends Activity {
 	        }
 	    
 	    	updateSetVisibility(set);
+	    	updateMatchStatus();
         }
         else
 	   {
 	       Log.v(TAG, "Returned from frameselector activity! ERROR!!!! resultCode["+resultCode);              
 	   }        
     }
-    private void updateSetVisibility(int set) {
+
+	private void updateMatchStatus() {
+		if (MatchLogic.isMatchOver(aP1Sets, aP2Sets)) {
+			// Match is over so disable everything and put up message.
+			Toast.makeText(getApplicationContext(), "Game Over!",
+					Toast.LENGTH_LONG);
+		}
+
+		p1MatchScore.setText(Integer.toString(MatchLogic.getMatchScore(aP1Sets)));
+		p2MatchScore.setText(Integer.toString(MatchLogic.getMatchScore(aP2Sets)));
+		
+	}
+
+	private void updateSetVisibility(int set) {
     	
     	
 		switch (set){

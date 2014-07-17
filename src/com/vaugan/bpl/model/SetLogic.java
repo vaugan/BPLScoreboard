@@ -134,18 +134,13 @@ public void resetScore()
 }
     
 
-public static boolean isSetWon(String setResultString)
+public int isSetWon()
 {
 	//Calculate if a player won the set
 	
-	return false;
+	return ((this.getScoreInteger()<SetLogic.FRAMES_TO_WIN_SET)?0:1);
 }
 
-public static boolean isMatchWon(String set1ResultString, String set2ResultString, String set3ResultString)
-{
-	//Calculate if a player won the match
-	return false;
-}
     // references to our images
     private Integer[] mCurrentScore = {
             0, 
