@@ -15,5 +15,5 @@
 	<Button android:id="@+id/players" 
 	  android:text="@string/viewplayers"
 		android:layout_height="wrap_content" android:layout_width="match_parent"/>
-	<Spinner android:id="@+id/spinner1" android:layout_width="match_parent" android:layout_height="wrap_content"></Spinner>		
+	<Spinner android:id="@+id/spinnerPlayer1" android:layout_width="match_parent" android:layout_height="wrap_content"></Spinner>		
 </LinearLayout>

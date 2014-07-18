@@ -1,5 +1,11 @@
 package com.vaugan.bpl.model;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,25 +26,25 @@ import android.util.Log;
  */
 public class PlayerDbAdapter {
 
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_BODY = "body";
-    public static final String KEY_CELL = "cell";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_PICTURE = "picture";
     public static final String KEY_ROWID = "_id";
 
-    private static final String TAG = "PoolDbAdapter";
+    private static final String TAG = "PlayerDbAdapter";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
     /**
      * Database creation sql statement
      */
-    private static final String DATABASE_CREATE =
-        "create table players (_id integer primary key autoincrement, "
-        + "title text not null, body text not null, cell text not null);";
+//    private static final String DATABASE_CREATE =
+//        "create table players (_id integer primary key autoincrement, "
+//        + "name text not null, picture text not null);";
 
-    private static final String DATABASE_NAME = "data";
+    private String DB_PATH = "/data/data/" + "com.vaugan.bpl" + "/databases/" + "bpl.db";
+    private static final String DATABASE_NAME = "bpl.db";
     private static final String DATABASE_TABLE = "players";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     private final Context mCtx;
 
@@ -51,7 +57,7 @@ public class PlayerDbAdapter {
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            db.execSQL(DATABASE_CREATE);
+//            db.execSQL(DATABASE_CREATE);
         }
 
         @Override
@@ -74,7 +80,7 @@ public class PlayerDbAdapter {
     }
 
     /**
-     * Open the notes database. If it cannot be opened, try to create a new
+     * Open the player database. If it cannot be opened, try to create a new
      * instance of the database. If it cannot be created, throw an exception to
      * signal the failure
      * 
@@ -83,7 +89,17 @@ public class PlayerDbAdapter {
      * @throws SQLException if the database could be neither opened or created
      */
     public PlayerDbAdapter open() throws SQLException {
-        mDbHelper = new DatabaseHelper(mCtx);
+    	
+    	InputStream is;
+		try {
+			is = mCtx.getApplicationContext().getAssets().open(DATABASE_NAME);
+	    	 write(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 
+    	mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
         return this;
     }
@@ -102,11 +118,10 @@ public class PlayerDbAdapter {
      * @param body the body of the note
      * @return rowId or -1 if failed
      */
-    public long createNote(String title, String body, String cell) {
+    public long createPlayer(String name, String picture) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_TITLE, title);
-        initialValues.put(KEY_BODY, body);
-        initialValues.put(KEY_CELL, cell);
+        initialValues.put(KEY_NAME, name);
+        initialValues.put(KEY_PICTURE, picture);
 
         return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
@@ -117,7 +132,7 @@ public class PlayerDbAdapter {
      * @param rowId id of note to delete
      * @return true if deleted, false otherwise
      */
-    public boolean deleteNote(long rowId) {
+    public boolean deletePlayer(long rowId) {
 
         return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
@@ -129,8 +144,8 @@ public class PlayerDbAdapter {
      */
     public Cursor fetchAllPlayers() {
 
-        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
-                KEY_BODY, KEY_CELL}, null, null, null, null, null);
+        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
+                KEY_PICTURE}, null, null, null, null, null);
     }
 
     /**
@@ -140,12 +155,12 @@ public class PlayerDbAdapter {
      * @return Cursor positioned to matching note, if found
      * @throws SQLException if note could not be found/retrieved
      */
-    public Cursor fetchNote(long rowId) throws SQLException {
+    public Cursor fetchPlayer(long rowId) throws SQLException {
 
         Cursor mCursor =
 
             mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                    KEY_TITLE, KEY_BODY, KEY_CELL}, KEY_ROWID + "=" + rowId, null,
+                    KEY_NAME, KEY_PICTURE}, KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -164,12 +179,29 @@ public class PlayerDbAdapter {
      * @param body value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
-    public boolean updateNote(long rowId, String title, String body, String cell) {
+    public boolean updatePlayer(long rowId, String name, String picture) {
         ContentValues args = new ContentValues();
-        args.put(KEY_TITLE, title);
-        args.put(KEY_BODY, body);
-        args.put(KEY_CELL, cell);
+        args.put(KEY_NAME, name);
+        args.put(KEY_PICTURE, picture);
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
+    
+    public void write(InputStream is) {
+        try {
+            OutputStream out = new FileOutputStream(new File(DB_PATH));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = is.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            is.close();
+            out.flush();
+            out.close();
+            System.err.println(out + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }    
 }

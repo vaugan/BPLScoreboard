@@ -2,15 +2,26 @@ package com.vaugan.bpl.view;
 
 import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.MatchDbAdapter;
+import com.vaugan.bpl.model.PlayerDbAdapter;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.CursorTreeAdapter;
 import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.SimpleCursorTreeAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MatchCreate extends Activity {
@@ -26,6 +37,8 @@ public class MatchCreate extends Activity {
 //    private EditText mSet3Result;
     private Long mRowId;
     private MatchDbAdapter mDbHelper;
+    private PlayerDbAdapter playerDbHelper;
+    public Context mContext;    
  
     protected static final int ACTIVITY_MATCH_DISPLAY = 0;
     protected static final int ACTIVITY_MAIN_MENU = 4;
@@ -36,10 +49,18 @@ public class MatchCreate extends Activity {
         try{ 
 	        mDbHelper = new MatchDbAdapter(this);
 	        mDbHelper.open();
+	        
+	        
+	        playerDbHelper = new PlayerDbAdapter(this);
+	        playerDbHelper.open();
+	        
 	
 	        setContentView(R.layout.match_create);
+//	        setContentView(R.layout.player_row);
 	        setTitle(R.string.create_match);
-	
+
+	        fillData();
+
 //	        mDateTimeText = (EditText) findViewById(R.id.editDate);
 //	        mVenueText = (EditText)findViewById(R.id.editVenue);
 //	        mBestOfText = (EditText)findViewById(R.id.editMatchBestOf);
@@ -155,4 +176,38 @@ public class MatchCreate extends Activity {
         }
     }
 
+    private void fillData() {
+        Cursor playersCursor = playerDbHelper.fetchAllPlayers();
+        startManagingCursor(playersCursor);
+        
+        // make an adapter from the cursor
+        // Create an array to specify the fields we want to display in the list (only TITLE)
+        String[] from = new String[]{PlayerDbAdapter.KEY_NAME};
+        // and an array of the fields we want to bind those fields to (in this case just text1)
+        int[] to = new int[]{R.id.firstName};
+        // Now create a simple cursor adapter and set it to display
+        SimpleCursorAdapter sca = 
+            new SimpleCursorAdapter(this, R.layout.player_row, playersCursor, from, to);
+
+   
+        
+
+        // set layout for activated adapter
+        sca.setDropDownViewResource(R.layout.player_row); 
+
+        // get xml file spinner and set adapter 
+        Spinner spinnerView = (Spinner) this.findViewById(R.id.spinnerPlayer1);
+        spinnerView.setAdapter(sca);
+
+        // set spinner listener to display the selected item id
+        mContext = this;
+        spinnerView.setOnItemSelectedListener(new OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+                Toast.makeText(mContext, "Selected ID=" + id, Toast.LENGTH_LONG).show();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {}
+            });      
+    
+    }    
+       
 }

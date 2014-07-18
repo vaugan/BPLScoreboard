@@ -56,7 +56,7 @@ public class PlayerList extends ListActivity {
         startManagingCursor(notesCursor);
 
         // Create an array to specify the fields we want to display in the list (only TITLE)
-        String[] from = new String[]{PlayerDbAdapter.KEY_TITLE, PlayerDbAdapter.KEY_BODY, PlayerDbAdapter.KEY_CELL};
+        String[] from = new String[]{PlayerDbAdapter.KEY_NAME, PlayerDbAdapter.KEY_PICTURE};
 
         // and an array of the fields we want to bind those fields to (in this case just text1)
         int[] to = new int[]{R.id.firstName, R.id.lastName, R.id.cell};
@@ -97,7 +97,7 @@ public class PlayerList extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                mDbHelper.deleteNote(info.id);
+                mDbHelper.deletePlayer(info.id);
                 fillData();
                 return true;
         }

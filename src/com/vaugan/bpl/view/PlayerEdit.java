@@ -55,14 +55,12 @@ public class PlayerEdit extends Activity {
 
     private void populateFields() {
         if (mRowId != null) {
-            Cursor note = mDbHelper.fetchNote(mRowId);
+            Cursor note = mDbHelper.fetchPlayer(mRowId);
             startManagingCursor(note);
             mTitleText.setText(note.getString(
-                    note.getColumnIndexOrThrow(PlayerDbAdapter.KEY_TITLE)));
+                    note.getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME)));
             mBodyText.setText(note.getString(
-                    note.getColumnIndexOrThrow(PlayerDbAdapter.KEY_BODY)));
-            mCellText.setText(note.getString(
-                    note.getColumnIndexOrThrow(PlayerDbAdapter.KEY_CELL)));
+                    note.getColumnIndexOrThrow(PlayerDbAdapter.KEY_PICTURE)));
         }
     }
 
@@ -86,17 +84,16 @@ public class PlayerEdit extends Activity {
     }
 
     private void saveState() {
-        String title = mTitleText.getText().toString();
-        String body = mBodyText.getText().toString();
-        String cell = mCellText.getText().toString();
+        String name = mTitleText.getText().toString();
+        String picture = mBodyText.getText().toString();
 
         if (mRowId == null) {
-            long id = mDbHelper.createNote(title, body, cell);
+            long id = mDbHelper.createPlayer(name, picture);
             if (id > 0) {
                 mRowId = id;
             }
         } else {
-            mDbHelper.updateNote(mRowId, title, body, cell);
+            mDbHelper.updatePlayer(mRowId, name, picture);
         }
     }
 
