@@ -10,6 +10,8 @@ import com.vaugan.bpl.model.MatchLogic;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.transition.Visibility;
@@ -78,6 +80,8 @@ public class MatchDisplay extends Activity {
     private GridView gvS3P2FrameCodes;
     private EditText etS3P1Score;
     private EditText etS3P2Score;
+	private ImageView mP1Image;
+	private ImageView mP2Image;
     
     protected static final int  ACTIVITY_FRAME_IMAGE_SELECTOR = 5;
     
@@ -118,6 +122,8 @@ public class MatchDisplay extends Activity {
 //        mSet3P1ResultString = (TextView)findViewById(R.id.set3P1ResultString);
         mP1Text = (EditText) findViewById(R.id.player1name);
         mP2Text = (EditText) findViewById(R.id.player2name);
+        mP1Image = (ImageView) findViewById(R.id.player1Image);
+        mP2Image = (ImageView) findViewById(R.id.player2Image);
         p1MatchScore = (EditText) findViewById(R.id.matchP1Score);
         p2MatchScore = (EditText) findViewById(R.id.matchP2Score);
         p1CurrentSetScore = (EditText) findViewById(R.id.currentSetP1Score);
@@ -575,6 +581,14 @@ public class MatchDisplay extends Activity {
                     .getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME)));
             mP2Text.setText(p2Cursor.getString(p2Cursor
                     .getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME)));
+
+            byte[] byteArray = p1Cursor.getBlob(p1Cursor.getColumnIndexOrThrow(PlayerDbAdapter.KEY_PICTURE));
+            Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            mP1Image.setImageBitmap(bmp);
+            
+            byteArray = p2Cursor.getBlob(p2Cursor.getColumnIndexOrThrow(PlayerDbAdapter.KEY_PICTURE));
+            bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            mP2Image.setImageBitmap(bmp);
 
 //            //Set 1
 //            mSet1P1ResultString.setText(match.getString(match
