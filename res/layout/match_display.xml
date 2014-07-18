@@ -27,41 +27,6 @@
             </requestFocus>
         </EditText>
 
-        <TextView
-            android:id="@+id/set1P1ResultString"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:longClickable="false"
-            android:text="TextView"
-            android:textAppearance="?android:attr/textAppearanceSmall" >
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/set2P1ResultString"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:longClickable="false"
-            android:text="TextView"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/set3P1ResultString"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:longClickable="false"
-            android:text="TextView"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
         <EditText
             android:id="@+id/player2name"
             android:layout_width="match_parent"

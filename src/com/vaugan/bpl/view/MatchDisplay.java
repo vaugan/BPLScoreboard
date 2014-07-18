@@ -37,9 +37,9 @@ public class MatchDisplay extends Activity {
     private Long mP1RowId;
     private Long mP2RowId;
     private MatchDbAdapter mDbHelper;
-    private TextView mSet1P1ResultString;
-    private TextView mSet2P1ResultString;
-    private TextView mSet3P1ResultString;
+//    private TextView mSet1P1ResultString;
+//    private TextView mSet2P1ResultString;
+//    private TextView mSet3P1ResultString;
     private EditText mP1Text;
     private EditText mP2Text;
     
@@ -113,9 +113,9 @@ public class MatchDisplay extends Activity {
         
         
         
-        mSet1P1ResultString = (TextView)findViewById(R.id.set1P1ResultString);
-        mSet2P1ResultString = (TextView)findViewById(R.id.set2P1ResultString);
-        mSet3P1ResultString = (TextView)findViewById(R.id.set3P1ResultString);
+//        mSet1P1ResultString = (TextView)findViewById(R.id.set1P1ResultString);
+//        mSet2P1ResultString = (TextView)findViewById(R.id.set2P1ResultString);
+//        mSet3P1ResultString = (TextView)findViewById(R.id.set3P1ResultString);
         mP1Text = (EditText) findViewById(R.id.player1name);
         mP2Text = (EditText) findViewById(R.id.player2name);
         p1MatchScore = (EditText) findViewById(R.id.matchP1Score);
@@ -306,7 +306,7 @@ public class MatchDisplay extends Activity {
 			    etS1P1Score.setText(Integer.toString(p1SetScore));
 			
 			    Log.v(TAG, "S1P1ResultString=" + ((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());
-			    mSet1P1ResultString.setText(((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());
+//			    mSet1P1ResultString.setText(((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
 			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
@@ -324,7 +324,7 @@ public class MatchDisplay extends Activity {
 			    etS2P1Score.setText(Integer.toString(p1SetScore));
 			
 			    Log.v(TAG, "S2P1ResultString=" + ((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());
-			    mSet2P1ResultString.setText(((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());
+//			    mSet2P1ResultString.setText(((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
 			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
@@ -342,7 +342,7 @@ public class MatchDisplay extends Activity {
 			    etS3P1Score.setText(Integer.toString(p1SetScore));
 			
 			    Log.v(TAG, "S3P1ResultString=" + ((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());
-			    mSet3P1ResultString.setText(((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());
+//			    mSet3P1ResultString.setText(((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
 			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
@@ -576,9 +576,9 @@ public class MatchDisplay extends Activity {
             mP2Text.setText(p2Cursor.getString(p2Cursor
                     .getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME)));
 
-            //Set 1
-            mSet1P1ResultString.setText(match.getString(match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));   
+//            //Set 1
+//            mSet1P1ResultString.setText(match.getString(match
+//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));   
 
             ((SetLogic)gvS1P1FrameCodes.getAdapter()).notifyDataSetChanged();
             int score=((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreInteger();    
@@ -588,8 +588,8 @@ public class MatchDisplay extends Activity {
             etS1P2Score.setText(Integer.toString(score));
 
             //Set 2
-            mSet2P1ResultString.setText(match.getString(match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET2_RESULT)));   
+//            mSet2P1ResultString.setText(match.getString(match
+//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET2_RESULT)));   
 
             ((SetLogic)gvS2P1FrameCodes.getAdapter()).notifyDataSetChanged();
              score=((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreInteger();    
@@ -599,8 +599,8 @@ public class MatchDisplay extends Activity {
             etS2P2Score.setText(Integer.toString(score));
 
             //Set 3
-            mSet3P1ResultString.setText(match.getString(match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET3_RESULT)));   
+//            mSet3P1ResultString.setText(match.getString(match
+//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET3_RESULT)));   
 
             ((SetLogic)gvS3P1FrameCodes.getAdapter()).notifyDataSetChanged();
              score=((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreInteger();    
