@@ -42,19 +42,19 @@ public class MatchList extends ListActivity {
     }
 
     private void fillData() {
-        Cursor notesCursor = mDbHelper.fetchAllMatches();
-        startManagingCursor(notesCursor);
+        Cursor matchesCursor = mDbHelper.fetchAllMatches();
+        startManagingCursor(matchesCursor);
 
         // Create an array to specify the fields we want to display in the list (only TITLE)
         String[] from = new String[]{MatchDbAdapter.KEY_P1, MatchDbAdapter.KEY_P2};
 
-        // and an array of the fields we want to bind those fields to (in this case just text1)
+        // and an array of the fields we want to bind those fields to
         int[] to = new int[]{R.id.p1, R.id.p2};
 
         // Now create a simple cursor adapter and set it to display
-        SimpleCursorAdapter notes = 
-            new SimpleCursorAdapter(this, R.layout.match_row, notesCursor, from, to);
-        setListAdapter(notes);
+        SimpleCursorAdapter matches = 
+            new SimpleCursorAdapter(this, R.layout.match_row, matchesCursor, from, to);
+        setListAdapter(matches);
     }
 
     @Override
