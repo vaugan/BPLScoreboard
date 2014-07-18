@@ -31,7 +31,7 @@ public class MatchDbAdapter {
      */
     private static final String DATABASE_CREATE =
         "create table matches (_id integer primary key autoincrement, "
-        + "player1 text not null, player2 text not null, set1_result text not null, set2_result text not null, set3_result text not null);";
+        + "player1 integer not null, player2 integer not null, set1_result text not null, set2_result text not null, set3_result text not null);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "matches";
@@ -99,11 +99,11 @@ public class MatchDbAdapter {
      * @param body the body of the note
      * @return rowId or -1 if failed
      */
-    public long createMatch(String p1, String p2, String set1Result, String set2Result, String set3Result) {
+    public long createMatch(long p1RowId, long p2RowId, String set1Result, String set2Result, String set3Result) {
         ContentValues initialValues = new ContentValues();
 
-        initialValues.put(KEY_P1, p1);
-        initialValues.put(KEY_P2, p2);
+        initialValues.put(KEY_P1, p1RowId);
+        initialValues.put(KEY_P2, p2RowId);
         initialValues.put(KEY_SET1_RESULT, set1Result);
         initialValues.put(KEY_SET2_RESULT, set2Result);
         initialValues.put(KEY_SET3_RESULT, set3Result);
@@ -164,7 +164,7 @@ public class MatchDbAdapter {
      * @param body value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
-    public boolean updateMatch(long rowId, String p1, String p2, String set1Result, String set2Result, String set3Result) {
+    public boolean updateMatch(long rowId, long p1, long p2, String set1Result, String set2Result, String set3Result) {
         ContentValues args = new ContentValues();
 
         args.put(KEY_P1, p1);

@@ -17,6 +17,11 @@
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/set2P1ResultString" android:text="Player 2"></TextView>
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName" android:id="@+id/editPlayer2"></EditText>
 
+    <Spinner
+        android:id="@+id/spinnerPlayer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout android:id="@+id/Set1" android:layout_width="match_parent" android:layout_height="wrap_content">
         <Button android:id="@+id/btnStartMatch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Start Match!"></Button>
         <Button android:id="@+id/btnCancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cancel"></Button>

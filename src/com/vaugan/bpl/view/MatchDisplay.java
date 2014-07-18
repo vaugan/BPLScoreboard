@@ -4,6 +4,7 @@ import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.FrameCodeAPI;
 import com.vaugan.bpl.model.FrameCodeChooser;
 import com.vaugan.bpl.model.MatchDbAdapter;
+import com.vaugan.bpl.model.PlayerDbAdapter;
 import com.vaugan.bpl.model.SetLogic;
 import com.vaugan.bpl.model.MatchLogic;
 import android.app.Activity;
@@ -33,6 +34,8 @@ public class MatchDisplay extends Activity {
     private EditText mBodyText;
     private EditText mCellText;
     private Long mRowId;
+    private Long mP1RowId;
+    private Long mP2RowId;
     private MatchDbAdapter mDbHelper;
     private TextView mSet1P1ResultString;
     private TextView mSet2P1ResultString;
@@ -86,7 +89,9 @@ public class MatchDisplay extends Activity {
 
         Bundle extras = this.getIntent().getExtras();
         mRowId = extras.getLong("com.vaugan.csf.match.rowid");
-        
+        mP1RowId = extras.getLong("com.vaugan.csf.match.p1rowid");
+        mP2RowId = extras.getLong("com.vaugan.csf.match.p2rowid");
+
         for (int i=0;i<MatchLogic.MAX_SETS_IN_MATCH;i++)
         {
         	aP1Sets[i] = new SetLogic(MatchDisplay.this);
@@ -105,6 +110,8 @@ public class MatchDisplay extends Activity {
         //##############################
         //#####    Match Fields    #####
         //##############################
+        
+        
         
         mSet1P1ResultString = (TextView)findViewById(R.id.set1P1ResultString);
         mSet2P1ResultString = (TextView)findViewById(R.id.set2P1ResultString);
@@ -541,6 +548,13 @@ public class MatchDisplay extends Activity {
     private void populateFields() {
         if (mRowId != null) {
             Cursor match = mDbHelper.fetchMatch(mRowId);
+            
+            PlayerDbAdapter playerDbHelper = new PlayerDbAdapter(this);
+            playerDbHelper.open();
+            
+            Cursor p1Cursor = playerDbHelper.fetchPlayer(mP1RowId);
+            Cursor p2Cursor = playerDbHelper.fetchPlayer(mP2RowId);
+            
             startManagingCursor(match);
             // mDateTimeText.setText(note.getString(
             // note.getColumnIndexOrThrow(MatchDbAdapter.KEY_DATETIME)));
@@ -549,10 +563,18 @@ public class MatchDisplay extends Activity {
             // mBestOfText.setText(note.getString(
             // note.getColumnIndexOrThrow(MatchDbAdapter.KEY_BEST_OF)));
             Log.v(TAG, "Player1="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
-            mP1Text.setText(match.getString(match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
-            mP2Text.setText(match.getString(match
-                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));
+            
+            
+//            mP1Text.setText(match.getString(match
+//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
+//            mP2Text.setText(match.getString(match
+//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));
+
+            
+            mP1Text.setText(p1Cursor.getString(p1Cursor
+                    .getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME)));
+            mP2Text.setText(p2Cursor.getString(p2Cursor
+                    .getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME)));
 
             //Set 1
             mSet1P1ResultString.setText(match.getString(match
