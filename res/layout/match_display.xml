@@ -9,30 +9,34 @@
         android:id="@+id/MatchDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.2" >
+        android:layout_weight="0.1" >
 
-        <ImageView
-            android:id="@+id/player1Image"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/a" />
+            android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/player1name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:longClickable="false"
-            android:text="Player 1" >
+            <ImageView
+                android:id="@+id/player1Image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:src="@drawable/a" />
 
-            <requestFocus android:layout_width="match_parent" >
+            <EditText
+                android:id="@+id/player1name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:text="Player 1"
+                android:textSize="30sp" />
 
-            </requestFocus>
-        </EditText>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,33 +54,33 @@
                 android:focusableInTouchMode="false"
                 android:longClickable="false"
                 android:text="0"
-                android:textSize="25sp" />
+                android:textSize="100sp" />
 
             <EditText
                 android:id="@+id/currentSetP1Score"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
+                android:layout_weight="0.35"
                 android:clickable="false"
                 android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:longClickable="false"
                 android:text="3"
-                android:textSize="25sp" />
+                android:textSize="50sp" />
 
             <EditText
                 android:id="@+id/currentSetP2Score"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
+                android:layout_weight="0.35"
                 android:clickable="false"
                 android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:longClickable="false"
                 android:text="3"
-                android:textSize="25sp" />
+                android:textSize="50sp" />
 
             <EditText
                 android:id="@+id/matchP2Score"
@@ -89,27 +93,39 @@
                 android:focusableInTouchMode="false"
                 android:longClickable="false"
                 android:text="2"
-                android:textSize="25sp" />
+                android:textSize="100sp" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/player2name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:clickable="false"
-            android:ems="10"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:longClickable="false"
-            android:text="Player 2" />
+            android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/player2Image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:src="@drawable/a" />
+            <ImageView
+                android:id="@+id/player2Image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:src="@drawable/a" />
+
+            <EditText
+                android:id="@+id/player2name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:text="Player 2"
+                android:textSize="30sp" >
+
+                <requestFocus />
+            </EditText>
+
+        </LinearLayout>
 
     </LinearLayout>
 
