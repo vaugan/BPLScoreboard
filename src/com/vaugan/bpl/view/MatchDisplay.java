@@ -2,7 +2,6 @@ package com.vaugan.bpl.view;
 
 import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.FrameCodeAPI;
-import com.vaugan.bpl.model.FrameCodeChooser;
 import com.vaugan.bpl.model.MatchDbAdapter;
 import com.vaugan.bpl.model.PlayerDbAdapter;
 import com.vaugan.bpl.model.SetLogic;
@@ -143,7 +142,7 @@ public class MatchDisplay extends Activity {
         gvS1P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 
-              Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+              Intent i = new Intent(MatchDisplay.this, FrameCodeSelector.class);
               i.putExtra("player", 1);
               i.putExtra("pos", position);
               i.putExtra("set", 0);
@@ -161,7 +160,7 @@ public class MatchDisplay extends Activity {
 
         gvS1P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+                Intent i = new Intent(MatchDisplay.this, FrameCodeSelector.class);
                 i.putExtra("player", 2);
                 i.putExtra("pos", position);
                 i.putExtra("set", 0);
@@ -182,7 +181,7 @@ public class MatchDisplay extends Activity {
         gvS2P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 
-              Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+              Intent i = new Intent(MatchDisplay.this, FrameCodeSelector.class);
               i.putExtra("player", 1);
               i.putExtra("pos", position);
               i.putExtra("set", 1);
@@ -200,7 +199,7 @@ public class MatchDisplay extends Activity {
 
         gvS2P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+                Intent i = new Intent(MatchDisplay.this, FrameCodeSelector.class);
                 i.putExtra("player", 2);
                 i.putExtra("pos", position);
                 i.putExtra("set", 1);
@@ -223,7 +222,7 @@ public class MatchDisplay extends Activity {
         gvS3P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 
-              Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+              Intent i = new Intent(MatchDisplay.this, FrameCodeSelector.class);
               i.putExtra("player", 1);
               i.putExtra("pos", position);
               i.putExtra("set", 2);
@@ -241,7 +240,7 @@ public class MatchDisplay extends Activity {
 
         gvS3P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent i = new Intent(MatchDisplay.this, FrameCodeChooser.class);
+                Intent i = new Intent(MatchDisplay.this, FrameCodeSelector.class);
                 i.putExtra("player", 2);
                 i.putExtra("pos", position);
                 i.putExtra("set", 2);

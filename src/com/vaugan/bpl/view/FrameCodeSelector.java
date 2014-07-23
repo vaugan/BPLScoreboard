@@ -1,9 +1,10 @@
-package com.vaugan.bpl.model;
+package com.vaugan.bpl.view;
 
 
 
 
 import com.vaugan.bpl.R;
+import com.vaugan.bpl.model.FrameCodeImageAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class FrameCodeChooser extends Activity {
+public class FrameCodeSelector extends Activity {
     /** Called when the activity is first created. */
     
     @Override
@@ -27,7 +28,7 @@ public class FrameCodeChooser extends Activity {
         final int set = extras.getInt("set");
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new FrameCodeImageAdapter(FrameCodeChooser.this));
+        gridview.setAdapter(new FrameCodeImageAdapter(FrameCodeSelector.this));
 
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
