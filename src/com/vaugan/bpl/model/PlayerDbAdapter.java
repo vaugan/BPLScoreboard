@@ -15,14 +15,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Simple notes database access helper class. Defines the basic CRUD operations
- * for the notepad example, and gives the ability to list all notes as well as
- * retrieve or modify a specific note.
- * 
- * This has been improved from the first version of this tutorial through the
- * addition of better error handling and also using returning a Cursor instead
- * of using a collection of inner classes (which is less scalable and not
- * recommended).
+ * Player database access helper class. Defines the basic CRUD operations
+ * for the google android notepad example, and gives the ability to list all players as well as
+ * retrieve or modify a specific player.
  */
 public class PlayerDbAdapter {
 
@@ -37,6 +32,7 @@ public class PlayerDbAdapter {
     /**
      * Database creation sql statement
      */
+// The player database is created already for now. In future this might change.    
 //    private static final String DATABASE_CREATE =
 //        "create table players (_id integer primary key autoincrement, "
 //        + "name text not null, picture text not null);";
@@ -110,12 +106,12 @@ public class PlayerDbAdapter {
 
 
     /**
-     * Create a new note using the title and body provided. If the note is
-     * successfully created return the new rowId for that note, otherwise return
+     * Create a new player using params provided. If the player is
+     * successfully created return the new rowId for that player, otherwise return
      * a -1 to indicate failure.
      * 
-     * @param title the title of the note
-     * @param body the body of the note
+     * @param name the name of the player
+     * @param picture the picture of the player
      * @return rowId or -1 if failed
      */
     public long createPlayer(String name, String picture) {
@@ -127,9 +123,9 @@ public class PlayerDbAdapter {
     }
 
     /**
-     * Delete the note with the given rowId
+     * Delete the player with the given rowId
      * 
-     * @param rowId id of note to delete
+     * @param rowId id of player to delete
      * @return true if deleted, false otherwise
      */
     public boolean deletePlayer(long rowId) {
@@ -138,9 +134,9 @@ public class PlayerDbAdapter {
     }
 
     /**
-     * Return a Cursor over the list of all notes in the database
+     * Return a Cursor over the list of all players in the database
      * 
-     * @return Cursor over all notes
+     * @return Cursor over all players
      */
     public Cursor fetchAllPlayers() {
 
@@ -149,11 +145,11 @@ public class PlayerDbAdapter {
     }
 
     /**
-     * Return a Cursor positioned at the note that matches the given rowId
+     * Return a Cursor positioned at the player that matches the given rowId
      * 
-     * @param rowId id of note to retrieve
-     * @return Cursor positioned to matching note, if found
-     * @throws SQLException if note could not be found/retrieved
+     * @param rowId id of player to retrieve
+     * @return Cursor positioned to matching player, if found
+     * @throws SQLException if player could not be found/retrieved
      */
     public Cursor fetchPlayer(long rowId) throws SQLException {
 
@@ -170,14 +166,13 @@ public class PlayerDbAdapter {
     }
 
     /**
-     * Update the note using the details provided. The note to be updated is
-     * specified using the rowId, and it is altered to use the title and body
-     * values passed in
+     * Update the player using the details provided. The player to be updated is
+     * specified using the rowId, and it is altered to use the values passed in
      * 
-     * @param rowId id of note to update
-     * @param title value to set note title to
-     * @param body value to set note body to
-     * @return true if the note was successfully updated, false otherwise
+     * @param rowId id of player to update
+     * @param name the name of the player
+     * @param picture the picture of the player
+     * @return true if the player was successfully updated, false otherwise
      */
     public boolean updatePlayer(long rowId, String name, String picture) {
         ContentValues args = new ContentValues();

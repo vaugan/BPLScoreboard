@@ -1,7 +1,6 @@
 package com.vaugan.bpl.view;
 
 import com.vaugan.bpl.R;
-import com.vaugan.bpl.model.ImageCursorAdapter;
 import com.vaugan.bpl.model.MatchDbAdapter;
 import com.vaugan.bpl.model.PlayerDbAdapter;
 

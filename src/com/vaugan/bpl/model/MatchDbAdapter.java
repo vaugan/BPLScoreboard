@@ -91,12 +91,15 @@ public class MatchDbAdapter {
 
 
     /**
-     * Create a new note using the title and body provided. If the note is
-     * successfully created return the new rowId for that note, otherwise return
+     * Create a new match using the player names and set score strings provided. If the match is
+     * successfully created return the new rowId for that match, otherwise return
      * a -1 to indicate failure.
      * 
-     * @param title the title of the note
-     * @param body the body of the note
+     * @param p1RowId - the rowid from the player database
+     * @param p2RowId - the rowid from the player database
+     * @param set1Result - the csf result code of player 1, set 1 as a string
+     * @param set2Result - the csf result code of player 1, set 2 as a string
+     * @param set3Result - the csf result code of player 1, set 3 as a string
      * @return rowId or -1 if failed
      */
     public long createMatch(long p1RowId, long p2RowId, String set1Result, String set2Result, String set3Result) {
@@ -112,9 +115,9 @@ public class MatchDbAdapter {
     }
 
     /**
-     * Delete the note with the given rowId
+     * Delete the match with the given rowId
      * 
-     * @param rowId id of note to delete
+     * @param rowId id of match to delete
      * @return true if deleted, false otherwise
      */
     public boolean deleteMatch(long rowId) {
@@ -123,7 +126,7 @@ public class MatchDbAdapter {
     }
 
     /**
-     * Return a Cursor over the list of all  in the database
+     * Return a Cursor over the list of all matches in the database
      * 
      * @return Cursor over all 
      */
@@ -133,11 +136,11 @@ public class MatchDbAdapter {
     } 
 
     /**
-     * Return a Cursor positioned at the note that matches the given rowId
+     * Return a Cursor positioned at the match that matches the given rowId
      * 
-     * @param rowId id of note to retrieve
-     * @return Cursor positioned to matching note, if found
-     * @throws SQLException if note could not be found/retrieved
+     * @param rowId id of match to retrieve
+     * @return Cursor positioned to matching match, if found
+     * @throws SQLException if match could not be found/retrieved
      */
     public Cursor fetchMatch(long rowId) throws SQLException {
 
@@ -155,14 +158,16 @@ public class MatchDbAdapter {
     }
 
     /**
-     * Update the note using the details provided. The note to be updated is
-     * specified using the rowId, and it is altered to use the title and body
-     * values passed in
+     * Update the match using the details provided. The match to be updated is
+     * specified using the rowId, and it is altered to use the values passed in
      * 
-     * @param rowId id of note to update
-     * @param title value to set note title to
-     * @param body value to set note body to
-     * @return true if the note was successfully updated, false otherwise
+     * @param rowId - id of match to update
+     * @param p1RowId - the rowid from the player database
+     * @param p2RowId - the rowid from the player database
+     * @param set1Result - the csf result code of player 1, set 1 as a string
+     * @param set2Result - the csf result code of player 1, set 2 as a string
+     * @param set3Result - the csf result code of player 1, set 3 as a string
+     * @return true if the match was successfully updated, false otherwise
      */
     public boolean updateMatch(long rowId, long p1, long p2, String set1Result, String set2Result, String set3Result) {
         ContentValues args = new ContentValues();
@@ -176,6 +181,16 @@ public class MatchDbAdapter {
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
+    /**
+     * Update the match results using the details provided. The match to be updated is
+     * specified using the rowId, and it is altered to use the values passed in
+     * 
+     * @param rowId - id of match to update
+     * @param set1Result - the csf result code of player 1, set 1 as a string
+     * @param set2Result - the csf result code of player 1, set 2 as a string
+     * @param set3Result - the csf result code of player 1, set 3 as a string
+     * @return true if the match was successfully updated, false otherwise
+     */
     public boolean updateMatchResult(long rowId, String set1Result, String set2Result, String set3Result) {
         ContentValues args = new ContentValues();
         args.put(KEY_SET1_RESULT, set1Result);

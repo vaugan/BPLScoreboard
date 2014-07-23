@@ -46,8 +46,8 @@ public class FrameCodeAPI {
     
     public static char getInverseCodeChar(char Code)
     {
-        int index = indexOfChar(Code, SetLogic.CSFCodes);
-        return SetLogic.CSFCodesInverse[index];
+        int index = indexOfChar(Code, IBPLConstants.CSFCodes);
+        return IBPLConstants.CSFCodesInverse[index];
     }
     
     
@@ -71,5 +71,5 @@ public class FrameCodeAPI {
 
         return -1;
     }
-
+    
 }

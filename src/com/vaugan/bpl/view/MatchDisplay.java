@@ -2,6 +2,7 @@ package com.vaugan.bpl.view;
 
 import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.FrameCodeAPI;
+import com.vaugan.bpl.model.IBPLConstants;
 import com.vaugan.bpl.model.MatchDbAdapter;
 import com.vaugan.bpl.model.PlayerDbAdapter;
 import com.vaugan.bpl.model.SetLogic;
@@ -50,10 +51,10 @@ public class MatchDisplay extends Activity {
 
     
     //Array of P1 and P2 sets
-    private SetLogic aP1Sets[] = new SetLogic[MatchLogic.MAX_SETS_IN_MATCH];
-    private SetLogic aP2Sets[] = new SetLogic[MatchLogic.MAX_SETS_IN_MATCH];
+    private SetLogic aP1Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
+    private SetLogic aP2Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
     
-    private View aSetsUI[] = new View[MatchLogic.MAX_SETS_IN_MATCH];
+    private View aSetsUI[] = new View[IBPLConstants.MAX_SETS_IN_MATCH];
     
 //    Match
     private EditText p1MatchScore;
@@ -95,7 +96,7 @@ public class MatchDisplay extends Activity {
         mP1RowId = extras.getLong("com.vaugan.csf.match.p1rowid");
         mP2RowId = extras.getLong("com.vaugan.csf.match.p2rowid");
 
-        for (int i=0;i<MatchLogic.MAX_SETS_IN_MATCH;i++)
+        for (int i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
         {
         	aP1Sets[i] = new SetLogic(MatchDisplay.this);
         	aP2Sets[i] = new SetLogic(MatchDisplay.this);
@@ -135,7 +136,7 @@ public class MatchDisplay extends Activity {
         //Player1 Scorecard       
         etS1P1Score  = (EditText) findViewById(R.id.set1Player1Score);
         gvS1P1FrameCodes = (GridView) findViewById(R.id.set1Player1FrameCodes);
-        gvS1P1FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
+        gvS1P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS1P1FrameCodes.setAdapter(aP1Sets[0]);
         ((SetLogic)gvS1P1FrameCodes.getAdapter()).resetScore();
         
@@ -154,7 +155,7 @@ public class MatchDisplay extends Activity {
         //Player2 Scorecard   
         etS1P2Score  = (EditText) findViewById(R.id.set1Player2Score);       
         gvS1P2FrameCodes = (GridView) findViewById(R.id.set1Player2FrameCodes);        
-        gvS1P2FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
+        gvS1P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS1P2FrameCodes.setAdapter(aP2Sets[0]);
         ((SetLogic)gvS1P2FrameCodes.getAdapter()).resetScore();
 
@@ -174,7 +175,7 @@ public class MatchDisplay extends Activity {
         //Player1      
         etS2P1Score  = (EditText) findViewById(R.id.set2Player1Score);
         gvS2P1FrameCodes = (GridView) findViewById(R.id.set2Player1FrameCodes);
-        gvS2P1FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
+        gvS2P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS2P1FrameCodes.setAdapter(aP1Sets[1]);
         ((SetLogic)gvS2P1FrameCodes.getAdapter()).resetScore();
         
@@ -193,7 +194,7 @@ public class MatchDisplay extends Activity {
         //Player2  
         etS2P2Score  = (EditText) findViewById(R.id.set2Player2Score);       
         gvS2P2FrameCodes = (GridView) findViewById(R.id.set2Player2FrameCodes);        
-        gvS2P2FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
+        gvS2P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS2P2FrameCodes.setAdapter(aP2Sets[1]);
         ((SetLogic)gvS2P2FrameCodes.getAdapter()).resetScore();
 
@@ -215,7 +216,7 @@ public class MatchDisplay extends Activity {
         //Player1 Scorecard       
         etS3P1Score  = (EditText) findViewById(R.id.set3Player1Score);
         gvS3P1FrameCodes = (GridView) findViewById(R.id.set3Player1FrameCodes);
-        gvS3P1FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
+        gvS3P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS3P1FrameCodes.setAdapter(aP1Sets[2]);
         ((SetLogic)gvS3P1FrameCodes.getAdapter()).resetScore();
         
@@ -234,7 +235,7 @@ public class MatchDisplay extends Activity {
         //Player2 Scorecard   
         etS3P2Score  = (EditText) findViewById(R.id.set3Player2Score);       
         gvS3P2FrameCodes = (GridView) findViewById(R.id.set3Player2FrameCodes);        
-        gvS3P2FrameCodes.setNumColumns(SetLogic.MAX_FRAMES_IN_SET);
+        gvS3P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS3P2FrameCodes.setAdapter(aP2Sets[2]);
         ((SetLogic)gvS3P2FrameCodes.getAdapter()).resetScore();
 
@@ -428,9 +429,9 @@ public class MatchDisplay extends Activity {
 		
 		switch (set) {
 		case 0:
-			if ((((SetLogic) gvS1P1FrameCodes.getAdapter()).getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)
+			if ((((SetLogic) gvS1P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 					|| (((SetLogic) gvS1P2FrameCodes.getAdapter())
-							.getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)) {
+							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
 				Log.v(TAG, "Set 1 is won by a player. Disabling input...");
 				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set1);
 				for (int i = 0; i < myLayout.getChildCount(); i++) {
@@ -454,9 +455,9 @@ public class MatchDisplay extends Activity {
 
 			break;
 		case 1:
-			if ((((SetLogic) gvS2P1FrameCodes.getAdapter()).getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)
+			if ((((SetLogic) gvS2P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 					|| (((SetLogic) gvS2P2FrameCodes.getAdapter())
-							.getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)) {
+							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
 				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set2);
 				for (int i = 0; i < myLayout.getChildCount(); i++) {
 					View view = myLayout.getChildAt(i);
@@ -480,9 +481,9 @@ public class MatchDisplay extends Activity {
 			break;
 		case 2:
 			// TODO: Check match score -could be be 2-0 sets, hence game over.
-			if ((((SetLogic) gvS3P1FrameCodes.getAdapter()).getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)
+			if ((((SetLogic) gvS3P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 					|| (((SetLogic) gvS3P2FrameCodes.getAdapter())
-							.getScoreInteger() == SetLogic.FRAMES_TO_WIN_SET)) {
+							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
 
 				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set3);
 				for (int i = 0; i < myLayout.getChildCount(); i++) {

@@ -10,16 +10,12 @@ import android.widget.ImageView;
 
 import com.vaugan.bpl.model.FrameCodeAPI;
 
-public class SetLogic extends BaseAdapter {
+public class SetLogic extends BaseAdapter{
     private Context mContext;
     private static final String TAG = "SetLogic";
-    
-//    public static final int MAX_SETS_IN_MATCH = 3;
-//    public static final int SETS_TO_WIN_MATCH = 2;
-    public static int MAX_FRAMES_IN_SET = 7;
-    public static final int FRAMES_TO_WIN_SET = 4;    
-    protected int mTotalScore = 0;
-
+    private int mTotalScore = 0;
+	private Integer[] mCurrentScore = { 0, 0, 0, 0, 0, 0, 0 };
+	
     public SetLogic(Context c) {
         mContext = c;
     }
@@ -28,7 +24,7 @@ public class SetLogic extends BaseAdapter {
     {
         String matchResultString = "";
         for (int i = 0; i < mCurrentScore.length; i++) {
-            matchResultString += CSFCodes[mCurrentScore[i]];
+            matchResultString += IBPLConstants.CSFCodes[mCurrentScore[i]];
         }
         return matchResultString;
     }
@@ -37,8 +33,7 @@ public class SetLogic extends BaseAdapter {
         
         Log.v(TAG, "updateCurrentScoreArray: resultString=" + scoreString);       
         for (int i = 0; i < mCurrentScore.length; i++) {
-            mCurrentScore[i] = FrameCodeAPI.indexOfChar (scoreString.charAt(i), CSFCodes);
-//            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]+"  scoreString.charAt(i)= "+ scoreString.charAt(i));   
+            mCurrentScore[i] = FrameCodeAPI.indexOfChar (scoreString.charAt(i), IBPLConstants.CSFCodes);
         }
     }
 
@@ -47,8 +42,6 @@ public class SetLogic extends BaseAdapter {
         String inverseResultString = "";
         Log.v(TAG, "getInverseScoreArray of " +scoreString);   
         for (int i = 0; i < scoreString.length(); i++) {
-//            Log.v(TAG, "scoreString[" + i +"] = " + scoreString.charAt(i));  
-//            Log.v(TAG, "FrameCodeAPI.getInverseCodeImage(scoreString.charAt(i)) = " + FrameCodeAPI.getInverseCodeChar(scoreString.charAt(i))); 
             inverseResultString += FrameCodeAPI.getInverseCodeChar(scoreString.charAt(i));
         }
         Log.v(TAG, "inverseResultString[" + inverseResultString);   
@@ -81,7 +74,6 @@ public class SetLogic extends BaseAdapter {
     public int getScoreInteger() {
         mTotalScore=0;
         for (int i = 0; i < mCurrentScore.length; i++) {
-//            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]);   
             switch (mCurrentScore[i])
             {
                 case 0: //intentional fall thru
@@ -97,7 +89,7 @@ public class SetLogic extends BaseAdapter {
     }
    
     public int getCount() {
-        return MAX_FRAMES_IN_SET;
+        return IBPLConstants.MAX_FRAMES_IN_SET;
     }
 
     public Object getItem(int position) {
@@ -139,42 +131,8 @@ public int isSetWon()
 {
 	//Calculate if a player won the set
 	
-	return ((this.getScoreInteger()<SetLogic.FRAMES_TO_WIN_SET)?0:1);
+	return ((this.getScoreInteger()<IBPLConstants.FRAMES_TO_WIN_SET)?0:1);
 }
 
-    // references to our images
-    private Integer[] mCurrentScore = {
-            0, 
-            1,
-            0, 
-            3,
-            4, 
-            5,
-            6,
-            };
-
-    static public char[] CSFCodes = {
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'Z',
-    'M'
-    };
-    
-    static public char[] CSFCodesInverse = {
-        'Z',
-        'E',
-        'D',
-        'C',
-        'B',
-        'G',
-        'F',
-        'A',
-        'M'
-        };
 }
 
