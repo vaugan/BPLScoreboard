@@ -39,7 +39,6 @@ public class FrameCodeSelector extends Activity {
                 resultIntent.putExtra("set", set);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
-//                Toast.makeText(FrameCodeChooser.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

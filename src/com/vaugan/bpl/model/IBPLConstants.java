@@ -9,4 +9,7 @@ public interface IBPLConstants {
 	public static final char[] CSFCodes = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'Z','M' };
 	public static final char[] CSFCodesInverse = { 'Z', 'E', 'D', 'C', 'B', 'G', 'F','A', 'M' };
 
+	public static final int SET_ONE = 0;
+	public static final int SET_TWO = 1;
+	public static final int SET_THREE = 2;
 }

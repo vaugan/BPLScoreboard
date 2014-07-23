@@ -8,38 +8,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CursorTreeAdapter;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.ResourceCursorAdapter;
 import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
-import android.widget.SimpleCursorTreeAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MatchCreate extends Activity {
     
     private static final String TAG = "MatchCreate";
-//    private EditText mDateTimeText;
-//    private EditText mVenueText;
-//    private EditText mBestOfText;
     private Long mP1RowId;
     private Long mP2RowId;
-    private EditText mSet1Result;
-//    private EditText mSet2Result;
-//    private EditText mSet3Result;
     private Long mRowId;
     private MatchDbAdapter mDbHelper;
     private PlayerDbAdapter playerDbHelper;
@@ -62,15 +46,9 @@ public class MatchCreate extends Activity {
 	        
 	
 	        setContentView(R.layout.match_create);
-//	        setContentView(R.layout.player_row);
 	        setTitle(R.string.create_match);
 
 	        fillData();
-
-//	        mDateTimeText = (EditText) findViewById(R.id.editDate);
-//	        mVenueText = (EditText)findViewById(R.id.editVenue);
-//	        mBestOfText = (EditText)findViewById(R.id.editMatchBestOf);
-	        //mResultText = (EditText)"incomplete";
 	
             Log.v(TAG,"mRowID____1="+mRowId);
 	        

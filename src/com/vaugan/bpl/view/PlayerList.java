@@ -32,7 +32,7 @@ public class PlayerList extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try{
-        setContentView(R.layout.player_list);
+        setContentView(R.layout.player_row);
         mDbHelper = new PlayerDbAdapter(this);
         mDbHelper.open();
         fillData();

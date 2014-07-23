@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 import com.vaugan.bpl.model.FrameCodeAPI;
 
+/**
+ * Class to handle all BPL set-related functionality.
+ */
 public class SetLogic extends BaseAdapter{
     private Context mContext;
     private static final String TAG = "SetLogic";
@@ -88,17 +91,17 @@ public class SetLogic extends BaseAdapter{
         return mTotalScore;
     }
    
-    public int getCount() {
-        return IBPLConstants.MAX_FRAMES_IN_SET;
-    }
+	public int getCount() {
+		return IBPLConstants.MAX_FRAMES_IN_SET;
+	}
 
-    public Object getItem(int position) {
-        return null;
-    }
+	public Object getItem(int position) {
+		return null;
+	}
 
-    public long getItemId(int position) {
-        return 0;
-    }
+	public long getItemId(int position) {
+		return 0;
+	}
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -118,21 +121,19 @@ public class SetLogic extends BaseAdapter{
         return imageView;
     }
 
-public void resetScore()
-{
-    mTotalScore=0;
-    for (int i = 0; i < mCurrentScore.length; i++) {
-        mCurrentScore[i] = 8;
-    }
-}
-    
+	public void resetScore() {
+		mTotalScore = 0;
+		for (int i = 0; i < mCurrentScore.length; i++) {
+			mCurrentScore[i] = 8;
+		}
+	} 
 
-public int isSetWon()
-{
-	//Calculate if a player won the set
-	
-	return ((this.getScoreInteger()<IBPLConstants.FRAMES_TO_WIN_SET)?0:1);
-}
+	public int isSetWon() {
+		// Calculate if a player won the set
+
+		return ((this.getScoreInteger() < IBPLConstants.FRAMES_TO_WIN_SET) ? 0
+				: 1);
+	}
 
 }
 

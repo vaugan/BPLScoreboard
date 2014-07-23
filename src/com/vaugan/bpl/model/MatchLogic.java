@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 import com.vaugan.bpl.model.FrameCodeAPI;
 
+/**
+ * Class to handle all BPL match-related functionality.
+ */
 public class MatchLogic {
     private Context mContext;
     private static final String TAG = "MatchLogic";

@@ -12,36 +12,25 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewDebug.IntToString;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MatchDisplay extends Activity {
 
     private static final String TAG = "MatchDisplay";
-    private EditText mTitleText;
-    private EditText mBodyText;
-    private EditText mCellText;
     private Long mRowId;
     private Long mP1RowId;
     private Long mP2RowId;
     private MatchDbAdapter mDbHelper;
-//    private TextView mSet1P1ResultString;
-//    private TextView mSet2P1ResultString;
-//    private TextView mSet3P1ResultString;
     private EditText mP1Text;
     private EditText mP2Text;
     
@@ -114,12 +103,6 @@ public class MatchDisplay extends Activity {
         //##############################
         //#####    Match Fields    #####
         //##############################
-        
-        
-        
-//        mSet1P1ResultString = (TextView)findViewById(R.id.set1P1ResultString);
-//        mSet2P1ResultString = (TextView)findViewById(R.id.set2P1ResultString);
-//        mSet3P1ResultString = (TextView)findViewById(R.id.set3P1ResultString);
         mP1Text = (EditText) findViewById(R.id.player1name);
         mP2Text = (EditText) findViewById(R.id.player2name);
         mP1Image = (ImageView) findViewById(R.id.player1Image);
@@ -248,25 +231,8 @@ public class MatchDisplay extends Activity {
                 startActivityForResult(i, ACTIVITY_FRAME_IMAGE_SELECTOR);                   
             }
         });
-        
-        
-//        if (mRowId != null) {
-//            Cursor temp_match = mDbHelper.fetchMatch(mRowId);
-//            startManagingCursor(temp_match);
-//            
-//            ((SetLogic)gvS1P1FrameCodes.getAdapter()).updateCurrentScoreArray(temp_match.getString(temp_match
-//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));       
-//            String inverseResultString = SetLogic.getInverseScoreArray(temp_match.getString(temp_match
-//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));
-//            ((SetLogic)gvS1P2FrameCodes.getAdapter()).updateCurrentScoreArray(inverseResultString);        
-//
-//
-//            temp_match.close();
-//        }
 
         populateFields() ;
-
-        
     }
     
     @Override
@@ -281,9 +247,6 @@ public class MatchDisplay extends Activity {
 	    int pos = extras.getInt("pos");
 	    int set = extras.getInt("set");
 	
-	//    int imageid = extras.getInt("image_id");
-	//   ImageView  Image_A= (ImageView) findViewById(imageid);
-	//   Drawable image = Image_A.getDrawable();
 	    Log.v(TAG, "Return this value from Frame Selector dialog"+extras.toString());
 	    
 	    switch(requestCode) {
@@ -303,7 +266,7 @@ public class MatchDisplay extends Activity {
 	        }
 	            
 			switch (set){
-			case 0:
+			case IBPLConstants.SET_ONE:
 			    //Update P1 score
 			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);
 			    p1SetScore=((SetLogic)gvS1P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);
@@ -312,7 +275,6 @@ public class MatchDisplay extends Activity {
 			    etS1P1Score.setText(Integer.toString(p1SetScore));
 			
 			    Log.v(TAG, "S1P1ResultString=" + ((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());
-//			    mSet1P1ResultString.setText(((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
 			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
@@ -321,16 +283,14 @@ public class MatchDisplay extends Activity {
 			    ((SetLogic)gvS1P2FrameCodes.getAdapter()).notifyDataSetChanged();
 			    etS1P2Score.setText(Integer.toString(p2SetScore));
 				break;
-			case 1:
+			case IBPLConstants.SET_TWO:
 			    //Update P1 score
 			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);
 			    p1SetScore=((SetLogic)gvS2P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);
 			    Log.v(TAG, "mS2P1Score=" + p1SetScore);
 			    ((SetLogic)gvS2P1FrameCodes.getAdapter()).notifyDataSetChanged();
 			    etS2P1Score.setText(Integer.toString(p1SetScore));
-			
 			    Log.v(TAG, "S2P1ResultString=" + ((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());
-//			    mSet2P1ResultString.setText(((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
 			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
@@ -339,16 +299,15 @@ public class MatchDisplay extends Activity {
 			    ((SetLogic)gvS2P2FrameCodes.getAdapter()).notifyDataSetChanged();
 			    etS2P2Score.setText(Integer.toString(p2SetScore));
 				break;
-			case 2:
+				
+			case IBPLConstants.SET_THREE:
 			    //Update P1 score
 			    Log.v(TAG, "Returned from frameselector activity! p1_icon_index=" + p1_icon_index);
 			    p1SetScore=((SetLogic)gvS3P1FrameCodes.getAdapter()).updateScore(pos, p1_icon_index);
 			    Log.v(TAG, "mS3P1Score=" + p1SetScore);
 			    ((SetLogic)gvS3P1FrameCodes.getAdapter()).notifyDataSetChanged();
 			    etS3P1Score.setText(Integer.toString(p1SetScore));
-			
 			    Log.v(TAG, "S3P1ResultString=" + ((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());
-//			    mSet3P1ResultString.setText(((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreString());
 			
 			    //Update P2 score
 			    Log.v(TAG, "Returned from frameselector activity! p2_icon_index=" + p2_icon_index);
@@ -401,34 +360,8 @@ public class MatchDisplay extends Activity {
 
 	private void updateSetVisibility(int set) {
 
-//		if ((aP1Sets[set].isSetWon() > 0) || (aP2Sets[set].isSetWon() > 0)) {
-//			Log.v(TAG, "Set[" + set + "]is won by a player. Disabling input...");
-//			
-//			for (int i = 0; i < ((LinearLayout)aSetsUI[set]).getChildCount(); i++) {
-//				View view = aSetsUI[set].getChildAt(i);
-//				view.setEnabled(false); 
-//			}
-//
-//			aSetsUI[set].setOnClickListener(new OnClickListener() {
-//
-//				@Override
-//				public void onClick(View arg0) {
-//					Toast.makeText(getApplicationContext(), "This set is over",
-//							Toast.LENGTH_SHORT).show();
-//
-//				}
-//			});
-//
-//			//Enable next set
-//			if (set < MatchLogic.MAX_SETS_IN_MATCH)
-//			{
-//				aSetsUI[set+1].setVisibility(View.VISIBLE);
-//			}
-//		}
-		
-		
 		switch (set) {
-		case 0:
+		case IBPLConstants.SET_ONE:
 			if ((((SetLogic) gvS1P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 					|| (((SetLogic) gvS1P2FrameCodes.getAdapter())
 							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
@@ -454,7 +387,7 @@ public class MatchDisplay extends Activity {
 			}
 
 			break;
-		case 1:
+		case IBPLConstants.SET_TWO:
 			if ((((SetLogic) gvS2P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 					|| (((SetLogic) gvS2P2FrameCodes.getAdapter())
 							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
@@ -479,7 +412,7 @@ public class MatchDisplay extends Activity {
 			}
 
 			break;
-		case 2:
+		case IBPLConstants.SET_THREE:
 			// TODO: Check match score -could be be 2-0 sets, hence game over.
 			if ((((SetLogic) gvS3P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 					|| (((SetLogic) gvS3P2FrameCodes.getAdapter())
@@ -555,6 +488,7 @@ public class MatchDisplay extends Activity {
         if (mRowId != null) {
             Cursor match = mDbHelper.fetchMatch(mRowId);
             
+            //Populate player name and picture
             PlayerDbAdapter playerDbHelper = new PlayerDbAdapter(this);
             playerDbHelper.open();
             
@@ -562,20 +496,8 @@ public class MatchDisplay extends Activity {
             Cursor p2Cursor = playerDbHelper.fetchPlayer(mP2RowId);
             
             startManagingCursor(match);
-            // mDateTimeText.setText(note.getString(
-            // note.getColumnIndexOrThrow(MatchDbAdapter.KEY_DATETIME)));
-            // mVenueText.setText(note.getString(
-            // note.getColumnIndexOrThrow(MatchDbAdapter.KEY_VENUE)));
-            // mBestOfText.setText(note.getString(
-            // note.getColumnIndexOrThrow(MatchDbAdapter.KEY_BEST_OF)));
             Log.v(TAG, "Player1="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
             
-            
-//            mP1Text.setText(match.getString(match
-//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
-//            mP2Text.setText(match.getString(match
-//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));
-
             
             mP1Text.setText(p1Cursor.getString(p1Cursor
                     .getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME)));
@@ -590,10 +512,7 @@ public class MatchDisplay extends Activity {
             bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             mP2Image.setImageBitmap(bmp);
 
-//            //Set 1
-//            mSet1P1ResultString.setText(match.getString(match
-//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));   
-
+            //Set 1
             ((SetLogic)gvS1P1FrameCodes.getAdapter()).notifyDataSetChanged();
             int score=((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreInteger();    
             etS1P1Score.setText(Integer.toString(score));
@@ -602,9 +521,6 @@ public class MatchDisplay extends Activity {
             etS1P2Score.setText(Integer.toString(score));
 
             //Set 2
-//            mSet2P1ResultString.setText(match.getString(match
-//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET2_RESULT)));   
-
             ((SetLogic)gvS2P1FrameCodes.getAdapter()).notifyDataSetChanged();
              score=((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreInteger();    
             etS2P1Score.setText(Integer.toString(score));
@@ -613,9 +529,6 @@ public class MatchDisplay extends Activity {
             etS2P2Score.setText(Integer.toString(score));
 
             //Set 3
-//            mSet3P1ResultString.setText(match.getString(match
-//                    .getColumnIndexOrThrow(MatchDbAdapter.KEY_SET3_RESULT)));   
-
             ((SetLogic)gvS3P1FrameCodes.getAdapter()).notifyDataSetChanged();
              score=((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreInteger();    
             etS3P1Score.setText(Integer.toString(score));

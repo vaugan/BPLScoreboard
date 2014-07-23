@@ -49,7 +49,6 @@ public class MainMenu extends Activity {
                 Intent i = new Intent(MainMenu.this, MatchList.class);
                 startActivityForResult(i, ACTIVITY_MATCH_LIST);	        	
 //	            setResult(RESULT_OK);
-//	            Toast.makeText(MainMenu.this, "tbd - view stats activity", Toast.LENGTH_SHORT).show();
 	            //finish();
 	        }
         });
@@ -61,7 +60,6 @@ public class MainMenu extends Activity {
                 setResult(RESULT_OK);
                 Intent i = new Intent(MainMenu.this, PlayerList.class);
                 startActivityForResult(i, ACTIVITY_PLAYER_DISPLAY);                
-                //Toast.makeText(MainMenu.this, "tbd - view players activity", Toast.LENGTH_SHORT).show();
                 //finish();
             }
 
