@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CSF Match</string>
+    <string name="app_name">BPL Scoreboard</string>
     <string name="no_notes">No entries in database</string>
     <string name="menu_insert">Add Player</string>
     <string name="menu_delete_match">Delete Match</string>

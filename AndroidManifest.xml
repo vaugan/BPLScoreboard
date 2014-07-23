@@ -6,7 +6,7 @@
 
     <application
         android:enabled="true"
-        android:label="CSFMatch" >
+        android:label="BPL Scoreboard" >
         <activity android:name="com.vaugan.bpl.view.MainMenu" >
 			<intent-filter>
 			<action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
         <activity android:name="com.vaugan.bpl.view.PlayerList" >
         </activity>
         <activity
-            android:name="com.vaugan.bpl.model.FrameCodeChooser"
+            android:name="com.vaugan.bpl.view.FrameCodeSelector"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>
