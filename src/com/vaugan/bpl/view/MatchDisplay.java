@@ -33,6 +33,7 @@ public class MatchDisplay extends Activity {
     private Long mP1RowId;
     private Long mP2RowId;
     private MatchDbAdapter mDbHelper;
+	private PlayerDbAdapter playerDbHelper;    
     private EditText mP1Text;
     private EditText mP2Text;
     
@@ -74,6 +75,7 @@ public class MatchDisplay extends Activity {
     
 	private ImageView mP1Image;
 	private ImageView mP2Image;
+
     
     protected static final int  ACTIVITY_FRAME_IMAGE_SELECTOR = 5;
     
@@ -83,6 +85,10 @@ public class MatchDisplay extends Activity {
         mDbHelper = new MatchDbAdapter(this);
         mDbHelper.open();
 
+        //Populate player name and picture
+        playerDbHelper = new PlayerDbAdapter(this);
+        playerDbHelper.open();
+        
         Bundle extras = this.getIntent().getExtras();
         mRowId = extras.getLong("com.vaugan.csf.match.rowid");
         mP1RowId = extras.getLong("com.vaugan.csf.match.p1rowid");
@@ -366,6 +372,8 @@ public class MatchDisplay extends Activity {
 
 	private void updateSetVisibility(int set) {
 
+		//TODO: Enumerate these sets or create a fragment for sets to make this code more efficient
+		
 		switch (set) {
 		case IBPLConstants.SET_ONE:
 			if ((((SetLogic) gvS1P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
@@ -390,6 +398,10 @@ public class MatchDisplay extends Activity {
 				});
 
 				findViewById(R.id.Set2).setVisibility(View.VISIBLE);
+				
+				//Reset the current set scoreboard
+				p1SetScore=0;
+				p2SetScore=0;
 			}
 
 			break;
@@ -413,13 +425,22 @@ public class MatchDisplay extends Activity {
 
 					}
 				});
-				findViewById(R.id.Set3).setVisibility(View.VISIBLE);
 				Log.v(TAG, "Set 2 is won by a player. Disabling input...");
+				
+				if ((MatchLogic.getMatchScore(aP1Sets) == 2)
+						|| (MatchLogic.getMatchScore(aP1Sets) == 2)) {
+
+					// match is over
+				} else {
+					findViewById(R.id.Set3).setVisibility(View.VISIBLE);
+					// Reset the current set scoreboard
+					p1SetScore = 0;
+					p2SetScore = 0;
+				}
 			}
 
 			break;
 		case IBPLConstants.SET_THREE:
-			// TODO: Check match score -could be be 2-0 sets, hence game over.
 			if ((((SetLogic) gvS3P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 					|| (((SetLogic) gvS3P2FrameCodes.getAdapter())
 							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
@@ -494,9 +515,6 @@ public class MatchDisplay extends Activity {
         if (mRowId != null) {
             Cursor match = mDbHelper.fetchMatch(mRowId);
             
-            //Populate player name and picture
-            PlayerDbAdapter playerDbHelper = new PlayerDbAdapter(this);
-            playerDbHelper.open();
             
             Cursor p1Cursor = playerDbHelper.fetchPlayer(mP1RowId);
             Cursor p2Cursor = playerDbHelper.fetchPlayer(mP2RowId);
