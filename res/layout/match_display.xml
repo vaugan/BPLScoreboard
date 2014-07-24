@@ -41,59 +41,90 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.2" >
+            android:layout_weight="0.15" >
 
-            <EditText
-                android:id="@+id/matchP1Score"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:clickable="false"
-                android:ems="10"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:longClickable="false"
-                android:text="0"
-                android:textSize="100sp" />
-
-            <EditText
+            <TextView
                 android:id="@+id/currentSetP1Score"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.35"
+                android:layout_weight="0.4"
+                android:background="@color/blue"
                 android:clickable="false"
                 android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:gravity="top|center"
                 android:longClickable="false"
-                android:text="3"
-                android:textSize="50sp" />
+                android:text="0"
+                android:textSize="120sp" />
 
-            <EditText
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.15"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2" >
+
+                    <TextView
+                        android:id="@+id/matchP1Score"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:background="@color/blue"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center"
+                        android:longClickable="false"
+                        android:text="0"
+                        android:textSize="50sp" />
+
+                    <TextView
+                        android:id="@+id/matchP2Score"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:background="@color/pink"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center"
+                        android:longClickable="false"
+                        android:text="0"
+                        android:textSize="50sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/editText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:ems="10" />
+
+            </LinearLayout>
+
+            <TextView
                 android:id="@+id/currentSetP2Score"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.35"
+                android:layout_weight="0.4"
+                android:background="@color/pink"
                 android:clickable="false"
                 android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:gravity="center|top"
                 android:longClickable="false"
-                android:text="3"
-                android:textSize="50sp" />
+                android:text="0"
+                android:textSize="120sp" />
 
-            <EditText
-                android:id="@+id/matchP2Score"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:clickable="false"
-                android:ems="10"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:longClickable="false"
-                android:text="2"
-                android:textSize="100sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -147,7 +178,7 @@
 
         </GridView>
 
-        <EditText
+        <TextView
             android:id="@+id/set1Player1Score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -157,11 +188,12 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="0"
             android:textSize="25sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/editText1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -171,10 +203,11 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="Set 1" />
 
-        <EditText
+        <TextView
             android:id="@+id/set1Player2Score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -184,6 +217,7 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="0"
             android:textSize="25sp" />
@@ -219,7 +253,7 @@
 
         </GridView>
 
-        <EditText
+        <TextView
             android:id="@+id/set2Player1Score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -229,11 +263,12 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="0"
             android:textSize="25sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/EditText02"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -243,10 +278,11 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="Set 2" />
 
-        <EditText
+        <TextView
             android:id="@+id/set2Player2Score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -256,6 +292,7 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="0"
             android:textSize="25sp" />
@@ -289,7 +326,7 @@
 
         </GridView>
 
-        <EditText
+        <TextView
             android:id="@+id/set3Player1Score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -298,11 +335,12 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="0"
             android:textSize="25sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/EditText05"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -311,10 +349,11 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="Set 3" />
 
-        <EditText
+        <TextView
             android:id="@+id/set3Player2Score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -323,6 +362,7 @@
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:gravity="center"
             android:longClickable="false"
             android:text="0"
             android:textSize="25sp" />

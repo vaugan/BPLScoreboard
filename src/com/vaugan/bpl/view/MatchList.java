@@ -21,7 +21,7 @@ public class MatchList extends ListActivity {
     private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
     private static final int ACTIVITY_MAIN=2;
-
+    protected static final int ACTIVITY_MATCH_DISPLAY = 0;
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
 
@@ -106,9 +106,19 @@ public class MatchList extends ListActivity {
         
         Log.v(TAG, "id="+id);
         
+        Cursor match = mDbHelper.fetchMatch(id);
+        
+        Log.v(TAG, "Player1="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
+
+        Long mP1RowId = (long) match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1);
+        Long mP2RowId = (long) match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1);
+        i.putExtra("com.vaugan.csf.match.rowid", id); 
+        i.putExtra("com.vaugan.csf.match.p1rowid", mP1RowId); 
+        i.putExtra("com.vaugan.csf.match.p2rowid", mP2RowId); 
+        
         i.putExtra("com.vaugan.csf.match.rowid", id); 
        // i.putExtra(MatchDbAdapter.KEY_ROWID, id);
-        startActivityForResult(i, ACTIVITY_EDIT);
+        startActivityForResult(i, ACTIVITY_MATCH_DISPLAY);
     }
 
     @Override

@@ -16,11 +16,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -46,29 +48,30 @@ public class MatchDisplay extends Activity {
     private View aSetsUI[] = new View[IBPLConstants.MAX_SETS_IN_MATCH];
     
 //    Match
-    private EditText p1MatchScore;
-    private EditText p2MatchScore;
-    private EditText p1CurrentSetScore;
-    private EditText p2CurrentSetScore;
+    private TextView p1MatchScore;
+    private TextView p2MatchScore;
+    private TextView p1CurrentSetScore;
+    private TextView p2CurrentSetScore;
     
     
     //Set1
     private GridView gvS1P1FrameCodes;
     private GridView gvS1P2FrameCodes;
-    private EditText etS1P1Score;
-    private EditText etS1P2Score;
+    private TextView etS1P1Score;
+    private TextView etS1P2Score;
 
     //Set2
     private GridView gvS2P1FrameCodes;
     private GridView gvS2P2FrameCodes;
-    private EditText etS2P1Score;
-    private EditText etS2P2Score;
+    private TextView etS2P1Score;
+    private TextView etS2P2Score;
 
     //Set3
     private GridView gvS3P1FrameCodes;
     private GridView gvS3P2FrameCodes;
-    private EditText etS3P1Score;
-    private EditText etS3P2Score;
+    private TextView etS3P1Score;
+    private TextView etS3P2Score;
+    
 	private ImageView mP1Image;
 	private ImageView mP2Image;
     
@@ -107,17 +110,17 @@ public class MatchDisplay extends Activity {
         mP2Text = (EditText) findViewById(R.id.player2name);
         mP1Image = (ImageView) findViewById(R.id.player1Image);
         mP2Image = (ImageView) findViewById(R.id.player2Image);
-        p1MatchScore = (EditText) findViewById(R.id.matchP1Score);
-        p2MatchScore = (EditText) findViewById(R.id.matchP2Score);
-        p1CurrentSetScore = (EditText) findViewById(R.id.currentSetP1Score);
-        p2CurrentSetScore = (EditText) findViewById(R.id.currentSetP2Score);
+        p1MatchScore = (TextView) findViewById(R.id.matchP1Score);
+        p2MatchScore = (TextView) findViewById(R.id.matchP2Score);
+        p1CurrentSetScore = (TextView) findViewById(R.id.currentSetP1Score);
+        p2CurrentSetScore = (TextView) findViewById(R.id.currentSetP2Score);
         
 
         //##############################
         //#####      Set 1         #####
         //##############################
         //Player1 Scorecard       
-        etS1P1Score  = (EditText) findViewById(R.id.set1Player1Score);
+        etS1P1Score  = (TextView) findViewById(R.id.set1Player1Score);
         gvS1P1FrameCodes = (GridView) findViewById(R.id.set1Player1FrameCodes);
         gvS1P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS1P1FrameCodes.setAdapter(aP1Sets[0]);
@@ -136,7 +139,7 @@ public class MatchDisplay extends Activity {
         
         
         //Player2 Scorecard   
-        etS1P2Score  = (EditText) findViewById(R.id.set1Player2Score);       
+        etS1P2Score  = (TextView) findViewById(R.id.set1Player2Score);       
         gvS1P2FrameCodes = (GridView) findViewById(R.id.set1Player2FrameCodes);        
         gvS1P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS1P2FrameCodes.setAdapter(aP2Sets[0]);
@@ -156,7 +159,7 @@ public class MatchDisplay extends Activity {
         //#####      Set 2         #####
         //##############################
         //Player1      
-        etS2P1Score  = (EditText) findViewById(R.id.set2Player1Score);
+        etS2P1Score  = (TextView) findViewById(R.id.set2Player1Score);
         gvS2P1FrameCodes = (GridView) findViewById(R.id.set2Player1FrameCodes);
         gvS2P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS2P1FrameCodes.setAdapter(aP1Sets[1]);
@@ -175,7 +178,7 @@ public class MatchDisplay extends Activity {
         
         
         //Player2  
-        etS2P2Score  = (EditText) findViewById(R.id.set2Player2Score);       
+        etS2P2Score  = (TextView) findViewById(R.id.set2Player2Score);       
         gvS2P2FrameCodes = (GridView) findViewById(R.id.set2Player2FrameCodes);        
         gvS2P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS2P2FrameCodes.setAdapter(aP2Sets[1]);
@@ -197,7 +200,7 @@ public class MatchDisplay extends Activity {
         //#####      Set 3         #####
         //##############################
         //Player1 Scorecard       
-        etS3P1Score  = (EditText) findViewById(R.id.set3Player1Score);
+        etS3P1Score  = (TextView) findViewById(R.id.set3Player1Score);
         gvS3P1FrameCodes = (GridView) findViewById(R.id.set3Player1FrameCodes);
         gvS3P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS3P1FrameCodes.setAdapter(aP1Sets[2]);
@@ -216,7 +219,7 @@ public class MatchDisplay extends Activity {
         
         
         //Player2 Scorecard   
-        etS3P2Score  = (EditText) findViewById(R.id.set3Player2Score);       
+        etS3P2Score  = (TextView) findViewById(R.id.set3Player2Score);       
         gvS3P2FrameCodes = (GridView) findViewById(R.id.set3Player2FrameCodes);        
         gvS3P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS3P2FrameCodes.setAdapter(aP2Sets[2]);
@@ -352,6 +355,9 @@ public class MatchDisplay extends Activity {
 
 		p1CurrentSetScore.setText(Integer.toString(p1SetScore));
 		p2CurrentSetScore.setText(Integer.toString(p2SetScore));
+
+		p1CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
+		p2CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
 
 		p1MatchScore.setText(Integer.toString(MatchLogic.getMatchScore(aP1Sets)));
 		p2MatchScore.setText(Integer.toString(MatchLogic.getMatchScore(aP2Sets)));
