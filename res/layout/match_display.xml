@@ -59,9 +59,9 @@
                 android:textSize="120sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.15"
+                android:layout_weight="0.4"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -102,11 +102,13 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/editText2"
+                    android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="top|center"
                     android:layout_weight="0.8"
-                    android:ems="10" />
+                    android:text="Sets"
+                    android:textAllCaps="false" />
 
             </LinearLayout>
 
