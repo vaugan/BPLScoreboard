@@ -560,7 +560,7 @@ public class MatchDisplay extends Activity {
             score=((SetLogic)gvS3P2FrameCodes.getAdapter()).getScoreInteger();    
             etS3P2Score.setText(Integer.toString(score));
 
-            match.close();
+//            match.close();
         }
     }
 
