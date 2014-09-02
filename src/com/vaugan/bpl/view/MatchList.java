@@ -43,6 +43,7 @@ public class MatchList extends ListActivity {
 
     private void fillData() {
         Cursor matchesCursor = mDbHelper.fetchAllMatches();
+        matchesCursor.moveToFirst();
         startManagingCursor(matchesCursor);
 
         // Create an array to specify the fields we want to display in the list (only TITLE)
@@ -111,12 +112,12 @@ public class MatchList extends ListActivity {
         Log.v(TAG, "Player1="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
 
         Long mP1RowId = (long) match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1);
-        Long mP2RowId = (long) match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1);
+        Long mP2RowId = (long) match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P2);
         i.putExtra("com.vaugan.csf.match.rowid", id); 
         i.putExtra("com.vaugan.csf.match.p1rowid", mP1RowId); 
         i.putExtra("com.vaugan.csf.match.p2rowid", mP2RowId); 
         
-        i.putExtra("com.vaugan.csf.match.rowid", id); 
+//        i.putExtra("com.vaugan.csf.match.rowid", id); 
        // i.putExtra(MatchDbAdapter.KEY_ROWID, id);
         startActivityForResult(i, ACTIVITY_MATCH_DISPLAY);
     }
