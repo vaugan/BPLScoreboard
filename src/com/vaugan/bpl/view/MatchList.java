@@ -2,6 +2,8 @@ package com.vaugan.bpl.view;
 
 import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.MatchDbAdapter;
+import com.vaugan.bpl.model.PlayerDbAdapter;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -42,10 +44,16 @@ public class MatchList extends ListActivity {
     }
 
     private void fillData() {
+    	
+    	
+
+    	
+    	
         Cursor matchesCursor = mDbHelper.fetchAllMatches();
         matchesCursor.moveToFirst();
         startManagingCursor(matchesCursor);
 
+        
         // Create an array to specify the fields we want to display in the list (only TITLE)
         String[] from = new String[]{MatchDbAdapter.KEY_P1, MatchDbAdapter.KEY_P2};
 
@@ -110,9 +118,10 @@ public class MatchList extends ListActivity {
         Cursor match = mDbHelper.fetchMatch(id);
         
         Log.v(TAG, "Player1="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
+        Log.v(TAG, "Player2="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));
 
-        Long mP1RowId = (long) match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1);
-        Long mP2RowId = (long) match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P2);
+        Long mP1RowId = match.getLong(match.getColumnIndex(MatchDbAdapter.KEY_P1));;
+        Long mP2RowId = match.getLong(match.getColumnIndex(MatchDbAdapter.KEY_P2));;
         i.putExtra("com.vaugan.csf.match.rowid", id); 
         i.putExtra("com.vaugan.csf.match.p1rowid", mP1RowId); 
         i.putExtra("com.vaugan.csf.match.p2rowid", mP2RowId); 
