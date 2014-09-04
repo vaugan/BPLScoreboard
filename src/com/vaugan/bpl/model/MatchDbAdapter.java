@@ -133,6 +133,7 @@ public class MatchDbAdapter {
     public Cursor fetchAllMatches() {
 
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, null, null, null, null, null);
+    	
     } 
 
     /**
