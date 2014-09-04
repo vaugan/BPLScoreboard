@@ -59,7 +59,7 @@ public class PlayerList extends ListActivity {
         String[] from = new String[]{PlayerDbAdapter.KEY_NAME, PlayerDbAdapter.KEY_PICTURE};
 
         // and an array of the fields we want to bind those fields to (in this case just text1)
-        int[] to = new int[]{R.id.firstName, R.id.lastName, R.id.cell};
+        int[] to = new int[]{R.id.firstName};
 
         // Now create a simple cursor adapter and set it to display
         SimpleCursorAdapter notes = 
