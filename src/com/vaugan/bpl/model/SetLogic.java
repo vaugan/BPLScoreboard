@@ -16,79 +16,66 @@ import com.vaugan.bpl.model.FrameCodeAPI;
 public class SetLogic extends BaseAdapter{
     private Context mContext;
     private static final String TAG = "SetLogic";
-    private int mTotalScore = 0;
-	private Integer[] mCurrentScore = { 0, 0, 0, 0, 0, 0, 0 };
+    private int setScore = 0;
+	private Integer[] setScoreIntegerArray = { 0, 0, 0, 0, 0, 0, 0 };
 	
     public SetLogic(Context c) {
         mContext = c;
     }
     
-    public String getScoreString()
-    {
-        String matchResultString = "";
-        for (int i = 0; i < mCurrentScore.length; i++) {
-            matchResultString += IBPLConstants.CSFCodes[mCurrentScore[i]];
-        }
-        return matchResultString;
+    public String getSetScoreString() {
+
+    	return FrameCodeAPI.getScoreString(setScoreIntegerArray);
     }
+
     
     public void updateCurrentScoreArray(String scoreString) {
         
         Log.v(TAG, "updateCurrentScoreArray: resultString=" + scoreString);       
-        for (int i = 0; i < mCurrentScore.length; i++) {
-            mCurrentScore[i] = FrameCodeAPI.indexOfChar (scoreString.charAt(i), IBPLConstants.CSFCodes);
+        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+            setScoreIntegerArray[i] = FrameCodeAPI.indexOfChar (scoreString.charAt(i), IBPLConstants.CSFCodes);
         }
     }
 
-    public static String getInverseScoreArray(String scoreString) {
-        
-        String inverseResultString = "";
-        Log.v(TAG, "getInverseScoreArray of " +scoreString);   
-        for (int i = 0; i < scoreString.length(); i++) {
-            inverseResultString += FrameCodeAPI.getInverseCodeChar(scoreString.charAt(i));
-        }
-        Log.v(TAG, "inverseResultString[" + inverseResultString);   
-        return inverseResultString;
 
-    }
     
     
     public int updateScore(int position, int framecode) {
-        mCurrentScore[position] = framecode;
+        setScoreIntegerArray[position] = framecode;
         Log.v(TAG, "updateScore: framecode=" + framecode);   
         
-        mTotalScore=0;
-        for (int i = 0; i < mCurrentScore.length; i++) {
+        setScore=0;
+        for (int i = 0; i < setScoreIntegerArray.length; i++) {
 //            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]);   
-            switch (mCurrentScore[i])
+            switch (setScoreIntegerArray[i])
             {
                 case 0: //intentional fall thru
                 case 1: //intentional fall thru
                 case 2: //intentional fall thru
                 case 5:
-                    mTotalScore++;
-                    Log.v(TAG, "Incrementing mTotalScore, mCurrentScore[]:=" + mCurrentScore[i]);   
+                    setScore++;
+                    Log.v(TAG, "Incrementing mTotalScore, mCurrentScore[]:=" + setScoreIntegerArray[i]);   
                     break;
             }
         }
-        return mTotalScore;
+        return setScore;
     }
     
     public int getScoreInteger() {
-        mTotalScore=0;
-        for (int i = 0; i < mCurrentScore.length; i++) {
-            switch (mCurrentScore[i])
+        setScore=0;
+        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+            switch (setScoreIntegerArray[i])
             {
                 case 0: //intentional fall thru
                 case 1: //intentional fall thru
                 case 2: //intentional fall thru
                 case 5:
-                    mTotalScore++;
-                    Log.v(TAG, "Incrementing mTotalScore, mCurrentScore[]:=" + mCurrentScore[i]);   
+                    setScore++;
+                    Log.v(TAG, "Incrementing mTotalScore, mCurrentScore[]:=" + setScoreIntegerArray[i]);   
                     break;
             }
         }
-        return mTotalScore;
+        return setScore;
     }
    
 	public int getCount() {
@@ -117,14 +104,14 @@ public class SetLogic extends BaseAdapter{
         } else {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageResource(FrameCodeAPI.mFrameResultImages[mCurrentScore[position]]);
+        imageView.setImageResource(FrameCodeAPI.mFrameResultImages[setScoreIntegerArray[position]]);
         return imageView;
     }
 
 	public void resetScore() {
-		mTotalScore = 0;
-		for (int i = 0; i < mCurrentScore.length; i++) {
-			mCurrentScore[i] = 8;
+		setScore = 0;
+		for (int i = 0; i < setScoreIntegerArray.length; i++) {
+			setScoreIntegerArray[i] = 8;
 		}
 	} 
 

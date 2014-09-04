@@ -50,6 +50,25 @@ public class FrameCodeAPI {
         return IBPLConstants.CSFCodesInverse[index];
     }
     
+    public static String getScoreString(Integer[] setScoreIntegerArray)
+    {
+        String setScoreString = "";
+        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+            setScoreString += IBPLConstants.CSFCodes[setScoreIntegerArray[i]];
+        }
+        return setScoreString;
+    }
+    
+    public static String getInverseScoreString(String scoreString) {
+        
+        String inverseResultString = "";
+        Log.v(TAG, "getInverseScoreString of " + scoreString);   
+        for (int i = 0; i < scoreString.length(); i++) {
+            inverseResultString += getInverseCodeChar(scoreString.charAt(i));
+        }
+        Log.v(TAG, "inverseResultString[" + inverseResultString);   
+        return inverseResultString;
+    }    
     
     public static <T> int indexOf(T needle, T[] haystack)
     {
