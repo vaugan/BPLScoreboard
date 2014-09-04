@@ -419,7 +419,7 @@ public class MatchDisplay extends Activity {
         super.onResume();
 
         populateFields();
-        refreshDisplay();
+//        refreshDisplay();
 
     }
     

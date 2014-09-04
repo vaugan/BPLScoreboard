@@ -40,5 +40,19 @@ public class MatchLogic {
 		}
 		return matchScore;
 	}
+	
+	public static int getCurrentSet(SetLogic[] aSets) {
+		int i=0;
+        for (i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
+        {
+        	if (!aSets[i].isSetFinished())
+        	{
+        	    break;
+        	}
+        }
+
+        return i;
+	}
+	
 }
 

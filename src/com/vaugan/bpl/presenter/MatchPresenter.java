@@ -40,13 +40,16 @@ public class MatchPresenter {
 	// Array of P1 and P2 sets
 	private static SetLogic aP1Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
 	private static SetLogic aP2Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
-	private static Long mRowId;
+	private static Long mRowID;
 	private static Long mP1RowId;
 	private static Long mP2RowId;
 	private static Long playerIDs[] = new Long[2];
 
 	static int p1CurrentSetScore = 0;
 	static int p2CurrentSetScore = 0;
+	static Bitmap bmp = null;
+
+	
 
 	
 	public static MatchPresenter getInstance(){
@@ -57,9 +60,15 @@ public class MatchPresenter {
 		return instance;
 	}
 	
-	public void initialiseMatch(Context context, long mRowID, long player1RowID, long player2RowID){
-        mDbHelper = new MatchDbAdapter(context);
+	public void initialiseMatch(Context context, long matchRowID, long player1RowID, long player2RowID){
+		//If match(mRowID) exists, load it else create new match.
+		
+		mRowID = matchRowID;
+
+		mDbHelper = new MatchDbAdapter(context);
         mDbHelper.open();
+
+        Cursor matchCursor = mDbHelper.fetchMatch(mRowID);
 
         //Populate player name and picture
         playerDbHelper = new PlayerDbAdapter(context);
@@ -67,20 +76,49 @@ public class MatchPresenter {
 
         playerIDs[0] = player1RowID;
         playerIDs[1] = player2RowID;
-        
+        		
         for (int i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
         {
         	aP1Sets[i] = new SetLogic(context);
         	aP2Sets[i] = new SetLogic(context);
         }
 
-        //Reset all scorecards for new match
-        for (int i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
-        {
-        	aP1Sets[i].resetScore();
-        	aP2Sets[i].resetScore();
-        }
+        //If match exists, update set adapters
+		if (matchCursor != null) {
+			aP1Sets[IBPLConstants.SET_ONE]
+					.updateCurrentScoreArray(matchCursor.getString(matchCursor
+							.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));
+			aP1Sets[IBPLConstants.SET_TWO]
+					.updateCurrentScoreArray(matchCursor.getString(matchCursor
+							.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET2_RESULT)));
+			aP1Sets[IBPLConstants.SET_THREE]
+					.updateCurrentScoreArray(matchCursor.getString(matchCursor
+							.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET3_RESULT)));
 
+			aP2Sets[IBPLConstants.SET_ONE]
+					.updateCurrentScoreArray(FrameCodeAPI.getInverseScoreString(matchCursor.getString(matchCursor
+							.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT))));
+			aP2Sets[IBPLConstants.SET_TWO]
+					.updateCurrentScoreArray(FrameCodeAPI.getInverseScoreString(matchCursor.getString(matchCursor
+							.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET2_RESULT))));
+			aP2Sets[IBPLConstants.SET_THREE]
+					.updateCurrentScoreArray(FrameCodeAPI.getInverseScoreString(matchCursor.getString(matchCursor
+							.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET3_RESULT))));
+
+//			int currentSet = MatchLogic.getCurrentSet(aP1Sets);
+//			p1CurrentSetScore = aP1Sets[currentSet].getScoreInteger();
+//			p2CurrentSetScore = aP2Sets[currentSet].getScoreInteger();
+
+		} else {
+			// Reset all scorecards for new match
+			for (int i = 0; i < IBPLConstants.MAX_SETS_IN_MATCH; i++) {
+				aP1Sets[i].resetScore();
+				aP2Sets[i].resetScore();
+			}
+			p1CurrentSetScore = 0;
+			p2CurrentSetScore = 0;
+
+		}
 	}
 
 	public static ListAdapter getSet(int player, int set) {
@@ -109,8 +147,8 @@ public class MatchPresenter {
         String set2Result = aP1Sets[1].getSetScoreString();
         String set3Result = aP1Sets[2].getSetScoreString();
 
-        if (mRowId != null) {
-            mDbHelper.updateMatchResult(mRowId, set1Result, set2Result, set3Result);
+        if (mRowID != null) {
+            mDbHelper.updateMatchResult(mRowID, set1Result, set2Result, set3Result);
         }
 	}
 	
@@ -127,7 +165,10 @@ public class MatchPresenter {
 	}
 
 	public static Bitmap getPlayerImage(int player) {
-		Bitmap bmp = null;
+//		if (bmp != null)
+//		{
+//			bmp.recycle();
+//		}
         if (playerIDs[player] != null) {
 
         	Cursor playerCursor = playerDbHelper.fetchPlayer(playerIDs[player]);

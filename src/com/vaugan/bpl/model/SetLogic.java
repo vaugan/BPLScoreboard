@@ -77,6 +77,23 @@ public class SetLogic extends BaseAdapter{
         }
         return setScore;
     }
+
+    public int getInverseScoreInteger() {
+        setScore=0;
+        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+            switch (setScoreIntegerArray[i])
+            {
+                case 3: //intentional fall thru
+                case 4: //intentional fall thru
+                case 6: //intentional fall thru
+                case 7:
+                    setScore++;
+                    Log.v(TAG, "Inverse Score (ie. Frames lost this set)=" + setScoreIntegerArray[i]);   
+                    break;
+            }
+        }
+        return setScore;
+    }
    
 	public int getCount() {
 		return IBPLConstants.MAX_FRAMES_IN_SET;
@@ -122,5 +139,14 @@ public class SetLogic extends BaseAdapter{
 				: 1);
 	}
 
+	public boolean isSetFinished() {
+		// Calculate if a player won the set
+
+		if ((this.getScoreInteger() < IBPLConstants.FRAMES_TO_WIN_SET)
+				|| (this.getInverseScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
+			return true;
+		}
+		return false;
+	}
 }
 
