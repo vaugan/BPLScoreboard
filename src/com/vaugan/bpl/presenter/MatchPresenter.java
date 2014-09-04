@@ -2,6 +2,7 @@ package com.vaugan.bpl.presenter;
 
 import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.FrameCodeAPI;
+import com.vaugan.bpl.model.FrameCodeImageAdapter;
 import com.vaugan.bpl.model.IBPLConstants;
 import com.vaugan.bpl.model.MatchDbAdapter;
 import com.vaugan.bpl.model.PlayerDbAdapter;
@@ -44,6 +45,8 @@ public class MatchPresenter {
 	private static Long mP2RowId;
 	private static Long playerIDs[] = new Long[2];
 
+	static int p1CurrentSetScore = 0;
+	static int p2CurrentSetScore = 0;
 
 	
 	public static MatchPresenter getInstance(){
@@ -81,14 +84,14 @@ public class MatchPresenter {
 	}
 
 	public static ListAdapter getSet(int player, int set) {
-		if (player == 0) {
+		if (player == IBPLConstants.HOME_PLAYER) {
 			return aP1Sets[set];
 		}
 		return aP2Sets[set];
 	}
 
 	public static int getMatchScore(int player) {
-		if (player == 0) {
+		if (player == IBPLConstants.HOME_PLAYER) {
 			return MatchLogic.getMatchScore(aP1Sets);
 		}
 		return MatchLogic.getMatchScore(aP2Sets);
@@ -137,7 +140,7 @@ public class MatchPresenter {
 
 	public static CharSequence getSetScore(int set, int player) {
 		int score = 0;
-		if (player == 0) {
+		if (player == IBPLConstants.HOME_PLAYER) {
 			score = aP1Sets[set].getScoreInteger();
 
 		} else {
@@ -147,4 +150,48 @@ public class MatchPresenter {
 		return Integer.toString(score);
 	}
 
+	public static void updateSetScore(int player, int pos, int set, int frameCode){
+		
+	    Log.v(TAG, "updateSetScore: player=" + player);
+	    Log.v(TAG, "updateSetScore: set=" + set);
+	    Log.v(TAG, "updateSetScore: frameCode=" + frameCode);
+	    Log.v(TAG, "updateSetScore: pos=" + pos);
+
+	    if (player == IBPLConstants.HOME_PLAYER)
+	    {
+		    aP1Sets[set].updateScore(pos, frameCode);
+		    aP1Sets[set].notifyDataSetChanged();
+		    Log.v(TAG, "P1 Set["+set+"]=" + aP1Sets[set].getScoreInteger());
+		    
+		    aP2Sets[set].updateScore(pos, FrameCodeAPI.getInverseCodeInteger(frameCode));
+		    aP2Sets[set].notifyDataSetChanged();
+		    Log.v(TAG, "P2 Set["+set+"]=" + aP2Sets[set].getScoreInteger());
+	    }
+	    else
+	    {
+		    aP2Sets[set].updateScore(pos, frameCode);
+		    aP2Sets[set].notifyDataSetChanged();
+		    Log.v(TAG, "P2 Set["+set+"]=" + aP2Sets[set].getScoreInteger());
+		    
+		    aP1Sets[set].updateScore(pos, FrameCodeAPI.getInverseCodeInteger(frameCode));
+		    aP1Sets[set].notifyDataSetChanged();
+		    Log.v(TAG, "P1 Set["+set+"]=" + aP1Sets[set].getScoreInteger());
+	    }
+	    
+	    p1CurrentSetScore = aP1Sets[set].getScoreInteger();
+	    p2CurrentSetScore = aP2Sets[set].getScoreInteger();
+	}
+
+	public static CharSequence getCurrentSetScore(int player) {
+		if (player == IBPLConstants.HOME_PLAYER) {
+			return Integer.toString(p1CurrentSetScore);
+		} 	
+
+		return Integer.toString(p2CurrentSetScore);
+	
+	}
+	public static void resetCurrentSetScore() {
+		p1CurrentSetScore=0;
+		p2CurrentSetScore=0;
+	}
 }

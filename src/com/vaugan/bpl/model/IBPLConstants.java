@@ -12,4 +12,7 @@ public interface IBPLConstants {
 	public static final int SET_ONE = 0;
 	public static final int SET_TWO = 1;
 	public static final int SET_THREE = 2;
+	
+	public static final int HOME_PLAYER = 0;
+	public static final int AWAY_PLAYER = 1;
 }
