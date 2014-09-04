@@ -38,6 +38,9 @@ public class MatchDisplay extends Activity {
     private static final String TAG = "MatchDisplay";
     private static final int homePlayer = 0;
     private static final int awayPlayer = 1;
+    private static final int set1 = 0;
+    private static final int set2 = 1;
+    private static final int set3 = 1;
     
 
 	private EditText mP1Text;
@@ -344,14 +347,15 @@ public class MatchDisplay extends Activity {
 //					Toast.LENGTH_LONG);
 //		}
 
-		p1CurrentSetScore.setText(Integer.toString(p1SetScore));
-		p2CurrentSetScore.setText(Integer.toString(p2SetScore));
+//		p1CurrentSetScore.setText(Integer.toString(p1SetScore));
+//		p2CurrentSetScore.setText(Integer.toString(p2SetScore));
+//
+//		p1CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
+//		p2CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
+//		
+//		p1MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(homePlayer)));
+//		p2MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(awayPlayer)));
 
-		p1CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
-		p2CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
-
-		p1MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(homePlayer)));
-		p2MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(awayPlayer)));
 		
 	}
 
@@ -495,35 +499,54 @@ public class MatchDisplay extends Activity {
 
     private void populateFields() {
 
-            mP1Text.setText(MatchPresenter.getPlayerName(homePlayer));
-            mP2Text.setText(MatchPresenter.getPlayerName(awayPlayer));
-            mP1Image.setImageBitmap(MatchPresenter.getPlayerImage(homePlayer));
-            mP2Image.setImageBitmap(MatchPresenter.getPlayerImage(awayPlayer));
-            
+		// Player Info
+		mP1Text.setText(MatchPresenter.getPlayerName(homePlayer));
+		mP2Text.setText(MatchPresenter.getPlayerName(awayPlayer));
+		mP1Image.setImageBitmap(MatchPresenter.getPlayerImage(homePlayer));
+		mP2Image.setImageBitmap(MatchPresenter.getPlayerImage(awayPlayer));
 
-            //Set 1
-            ((SetLogic)gvS1P1FrameCodes.getAdapter()).notifyDataSetChanged();
-            int score=((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreInteger();    
-            etS1P1Score.setText(Integer.toString(score));
-            
-            score=((SetLogic)gvS1P2FrameCodes.getAdapter()).getScoreInteger();    
-            etS1P2Score.setText(Integer.toString(score));
+		// Set Grid Score
+		etS1P1Score.setText(MatchPresenter.getSetScore(set1, homePlayer));
+		etS2P1Score.setText(MatchPresenter.getSetScore(set2, homePlayer));
+		etS3P1Score.setText(MatchPresenter.getSetScore(set3, homePlayer));
 
-            //Set 2
-            ((SetLogic)gvS2P1FrameCodes.getAdapter()).notifyDataSetChanged();
-             score=((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreInteger();    
-            etS2P1Score.setText(Integer.toString(score));
-            
-            score=((SetLogic)gvS2P2FrameCodes.getAdapter()).getScoreInteger();    
-            etS2P2Score.setText(Integer.toString(score));
+		etS1P1Score.setText(MatchPresenter.getSetScore(set1, awayPlayer));
+		etS2P1Score.setText(MatchPresenter.getSetScore(set2, awayPlayer));
+		etS3P1Score.setText(MatchPresenter.getSetScore(set3, awayPlayer));
 
-            //Set 3
-            ((SetLogic)gvS3P1FrameCodes.getAdapter()).notifyDataSetChanged();
-             score=((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreInteger();    
-            etS3P1Score.setText(Integer.toString(score));
+		// Current Set Score
+		p1CurrentSetScore.setText(Integer.toString(p1SetScore));
+		p2CurrentSetScore.setText(Integer.toString(p2SetScore));
+
+		// Match Score
+		p1MatchScore.setText(Integer.toString(MatchPresenter
+				.getMatchScore(homePlayer)));
+		p2MatchScore.setText(Integer.toString(MatchPresenter
+				.getMatchScore(awayPlayer)));
             
-            score=((SetLogic)gvS3P2FrameCodes.getAdapter()).getScoreInteger();    
-            etS3P2Score.setText(Integer.toString(score));
+//            //Set 1
+//            ((SetLogic)gvS1P1FrameCodes.getAdapter()).notifyDataSetChanged();
+//            int score=((SetLogic)gvS1P1FrameCodes.getAdapter()).getScoreInteger();    
+//            etS1P1Score.setText(Integer.toString(score));
+//            
+//            score=((SetLogic)gvS1P2FrameCodes.getAdapter()).getScoreInteger();    
+//            etS1P2Score.setText(Integer.toString(score));
+//
+//            //Set 2
+//            ((SetLogic)gvS2P1FrameCodes.getAdapter()).notifyDataSetChanged();
+//             score=((SetLogic)gvS2P1FrameCodes.getAdapter()).getScoreInteger();    
+//            etS2P1Score.setText(Integer.toString(score));
+//            
+//            score=((SetLogic)gvS2P2FrameCodes.getAdapter()).getScoreInteger();    
+//            etS2P2Score.setText(Integer.toString(score));
+//
+//            //Set 3
+//            ((SetLogic)gvS3P1FrameCodes.getAdapter()).notifyDataSetChanged();
+//             score=((SetLogic)gvS3P1FrameCodes.getAdapter()).getScoreInteger();    
+//            etS3P1Score.setText(Integer.toString(score));
+//            
+//            score=((SetLogic)gvS3P2FrameCodes.getAdapter()).getScoreInteger();    
+//            etS3P2Score.setText(Integer.toString(score));
 
 //            match.close();
 //        }

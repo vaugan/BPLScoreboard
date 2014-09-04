@@ -135,4 +135,16 @@ public class MatchPresenter {
         return bmp;
 	}
 
+	public static CharSequence getSetScore(int set, int player) {
+		int score = 0;
+		if (player == 0) {
+			score = aP1Sets[set].getScoreInteger();
+
+		} else {
+			score = aP2Sets[set].getScoreInteger();
+
+		}
+		return Integer.toString(score);
+	}
+
 }
