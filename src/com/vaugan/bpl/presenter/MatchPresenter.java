@@ -165,18 +165,22 @@ public class MatchPresenter {
 	}
 
 	public static Bitmap getPlayerImage(int player) {
-//		if (bmp != null)
-//		{
-//			bmp.recycle();
-//		}
-        if (playerIDs[player] != null) {
 
-        	Cursor playerCursor = playerDbHelper.fetchPlayer(playerIDs[player]);
-        	byte[] byteArray = playerCursor.getBlob(playerCursor.getColumnIndexOrThrow(PlayerDbAdapter.KEY_PICTURE));  
-        	bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        }
-        
-        return bmp;
+		if (playerIDs[player] != null) {
+
+			Cursor playerCursor = playerDbHelper.fetchPlayer(playerIDs[player]);
+			byte[] byteArray = playerCursor.getBlob(playerCursor
+					.getColumnIndexOrThrow(PlayerDbAdapter.KEY_PICTURE));
+
+			// Create object of bitmapfactory's option method for further option use
+			// inPurgeable is used to free up memory while required
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inPurgeable = true; 
+			bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length,
+					options);
+		}
+
+		return bmp;
 	}
 
 	public static CharSequence getSetScore(int set, int player) {
