@@ -31,9 +31,6 @@ public class MatchDisplay extends Activity {
 	// Model/Presenter Stuff - move out later to presentation layer
 	int p1SetScore = 0;
 	int p2SetScore = 0;
-	private Long mRowId;
-	private Long mP1RowId;
-	private Long mP2RowId;
 	private MatchDbAdapter mDbHelper;
 	private PlayerDbAdapter playerDbHelper;
 	// Array of P1 and P2 sets
@@ -43,7 +40,11 @@ public class MatchDisplay extends Activity {
 
 	
     private static final String TAG = "MatchDisplay";
-    private EditText mP1Text;
+	private Long mRowId;
+	private Long mP1RowId;
+	private Long mP2RowId;
+
+	private EditText mP1Text;
     private EditText mP2Text;
     
     private View aSetsUI[] = new View[IBPLConstants.MAX_SETS_IN_MATCH];
@@ -82,24 +83,33 @@ public class MatchDisplay extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHelper = new MatchDbAdapter(this);
-        mDbHelper.open();
-
-        //Populate player name and picture
-        playerDbHelper = new PlayerDbAdapter(this);
-        playerDbHelper.open();
         
         Bundle extras = this.getIntent().getExtras();
         mRowId = extras.getLong("com.vaugan.csf.match.rowid");
         mP1RowId = extras.getLong("com.vaugan.csf.match.p1rowid");
         mP2RowId = extras.getLong("com.vaugan.csf.match.p2rowid");
 
+        mDbHelper = new MatchDbAdapter(this);
+        mDbHelper.open();
+
+        //Populate player name and picture
+        playerDbHelper = new PlayerDbAdapter(this);
+        playerDbHelper.open();
+
         for (int i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
         {
         	aP1Sets[i] = new SetLogic(MatchDisplay.this);
         	aP2Sets[i] = new SetLogic(MatchDisplay.this);
-
         }
+
+        //Reset all scorecards for new match
+        for (int i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
+        {
+        	aP1Sets[i].resetScore();
+        	aP2Sets[i].resetScore();
+        }
+        
+        
         aSetsUI[0] = (LinearLayout) findViewById(R.id.Set1);
         aSetsUI[1] = (LinearLayout) findViewById(R.id.Set2);
         aSetsUI[2] = (LinearLayout) findViewById(R.id.Set3);
@@ -130,7 +140,6 @@ public class MatchDisplay extends Activity {
         gvS1P1FrameCodes = (GridView) findViewById(R.id.set1Player1FrameCodes);
         gvS1P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS1P1FrameCodes.setAdapter(aP1Sets[0]);
-        ((SetLogic)gvS1P1FrameCodes.getAdapter()).resetScore();
         
         gvS1P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -149,7 +158,6 @@ public class MatchDisplay extends Activity {
         gvS1P2FrameCodes = (GridView) findViewById(R.id.set1Player2FrameCodes);        
         gvS1P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS1P2FrameCodes.setAdapter(aP2Sets[0]);
-        ((SetLogic)gvS1P2FrameCodes.getAdapter()).resetScore();
 
         gvS1P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -169,7 +177,6 @@ public class MatchDisplay extends Activity {
         gvS2P1FrameCodes = (GridView) findViewById(R.id.set2Player1FrameCodes);
         gvS2P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS2P1FrameCodes.setAdapter(aP1Sets[1]);
-        ((SetLogic)gvS2P1FrameCodes.getAdapter()).resetScore();
         
         gvS2P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -188,7 +195,6 @@ public class MatchDisplay extends Activity {
         gvS2P2FrameCodes = (GridView) findViewById(R.id.set2Player2FrameCodes);        
         gvS2P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS2P2FrameCodes.setAdapter(aP2Sets[1]);
-        ((SetLogic)gvS2P2FrameCodes.getAdapter()).resetScore();
 
         gvS2P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -210,7 +216,6 @@ public class MatchDisplay extends Activity {
         gvS3P1FrameCodes = (GridView) findViewById(R.id.set3Player1FrameCodes);
         gvS3P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS3P1FrameCodes.setAdapter(aP1Sets[2]);
-        ((SetLogic)gvS3P1FrameCodes.getAdapter()).resetScore();
         
         gvS3P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -229,7 +234,6 @@ public class MatchDisplay extends Activity {
         gvS3P2FrameCodes = (GridView) findViewById(R.id.set3Player2FrameCodes);        
         gvS3P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
         gvS3P2FrameCodes.setAdapter(aP2Sets[2]);
-        ((SetLogic)gvS3P2FrameCodes.getAdapter()).resetScore();
 
         gvS3P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
