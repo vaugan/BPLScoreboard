@@ -448,9 +448,9 @@ public class MatchDisplay extends Activity {
 		etS2P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.HOME_PLAYER));
 		etS3P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.HOME_PLAYER));
 
-		etS1P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.AWAY_PLAYER));
-		etS2P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.AWAY_PLAYER));
-		etS3P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.AWAY_PLAYER));
+		etS1P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.AWAY_PLAYER));
+		etS2P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.AWAY_PLAYER));
+		etS3P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.AWAY_PLAYER));
 
 		// Current Set Score
 		p1CurrentSetScore.setText(MatchPresenter.getCurrentSetScore(IBPLConstants.HOME_PLAYER));
