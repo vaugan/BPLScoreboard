@@ -105,9 +105,9 @@ public class MatchPresenter {
 					.updateCurrentScoreArray(FrameCodeAPI.getInverseScoreString(matchCursor.getString(matchCursor
 							.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET3_RESULT))));
 
-//			int currentSet = MatchLogic.getCurrentSet(aP1Sets);
-//			p1CurrentSetScore = aP1Sets[currentSet].getScoreInteger();
-//			p2CurrentSetScore = aP2Sets[currentSet].getScoreInteger();
+			int currentSet = MatchLogic.getCurrentSet(aP1Sets);
+			p1CurrentSetScore = aP1Sets[currentSet].getScoreInteger();
+			p2CurrentSetScore = aP2Sets[currentSet].getScoreInteger();
 
 		} else {
 			// Reset all scorecards for new match
@@ -223,11 +223,20 @@ public class MatchPresenter {
 		    Log.v(TAG, "P1 Set["+set+"]=" + aP1Sets[set].getScoreInteger());
 	    }
 	    
-	    p1CurrentSetScore = aP1Sets[set].getScoreInteger();
-	    p2CurrentSetScore = aP2Sets[set].getScoreInteger();
+	    if (isSetFinished(set))
+	    {   
+	    	//This is the only place we should be resetting the set score. 
+	    	//ie. After the user has selected a code on the grid.
+	    	resetCurrentSetScore();
+	    }
+	    else
+	    {
+		    p1CurrentSetScore = aP1Sets[set].getScoreInteger();
+		    p2CurrentSetScore = aP2Sets[set].getScoreInteger();
+	    }
 	}
 
-	public static CharSequence getCurrentSetScore(int player) {
+	public static String getCurrentSetScore(int player) {
 		if (player == IBPLConstants.HOME_PLAYER) {
 			return Integer.toString(p1CurrentSetScore);
 		} 	
@@ -238,5 +247,9 @@ public class MatchPresenter {
 	public static void resetCurrentSetScore() {
 		p1CurrentSetScore=0;
 		p2CurrentSetScore=0;
+	}
+	
+	public static boolean isSetFinished(int set) {
+		return aP1Sets[set].isSetFinished();
 	}
 }

@@ -41,7 +41,7 @@ public class MatchDisplay extends Activity {
 	private EditText mP1Text;
     private EditText mP2Text;
     
-    private View aSetsUI[] = new View[IBPLConstants.MAX_SETS_IN_MATCH];
+    private int aSetsUI[] = new int[IBPLConstants.MAX_SETS_IN_MATCH];
     
     //Match
     private TextView p1MatchScore;
@@ -86,9 +86,9 @@ public class MatchDisplay extends Activity {
         MatchPresenter.getInstance().initialiseMatch(this, mRowId, mP1RowId, mP2RowId);
         
         
-        aSetsUI[0] = (LinearLayout) findViewById(R.id.Set1);
-        aSetsUI[1] = (LinearLayout) findViewById(R.id.Set2);
-        aSetsUI[2] = (LinearLayout) findViewById(R.id.Set3);
+        aSetsUI[0] = R.id.Set1;
+        aSetsUI[1] = R.id.Set2;
+        aSetsUI[2] = R.id.Set3;
         
         Log.v(TAG, "mRowId="+mRowId);
         
@@ -271,8 +271,8 @@ public class MatchDisplay extends Activity {
 	//        break;
 	        }
 	    
-	    	updateSetVisibility(set);
-	    	updateMatchStatus();
+	    populateFields();
+    	updateSetVisibility(set);
         }
         else
 	   {
@@ -301,102 +301,36 @@ public class MatchDisplay extends Activity {
 
 	private void updateSetVisibility(int set) {
 
-		//TODO: Enumerate these sets or create a fragment for sets to make this code more efficient
+		//Only do something if the set is finished.
+		if (MatchPresenter.isSetFinished(set)) {
+			Log.v(TAG, "Set[" + set + " is finished. Disabling input...");
+			LinearLayout myLayout = (LinearLayout) findViewById(aSetsUI[set]);
+			for (int i = 0; i < myLayout.getChildCount(); i++) {
+				View view = myLayout.getChildAt(i);
+//				view.setEnabled(false); 
+				if (view instanceof GridView){
+					((GridView)view).setOnItemClickListener(new OnItemClickListener() {
+			            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+							Toast.makeText(getApplicationContext(),	"This set is over", Toast.LENGTH_SHORT).show();                 
+			            }
+			        });
+				}
+			}
+
+			//Enable next set if applicable
+			if (set < IBPLConstants.SET_THREE) {
+				set += 1;
+				findViewById(aSetsUI[set]).setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(),
+						"Game over!", Toast.LENGTH_SHORT).show();
+			}
+
+		}
 		
-		switch (set) {
-		case IBPLConstants.SET_ONE:
-			if ((((SetLogic) gvS1P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
-					|| (((SetLogic) gvS1P2FrameCodes.getAdapter())
-							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
-				Log.v(TAG, "Set 1 is won by a player. Disabling input...");
-				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set1);
-				for (int i = 0; i < myLayout.getChildCount(); i++) {
-					View view = myLayout.getChildAt(i);
-					view.setEnabled(false); // Or whatever you want to do with
-											// the view.
-				}
-
-				myLayout.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						Toast.makeText(getApplicationContext(),
-								"This set is over", Toast.LENGTH_SHORT).show();
-
-					}
-				});
-
-				findViewById(R.id.Set2).setVisibility(View.VISIBLE);
 				
-				//Reset the current set scoreboard
-				MatchPresenter.resetCurrentSetScore();
-			}
-
-			break;
-		case IBPLConstants.SET_TWO:
-			if ((((SetLogic) gvS2P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
-					|| (((SetLogic) gvS2P2FrameCodes.getAdapter())
-							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
-				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set2);
-				for (int i = 0; i < myLayout.getChildCount(); i++) {
-					View view = myLayout.getChildAt(i);
-					view.setEnabled(false); // Or whatever you want to do with
-											// the view.
-				}
-
-				myLayout.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						Toast.makeText(getApplicationContext(),
-								"This set is over", Toast.LENGTH_SHORT).show();
-
-					}
-				});
-				Log.v(TAG, "Set 2 is won by a player. Disabling input...");
-				
-				if ((MatchPresenter.getMatchScore(IBPLConstants.HOME_PLAYER) == 2)
-						|| (MatchPresenter.getMatchScore(IBPLConstants.AWAY_PLAYER) == 2)) {
-
-					// match is over
-				} else {
-					findViewById(R.id.Set3).setVisibility(View.VISIBLE);
-					// Reset the current set scoreboard
-					MatchPresenter.resetCurrentSetScore();
-				}
-			}
-
-			break;
-		case IBPLConstants.SET_THREE:
-			if ((((SetLogic) gvS3P1FrameCodes.getAdapter()).getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
-					|| (((SetLogic) gvS3P2FrameCodes.getAdapter())
-							.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
-
-				LinearLayout myLayout = (LinearLayout) findViewById(R.id.Set3);
-				for (int i = 0; i < myLayout.getChildCount(); i++) {
-					View view = myLayout.getChildAt(i);
-					view.setEnabled(false); // Or whatever you want to do with
-											// the view.
-				}
-
-				myLayout.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						Toast.makeText(getApplicationContext(),
-								"This set is over", Toast.LENGTH_SHORT).show();
-
-					}
-				});
-				Log.v(TAG,
-						"Set 3 is won by a player. Disabling input... The Match is over!");
-			}
-
-			break;
-
-		default:
-			break;
-		}		
 
 	}
 
@@ -418,8 +352,8 @@ public class MatchDisplay extends Activity {
     protected void onResume() {
         super.onResume();
 
+        refreshDisplay();
         populateFields();
-//        refreshDisplay();
 
     }
     
@@ -463,46 +397,12 @@ public class MatchDisplay extends Activity {
 
 public void refreshDisplay()
 {
-//    //Update P1 score
-//    Log.v(TAG, "mS1P1Score=" + p1SetScore);
-//    ((SetLogic)gvS1P1FrameCodes.getAdapter()).notifyDataSetChanged();
-//    etS1P1Score.setText(Integer.toString(p1SetScore));
-//
-//    Log.v(TAG, "S1P1ResultString=" + ((SetLogic)gvS1P1FrameCodes.getAdapter()).getSetScoreString());
-//
-//    //Update P2 score
-//    Log.v(TAG, "mP2Score=" + p2SetScore);   
-//    ((SetLogic)gvS1P2FrameCodes.getAdapter()).notifyDataSetChanged();
-//    etS1P2Score.setText(Integer.toString(p2SetScore));
-//
-//    //Update P1 score
-//    Log.v(TAG, "mS2P1Score=" + p1SetScore);
-//    ((SetLogic)gvS2P1FrameCodes.getAdapter()).notifyDataSetChanged();
-//    etS2P1Score.setText(Integer.toString(p1SetScore));
-//    Log.v(TAG, "S2P1ResultString=" + ((SetLogic)gvS2P1FrameCodes.getAdapter()).getSetScoreString());
-//
-//    //Update P2 score
-//    Log.v(TAG, "mP2Score=" + p2SetScore);
-//    ((SetLogic)gvS2P2FrameCodes.getAdapter()).notifyDataSetChanged();
-//    etS2P2Score.setText(Integer.toString(p2SetScore));
-//
-//    
-//    //Update P1 score
-//    Log.v(TAG, "mS3P1Score=" + p1SetScore);
-//    ((SetLogic)gvS3P1FrameCodes.getAdapter()).notifyDataSetChanged();
-//    etS3P1Score.setText(Integer.toString(p1SetScore));
-//    Log.v(TAG, "S3P1ResultString=" + ((SetLogic)gvS3P1FrameCodes.getAdapter()).getSetScoreString());
-//
-//    //Update P2 score
-//    Log.v(TAG, "mP2Score=" + p2SetScore);
-//    ((SetLogic)gvS3P2FrameCodes.getAdapter()).notifyDataSetChanged();
-//    etS3P2Score.setText(Integer.toString(p2SetScore));
-
-//    updateSetVisibility(0);
-//    updateSetVisibility(1);
-//    updateSetVisibility(2);
-//	updateMatchStatus();
-    
+	for (int i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
+	{
+	    updateSetVisibility(i);
+	}    
 }
+
+
     
 }

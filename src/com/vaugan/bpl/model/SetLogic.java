@@ -142,7 +142,7 @@ public class SetLogic extends BaseAdapter{
 	public boolean isSetFinished() {
 		// Calculate if a player won the set
 
-		if ((this.getScoreInteger() < IBPLConstants.FRAMES_TO_WIN_SET)
+		if ((this.getScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)
 				|| (this.getInverseScoreInteger() == IBPLConstants.FRAMES_TO_WIN_SET)) {
 			return true;
 		}
