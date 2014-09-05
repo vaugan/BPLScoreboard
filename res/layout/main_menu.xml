@@ -19,5 +19,13 @@
 	    android:text="@string/viewplayers"
 	    android:visibility="invisible" />
 
-	<Spinner android:id="@+id/spinnerPlayer1" android:layout_width="match_parent" android:layout_height="wrap_content"></Spinner>		
+	<Spinner android:id="@+id/spinnerPlayer1" android:layout_width="match_parent" android:layout_height="wrap_content"></Spinner>
+
+	<ImageView
+	    android:id="@+id/imageView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:baselineAlignBottom="true"
+	    android:src="@drawable/bpl_logo" />
+		
 </LinearLayout>
