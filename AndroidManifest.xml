@@ -6,7 +6,7 @@
 
     <application
         android:enabled="true"
-        android:label="BPL Scoreboard" >
+        android:label="BPL Scoreboard" android:icon="@drawable/icon">
         <activity android:name="com.vaugan.bpl.view.MainMenu" >
 			<intent-filter>
 			<action android:name="android.intent.action.MAIN" />
