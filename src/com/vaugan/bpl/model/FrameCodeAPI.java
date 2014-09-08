@@ -6,13 +6,18 @@ package com.vaugan.bpl.model;
 import com.vaugan.bpl.R;
 
 import android.util.Log;
-
+/**
+ * Utility to convert from Cuesportfever frame codes into integer scores.
+ * 
+ * @author Vaugan.Nayagar
+ *
+ */
 public class FrameCodeAPI {
 		/** The Tag constant */
     private static final String TAG = "FrameCodeAPI";
    
     // references to our images
-    static protected Integer[] mFrameResultImages = {
+    public static Integer[] mFrameResultImages = {
             R.drawable.a, 
             R.drawable.b,
             R.drawable.c, 

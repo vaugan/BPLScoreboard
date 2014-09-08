@@ -1,10 +1,12 @@
 package com.vaugan.bpl.model;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridLayout.LayoutParams;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -12,6 +14,8 @@ import com.vaugan.bpl.model.FrameCodeAPI;
 
 /**
  * Class to handle all BPL set-related functionality.
+ * 
+ * @author Vaugan.Nayagar
  */
 public class SetLogic extends BaseAdapter{
     private Context mContext;
@@ -39,7 +43,7 @@ public class SetLogic extends BaseAdapter{
 
 
     
-    
+    //TODO - This must be refactored into FrameCodeAPI, as it is csf logic, not set logic.
     public int updateScore(int position, int framecode) {
         setScoreIntegerArray[position] = framecode;
         Log.v(TAG, "updateScore: framecode=" + framecode);   
@@ -61,6 +65,7 @@ public class SetLogic extends BaseAdapter{
         return setScore;
     }
     
+    //TODO - This must be refactored into FrameCodeAPI, as it is csf logic, not set logic.
     public int getScoreInteger() {
         setScore=0;
         for (int i = 0; i < setScoreIntegerArray.length; i++) {
@@ -78,6 +83,7 @@ public class SetLogic extends BaseAdapter{
         return setScore;
     }
 
+    //TODO - This must be refactored into FrameCodeAPI, as it is csf logic, not set logic.
     public int getInverseScoreInteger() {
         setScore=0;
         for (int i = 0; i < setScoreIntegerArray.length; i++) {
@@ -107,13 +113,16 @@ public class SetLogic extends BaseAdapter{
 		return 0;
 	}
 
+    //TODO - This must be refactored into View?
+
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
+            int size = getSizeForDevice();
             
-            imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
+            imageView.setLayoutParams(new GridView.LayoutParams(size, size));
             imageView.setScaleType(ImageView.ScaleType.CENTER);
             imageView.setPadding(0,0,0,0);
             imageView.setAdjustViewBounds(true);
@@ -124,6 +133,49 @@ public class SetLogic extends BaseAdapter{
         imageView.setImageResource(FrameCodeAPI.mFrameResultImages[setScoreIntegerArray[position]]);
         return imageView;
     }
+    
+    private int getSizeForDevice() {
+
+        DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+
+        int width=metrics.widthPixels;
+        int height=metrics.heightPixels;
+        int dens=metrics.densityDpi;
+        double wi=(double)width/(double)dens;
+        double hi=(double)height/(double)dens;
+        double x = Math.pow(wi,2);
+        double y = Math.pow(hi,2);
+        double screenInches = Math.sqrt(x+y);
+        double multiplier = 1;
+        
+        if ((screenInches < 7) && (metrics.densityDpi < DisplayMetrics.DENSITY_HIGH))
+        {
+            multiplier = 0.75;
+        }
+        
+
+        int size = 75;
+        
+        switch (metrics.densityDpi) {
+        case DisplayMetrics.DENSITY_LOW:
+            size = 50;
+            break;
+        case DisplayMetrics.DENSITY_MEDIUM:
+            size = 75;
+            break;
+        case DisplayMetrics.DENSITY_HIGH:
+            size = 100;
+            break;
+        case DisplayMetrics.DENSITY_XHIGH:
+        case 480:
+            size = 120;
+            break;
+        }
+
+        Log.w(TAG, "getSizeForDevice: metrics.densityDpi="+metrics.densityDpi + " size="+(int)(size*multiplier));
+        
+        return (int)(size*multiplier);
+    }    
 
 	public void resetScore() {
 		setScore = 0;
