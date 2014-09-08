@@ -37,7 +37,8 @@ public class SetLogic extends FrameCodeImageAdapter{
     public void updateCurrentScoreArray(String scoreString) {
         
         Log.v(TAG, "updateCurrentScoreArray: resultString=" + scoreString);       
-        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+        for (int i = 0; i < IBPLConstants.MAX_FRAMES_IN_SET; i++) {
+            
             setScoreIntegerArray[i] = FrameCodeAPI.indexOfChar (scoreString.charAt(i), IBPLConstants.CSFCodes);
         }
     }
@@ -50,7 +51,7 @@ public class SetLogic extends FrameCodeImageAdapter{
         Log.v(TAG, "updateScore: framecode=" + framecode);   
         
         setScore=0;
-        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+        for (int i = 0; i < IBPLConstants.MAX_FRAMES_IN_SET; i++) {
 //            Log.v(TAG, "mCurrentScore[" + i +"] = " + mCurrentScore[i]);   
             switch (setScoreIntegerArray[i])
             {
@@ -69,7 +70,7 @@ public class SetLogic extends FrameCodeImageAdapter{
     //TODO - This must be refactored into FrameCodeAPI, as it is csf logic, not set logic.
     public int getScoreInteger() {
         setScore=0;
-        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+        for (int i = 0; i < IBPLConstants.MAX_FRAMES_IN_SET; i++) {
             switch (setScoreIntegerArray[i])
             {
                 case 0: //intentional fall thru
@@ -87,7 +88,7 @@ public class SetLogic extends FrameCodeImageAdapter{
     //TODO - This must be refactored into FrameCodeAPI, as it is csf logic, not set logic.
     public int getInverseScoreInteger() {
         setScore=0;
-        for (int i = 0; i < setScoreIntegerArray.length; i++) {
+        for (int i = 0; i < IBPLConstants.MAX_FRAMES_IN_SET; i++) {
             switch (setScoreIntegerArray[i])
             {
                 case 3: //intentional fall thru
@@ -106,7 +107,7 @@ public class SetLogic extends FrameCodeImageAdapter{
 
 	public void resetScore() {
 		setScore = 0;
-		for (int i = 0; i < setScoreIntegerArray.length; i++) {
+		for (int i = 0; i < IBPLConstants.MAX_FRAMES_IN_SET; i++) {
 			setScoreIntegerArray[i] = 8;
 		}
 	} 
@@ -114,8 +115,7 @@ public class SetLogic extends FrameCodeImageAdapter{
 	public int isSetWon() {
 		// Calculate if a player won the set
 
-		return ((this.getScoreInteger() < IBPLConstants.FRAMES_TO_WIN_SET) ? 0
-				: 1);
+		return ((this.getScoreInteger() < IBPLConstants.FRAMES_TO_WIN_SET) ? 0	: 1);
 	}
 
 	public boolean isSetFinished() {
@@ -128,9 +128,14 @@ public class SetLogic extends FrameCodeImageAdapter{
 		return false;
 	}
 
+    public int getCount() {
+        return setScoreIntegerArray.length;
+    }
+	
 	// create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
+        
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
             int size = getSizeForDevice();
@@ -143,7 +148,19 @@ public class SetLogic extends FrameCodeImageAdapter{
         } else {
             imageView = (ImageView) convertView;
         }
+        
+        if (position < IBPLConstants.MAX_FRAMES_IN_SET)
+        {
+        Log.v(TAG, "Set Logic getView: setScoreIntegerArray=" + setScoreIntegerArray);       
+        Log.v(TAG, "Set Logic getView: position=" + position);       
+        Log.v(TAG, "Set Logic getView: setScoreIntegerArray["+position+"]=" +setScoreIntegerArray[position]);       
+        
         imageView.setImageResource(FrameCodeAPI.mFrameResultImages[setScoreIntegerArray[position]]);
+
+        }else
+        {
+            Log.v(TAG, "WARNING! position>MAX_FRAMES_IN_SET. Set Logic getView: position=" + position);       
+        }
         return imageView;
     }
 
