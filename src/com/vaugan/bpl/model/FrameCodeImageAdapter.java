@@ -57,7 +57,7 @@ public class FrameCodeImageAdapter extends BaseAdapter {
     }
 
 
-    private int getSizeForDevice() {
+    public int getSizeForDevice() {
 
         DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
 
