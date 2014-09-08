@@ -1,5 +1,11 @@
 package com.vaugan.bpl.model;
 
+/**
+ * All constants related to cuesportfever frame codes and BPL match formats.
+ * 
+ * @author Vaugan.Nayagar
+ *
+ */
 public interface IBPLConstants {
     
 	public static final int SETS_TO_WIN_MATCH = 2;

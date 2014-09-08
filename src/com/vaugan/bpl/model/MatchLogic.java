@@ -12,6 +12,8 @@ import com.vaugan.bpl.model.FrameCodeAPI;
 
 /**
  * Class to handle all BPL match-related functionality.
+ * 
+ * @author Vaugan.Nayagar
  */
 public class MatchLogic {
     private Context mContext;

@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -31,7 +32,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class MatchPresenter {
+/**
+ * Separate the model from the view via a presenter layer.
+ * 
+ * This class handles all the mapping from the MatchDisplay view to the underlying model.
+ * 
+ * @author Vaugan.Nayagar
+ *
+ */
+public class MatchPresenter{
 	
 	static MatchPresenter instance = null;
     private static final String TAG = "MatchPresenter";
@@ -60,8 +69,8 @@ public class MatchPresenter {
 		return instance;
 	}
 	
+    //If match(mRowID) exists, load it else create new match.
 	public void initialiseMatch(Context context, long matchRowID, long player1RowID, long player2RowID){
-		//If match(mRowID) exists, load it else create new match.
 		
 		mRowID = matchRowID;
 
