@@ -32,7 +32,31 @@ public class MatchDbAdapter {
     private static final String DATABASE_CREATE =
         "create table matches (_id integer primary key autoincrement, "
         + "player1 integer not null, player2 integer not null, set1_result text not null, set2_result text not null, set3_result text not null);";
-
+    
+//    private static final String DATABASE_FETCH_ALL_MATCHES = 
+//    "select m._id, p.name from matches m join bpl.players p on m.player1=p.name join players on m.player2=p.name";
+//    
+    private static final String DATABASE_FETCH_ALL_MATCHES = 
+    "select " +
+    "m._id, " +
+    "p1.name as home_player, " +
+    "p1.club as venue, " +
+    "p2.name as away_player " +
+    "from " +
+    "matches as m " +
+    "inner join players as p1 on m.player1=p1._id " +
+    "inner join players as p2 on m.player2=p2._id";
+    
+//    SELECT
+//    g.*,
+//    t1.name AS home_team_name,
+//    t2.name AS guest_team_name
+//FROM
+//    game AS g
+//    INNER JOIN team AS t1 ON g.home_team_id = t1.id
+//    INNER JOIN team AS t2 ON g.guest_team_id = t2.id;
+//ORDER by game_date DESC 
+    
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "matches";
     private static final int DATABASE_VERSION = 6;
@@ -132,8 +156,10 @@ public class MatchDbAdapter {
      */
     public Cursor fetchAllMatches() {
 
-        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, null, null, null, null, null);
-    	
+        mDb.execSQL("attach database ? as bpl", new String[]{mCtx.getDatabasePath("bpl.db").getPath()});
+//        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, null, null, null, null, null);
+        return mDb.rawQuery(DATABASE_FETCH_ALL_MATCHES, null);
+        
     } 
 
     /**

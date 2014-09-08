@@ -55,10 +55,10 @@ public class MatchList extends ListActivity {
 
         
         // Create an array to specify the fields we want to display in the list (only TITLE)
-        String[] from = new String[]{MatchDbAdapter.KEY_P1, MatchDbAdapter.KEY_P2};
+        String[] from = new String[]{"home_player", "away_player", "venue"};
 
         // and an array of the fields we want to bind those fields to
-        int[] to = new int[]{R.id.p1, R.id.p2};
+        int[] to = new int[]{R.id.p1, R.id.p2, R.id.rowvenue};
 
         // Now create a simple cursor adapter and set it to display
         SimpleCursorAdapter matches = 
