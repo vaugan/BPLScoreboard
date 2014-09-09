@@ -49,11 +49,11 @@ public class MatchLogic {
         {
         	if (!aSets[i].isSetFinished())
         	{
-        	    break;
+        	    return i;
         	}
         }
 
-        return i;
+        return IBPLConstants.SET_THREE;
 	}
 	
 }
