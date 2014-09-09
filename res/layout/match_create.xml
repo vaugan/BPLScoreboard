@@ -11,34 +11,60 @@
         android:layout_weight="0.2"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home Player "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <Spinner
-            android:id="@+id/spinnerPlayer1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/set2P1ResultString"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Away Player"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_gravity="top"
+            android:orientation="vertical" >
 
-        <Spinner
-            android:id="@+id/spinnerPlayer2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Match Date"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/matchDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Current Date"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Home Player "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Spinner
+                android:id="@+id/spinnerPlayer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <TextView
+                android:id="@+id/set2P1ResultString"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Away Player"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Spinner
+                android:id="@+id/spinnerPlayer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+            
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/Set1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" >
 
             <Button
                 android:id="@+id/btnStartMatch"

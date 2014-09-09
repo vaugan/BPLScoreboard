@@ -1,34 +1,48 @@
 package com.vaugan.bpl.view;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.MatchDbAdapter;
 import com.vaugan.bpl.model.PlayerDbAdapter;
+import com.vaugan.bpl.presenter.MatchPresenter;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MatchCreate extends Activity {
+public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetListener{
     
     private static final String TAG = "MatchCreate";
     private Long mP1RowId;
     private Long mP2RowId;
     private Long mRowId;
-    private MatchDbAdapter mDbHelper;
-    private PlayerDbAdapter playerDbHelper;
+
     public Context mContext;    
     SimpleCursorAdapter sca;
+    private MatchPresenter mp;
+    private SimpleDateFormat df; 
+    TextView matchDate;
+    private DatePickerFragment picker;
  
     protected static final int ACTIVITY_MATCH_DISPLAY = 0;
     protected static final int ACTIVITY_MAIN_MENU = 4;
@@ -37,31 +51,27 @@ public class MatchCreate extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try{ 
-	        mDbHelper = new MatchDbAdapter(this);
-	        mDbHelper.open();
-	        
-	        
-	        playerDbHelper = new PlayerDbAdapter(this);
-	        playerDbHelper.open();
-	        
-	
+            
+
+            picker = new DatePickerFragment();
+            picker.setOnDateSetListener(this);
+
+            
 	        setContentView(R.layout.match_create);
 	        setTitle(R.string.create_match);
 
+            matchDate = (TextView) findViewById(R.id.matchDate);
+
+            mp = MatchPresenter.getInstance(this.getApplicationContext());
 	        fillData();
 	
-            Log.v(TAG,"mRowID____1="+mRowId);
-	        
 	        mRowId = (savedInstanceState == null) ? null :
 	            (Long) savedInstanceState.getSerializable(MatchDbAdapter.KEY_ROWID);
-	        
-            Log.v(TAG,"mRowID____2="+mRowId);
 	        
 			if (mRowId == null) {
 				Bundle extras = getIntent().getExtras();
 				mRowId = extras != null ? extras.getLong(MatchDbAdapter.KEY_ROWID)
 										: null;
-                Log.v(TAG,"mRowID____3="+mRowId);
 			}
 	
 			populateFields();
@@ -94,9 +104,28 @@ public class MatchCreate extends Activity {
                 }
             });   
 
+//            Button changeDateButton = (Button) findViewById(R.id.btnChangeDate);
+//            changeDateButton.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View view) {
+//                    picker.show(getFragmentManager(), "datePicker");  
+//                }
+//            });   
+//            
+            
+            matchDate.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    picker.show(getFragmentManager(), "datePicker");  
+                }
+            });   
+
+            
         }catch (Exception e) {
             // handle any errors
-            Log.e("csfmatch", "Error in activity", e);  // log the error
+            Log.e("BPL Scorecard", "Error in activity", e);  // log the error
             // Also let the user know something went wrong
             Toast.makeText(
                 getApplicationContext(),
@@ -108,20 +137,9 @@ public class MatchCreate extends Activity {
 
     private void populateFields() {
         if (mRowId != null) {
-            Cursor note = mDbHelper.fetchMatch(mRowId);
+            Cursor note = mp.fetchMatch(mRowId);
             startManagingCursor(note);
-//            mDateTimeText.setText(note.getString(
-//                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_DATETIME)));
-//            mVenueText.setText(note.getString(
-//                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_VENUE)));
-//            mBestOfText.setText(note.getString(
-//                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_BEST_OF)));
-//            mP1RowId = (note.getString(
-//                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
-//            mP2RowId = (note.getString(
-//                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));
-//            mSet1Result.setText(note.getString(
-//                    note.getColumnIndexOrThrow(MatchDbAdapter.KEY_SET1_RESULT)));
+
         }
     }
 
@@ -160,17 +178,17 @@ public class MatchCreate extends Activity {
         String set3Result = "MMMMMMM";
 
         if (mRowId == null) {
-            long id = mDbHelper.createMatch(mP1RowId, mP2RowId, set1Result, set2Result, set3Result);
+            long id = mp.createMatch(mP1RowId, mP2RowId, set1Result, set2Result, set3Result);
             if (id > 0) {
                 mRowId = id;
             }
         } else {
-            mDbHelper.updateMatch(mRowId, mP1RowId, mP2RowId, set1Result, set2Result, set3Result);
+            mp.updateMatch(mRowId, mP1RowId, mP2RowId, set1Result, set2Result, set3Result);
         }
     }
 
     private void fillData() {
-        Cursor playersCursor = playerDbHelper.fetchAllPlayers();
+        Cursor playersCursor = mp.fetchAllPlayers();
         startManagingCursor(playersCursor);
         
         playersCursor.moveToFirst();
@@ -202,6 +220,25 @@ public class MatchCreate extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {}
             });      
     
+        df = new SimpleDateFormat("EEE, d MMM yyyy");
+        String date = df.format(Calendar.getInstance().getTime());
+        matchDate.setText(date);
+    }
+
+    @Override
+    public void onDateSet(DatePicker arg0, int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+//        cal.set(Calendar.HOUR_OF_DAY, 0);
+//        cal.set(Calendar.MINUTE, 0);
+//        cal.set(Calendar.SECOND, 0);
+//        cal.set(Calendar.MILLISECOND, 0);
+        String formattedDate = df.format(cal.getTime());
+        matchDate.setText(formattedDate);
+        
     }    
-       
+
+    
 }

@@ -35,7 +35,8 @@ import android.widget.AdapterView.OnItemClickListener;
 /**
  * Separate the model from the view via a presenter layer.
  * 
- * This class handles all the mapping from the MatchDisplay view to the underlying model.
+ * This class handles all the mapping from the MatchDisplay view to the underlying models.
+ * TODO: Consider splitting this into multiple classes
  * 
  * @author Vaugan.Nayagar
  *
@@ -44,7 +45,7 @@ public class MatchPresenter{
 	
 	static MatchPresenter instance = null;
     private static final String TAG = "MatchPresenter";
-	private static MatchDbAdapter mDbHelper;
+	private static MatchDbAdapter matchesDbHelper;
 	private static PlayerDbAdapter playerDbHelper;
 	// Array of P1 and P2 sets
 	private static SetLogic aP1Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
@@ -63,8 +64,8 @@ public class MatchPresenter{
 
     private MatchPresenter(Context ctx) {
         
-        mDbHelper = new MatchDbAdapter(ctx);
-        mDbHelper.open();
+        matchesDbHelper = new MatchDbAdapter(ctx);
+        matchesDbHelper.open();
         playerDbHelper = new PlayerDbAdapter(ctx);
         playerDbHelper.open();
         
@@ -84,7 +85,7 @@ public class MatchPresenter{
 		mRowID = matchRowID;
 
 
-        Cursor matchCursor = mDbHelper.fetchMatch(mRowID);
+        Cursor matchCursor = matchesDbHelper.fetchMatch(mRowID);
 
         //Populate player name and picture
 
@@ -154,7 +155,7 @@ public class MatchPresenter{
 	public void closeMatch(){
 		
 	    //TODO: Should we always keep this connection open and use it from everywhere in the app?
-        mDbHelper.close();
+        matchesDbHelper.close();
         playerDbHelper.close();
 	}
 
@@ -164,7 +165,7 @@ public class MatchPresenter{
         String set3Result = aP1Sets[2].getSetScoreString();
 
         if (mRowID != null) {
-            mDbHelper.updateMatchResult(mRowID, set1Result, set2Result, set3Result);
+            matchesDbHelper.updateMatchResult(mRowID, set1Result, set2Result, set3Result);
         }
 	}
 	
@@ -270,14 +271,28 @@ public class MatchPresenter{
 	}
 	
 	public Cursor fetchAllMatches() {
-        return mDbHelper.fetchAllMatches();
+        return matchesDbHelper.fetchAllMatches();
     }
     	
     public boolean deleteMatch(long rowId) {
-        return mDbHelper.deleteMatch(rowId);
+        return matchesDbHelper.deleteMatch(rowId);
     }
 
     public Cursor fetchMatch(long rowId) {
-        return mDbHelper.fetchMatch(rowId);
+        return matchesDbHelper.fetchMatch(rowId);
+    }
+
+    public long createMatch(Long mP1RowId2, Long mP2RowId2, String set1Result,
+            String set2Result, String set3Result) {
+        return matchesDbHelper.createMatch(mP1RowId2, mP2RowId2, set1Result, set2Result, set3Result);
+    }
+
+    public void updateMatch(Long mRowId2, Long mP1RowId2, Long mP2RowId2,
+            String set1Result, String set2Result, String set3Result) {
+        matchesDbHelper.updateMatch(mRowId2, mP1RowId2, mP2RowId2, set1Result, set2Result, set3Result);
+    }
+
+    public Cursor fetchAllPlayers() {
+        return playerDbHelper.fetchAllPlayers();
     }
 }
