@@ -3,6 +3,7 @@ package com.vaugan.bpl.view;
 import com.vaugan.bpl.R;
 import com.vaugan.bpl.model.MatchDbAdapter;
 import com.vaugan.bpl.model.PlayerDbAdapter;
+import com.vaugan.bpl.presenter.MatchPresenter;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -26,16 +27,13 @@ public class MatchList extends ListActivity {
     protected static final int ACTIVITY_MATCH_DISPLAY = 0;
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
-
-    private MatchDbAdapter mDbHelper;
-
+    private MatchPresenter mp;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_list);
-        mDbHelper = new MatchDbAdapter(this);
-        mDbHelper.open();
         fillData();
         registerForContextMenu(getListView());
 //        
@@ -44,12 +42,9 @@ public class MatchList extends ListActivity {
     }
 
     private void fillData() {
-    	
-    	
 
-    	
-    	
-        Cursor matchesCursor = mDbHelper.fetchAllMatches();
+        mp = MatchPresenter.getInstance(this.getApplicationContext());
+        Cursor matchesCursor = mp.fetchAllMatches();
         matchesCursor.moveToFirst();
         startManagingCursor(matchesCursor);
 
@@ -96,7 +91,7 @@ public class MatchList extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-               mDbHelper.deleteMatch(info.id);
+                mp.deleteMatch(info.id);
                fillData();
                 return true;
         }
@@ -115,7 +110,7 @@ public class MatchList extends ListActivity {
         
         Log.v(TAG, "id="+id);
         
-        Cursor match = mDbHelper.fetchMatch(id);
+        Cursor match = mp.fetchMatch(id);
         
         Log.v(TAG, "Player1="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P1)));
         Log.v(TAG, "Player2="+match.getString(match.getColumnIndexOrThrow(MatchDbAdapter.KEY_P2)));

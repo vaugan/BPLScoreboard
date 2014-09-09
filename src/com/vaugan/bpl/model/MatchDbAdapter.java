@@ -73,6 +73,7 @@ public class MatchDbAdapter {
         public void onCreate(SQLiteDatabase db) {
 
             db.execSQL(DATABASE_CREATE);
+            
         }
 
         @Override
@@ -106,6 +107,7 @@ public class MatchDbAdapter {
     public MatchDbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
+        mDb.execSQL("attach database ? as bpl", new String[]{mCtx.getDatabasePath("bpl.db").getPath()});
         return this;
     }
 
@@ -156,7 +158,6 @@ public class MatchDbAdapter {
      */
     public Cursor fetchAllMatches() {
 
-        mDb.execSQL("attach database ? as bpl", new String[]{mCtx.getDatabasePath("bpl.db").getPath()});
 //        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, null, null, null, null, null);
         return mDb.rawQuery(DATABASE_FETCH_ALL_MATCHES, null);
         

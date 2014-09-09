@@ -70,6 +70,8 @@ public class MatchDisplay extends Activity {
     
 	private ImageView mP1Image;
 	private ImageView mP2Image;
+	
+	private MatchPresenter mp;
 
     
     protected static final int  ACTIVITY_FRAME_IMAGE_SELECTOR = 5;
@@ -83,8 +85,8 @@ public class MatchDisplay extends Activity {
         long mP1RowId = extras.getLong("com.vaugan.csf.match.p1rowid");
         long mP2RowId = extras.getLong("com.vaugan.csf.match.p2rowid");
 
-        MatchPresenter.getInstance().initialiseMatch(this, mRowId, mP1RowId, mP2RowId);
-        
+        mp = MatchPresenter.getInstance(this.getApplicationContext());
+        mp.initialiseMatch(this, mRowId, mP1RowId, mP2RowId);
         
         aSetsUI[0] = R.id.Set1;
         aSetsUI[1] = R.id.Set2;
@@ -115,7 +117,7 @@ public class MatchDisplay extends Activity {
         etS1P1Score  = (TextView) findViewById(R.id.set1Player1Score);
         gvS1P1FrameCodes = (GridView) findViewById(R.id.set1Player1FrameCodes);
         gvS1P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
-        gvS1P1FrameCodes.setAdapter(MatchPresenter.getSet(0,0));
+        gvS1P1FrameCodes.setAdapter(mp.getSet(0,0));
         
         gvS1P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -133,7 +135,7 @@ public class MatchDisplay extends Activity {
         etS1P2Score  = (TextView) findViewById(R.id.set1Player2Score);       
         gvS1P2FrameCodes = (GridView) findViewById(R.id.set1Player2FrameCodes);        
         gvS1P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
-        gvS1P2FrameCodes.setAdapter(MatchPresenter.getSet(1,0));
+        gvS1P2FrameCodes.setAdapter(mp.getSet(1,0));
 
         gvS1P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -152,7 +154,7 @@ public class MatchDisplay extends Activity {
         etS2P1Score  = (TextView) findViewById(R.id.set2Player1Score);
         gvS2P1FrameCodes = (GridView) findViewById(R.id.set2Player1FrameCodes);
         gvS2P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
-        gvS2P1FrameCodes.setAdapter(MatchPresenter.getSet(0,1));
+        gvS2P1FrameCodes.setAdapter(mp.getSet(0,1));
         
         gvS2P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -170,7 +172,7 @@ public class MatchDisplay extends Activity {
         etS2P2Score  = (TextView) findViewById(R.id.set2Player2Score);       
         gvS2P2FrameCodes = (GridView) findViewById(R.id.set2Player2FrameCodes);        
         gvS2P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
-        gvS2P2FrameCodes.setAdapter(MatchPresenter.getSet(1,1));
+        gvS2P2FrameCodes.setAdapter(mp.getSet(1,1));
 
         gvS2P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -191,7 +193,7 @@ public class MatchDisplay extends Activity {
         etS3P1Score  = (TextView) findViewById(R.id.set3Player1Score);
         gvS3P1FrameCodes = (GridView) findViewById(R.id.set3Player1FrameCodes);
         gvS3P1FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
-        gvS3P1FrameCodes.setAdapter(MatchPresenter.getSet(0,2));
+        gvS3P1FrameCodes.setAdapter(mp.getSet(0,2));
         
         gvS3P1FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -209,7 +211,7 @@ public class MatchDisplay extends Activity {
         etS3P2Score  = (TextView) findViewById(R.id.set3Player2Score);       
         gvS3P2FrameCodes = (GridView) findViewById(R.id.set3Player2FrameCodes);        
         gvS3P2FrameCodes.setNumColumns(IBPLConstants.MAX_FRAMES_IN_SET);
-        gvS3P2FrameCodes.setAdapter(MatchPresenter.getSet(1,2));
+        gvS3P2FrameCodes.setAdapter(mp.getSet(1,2));
 
         gvS3P2FrameCodes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -247,15 +249,15 @@ public class MatchDisplay extends Activity {
 	    switch(requestCode) {
 	    case ACTIVITY_FRAME_IMAGE_SELECTOR:
 	    	
-	    	MatchPresenter.updateSetScore(player, pos, set, frameCode);
+	    	mp.updateSetScore(player, pos, set, frameCode);
 
-	    	etS1P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.HOME_PLAYER));
-		    etS2P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.HOME_PLAYER));
-		    etS3P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.HOME_PLAYER));
+	    	etS1P1Score.setText(mp.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.HOME_PLAYER));
+		    etS2P1Score.setText(mp.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.HOME_PLAYER));
+		    etS3P1Score.setText(mp.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.HOME_PLAYER));
 	
-		    etS1P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.AWAY_PLAYER));
-		    etS2P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.AWAY_PLAYER));
-		    etS3P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.AWAY_PLAYER));
+		    etS1P2Score.setText(mp.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.AWAY_PLAYER));
+		    etS2P2Score.setText(mp.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.AWAY_PLAYER));
+		    etS3P2Score.setText(mp.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.AWAY_PLAYER));
 		    
 		    
 	
@@ -293,8 +295,8 @@ public class MatchDisplay extends Activity {
 //		p1CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
 //		p2CurrentSetScore.setAnimation(AnimationUtils.loadAnimation(MatchDisplay.this, android.R.anim.fade_in));
 //		
-//		p1MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(homePlayer)));
-//		p2MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(awayPlayer)));
+//		p1MatchScore.setText(Integer.toString(mp.getMatchScore(homePlayer)));
+//		p2MatchScore.setText(Integer.toString(mp.getMatchScore(awayPlayer)));
 
 		
 	}
@@ -302,7 +304,7 @@ public class MatchDisplay extends Activity {
 	private void updateSetVisibility(int set) {
 
 		//Only do something if the set is finished.
-		if (MatchPresenter.isSetFinished(set)) {
+		if (mp.isSetFinished(set)) {
 			Log.v(TAG, "Set[" + set + " is finished. Disabling input...");
 			LinearLayout myLayout = (LinearLayout) findViewById(aSetsUI[set]);
 			for (int i = 0; i < myLayout.getChildCount(); i++) {
@@ -366,33 +368,33 @@ public class MatchDisplay extends Activity {
 
     
     private void saveState() {
-    	MatchPresenter.saveMatch();
+    	mp.saveMatch();
     }
 
     private void populateFields() {
 
 		// Player Info
-		mP1Text.setText(MatchPresenter.getPlayerName(IBPLConstants.HOME_PLAYER));
-		mP2Text.setText(MatchPresenter.getPlayerName(IBPLConstants.AWAY_PLAYER));
-		mP1Image.setImageBitmap(MatchPresenter.getPlayerImage(IBPLConstants.HOME_PLAYER));
-		mP2Image.setImageBitmap(MatchPresenter.getPlayerImage(IBPLConstants.AWAY_PLAYER));
+		mP1Text.setText(mp.getPlayerName(IBPLConstants.HOME_PLAYER));
+		mP2Text.setText(mp.getPlayerName(IBPLConstants.AWAY_PLAYER));
+		mP1Image.setImageBitmap(mp.getPlayerImage(IBPLConstants.HOME_PLAYER));
+		mP2Image.setImageBitmap(mp.getPlayerImage(IBPLConstants.AWAY_PLAYER));
 
 		// Set Grid Score
-		etS1P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.HOME_PLAYER));
-		etS2P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.HOME_PLAYER));
-		etS3P1Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.HOME_PLAYER));
+		etS1P1Score.setText(mp.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.HOME_PLAYER));
+		etS2P1Score.setText(mp.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.HOME_PLAYER));
+		etS3P1Score.setText(mp.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.HOME_PLAYER));
 
-		etS1P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.AWAY_PLAYER));
-		etS2P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.AWAY_PLAYER));
-		etS3P2Score.setText(MatchPresenter.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.AWAY_PLAYER));
+		etS1P2Score.setText(mp.getSetScore(IBPLConstants.SET_ONE, IBPLConstants.AWAY_PLAYER));
+		etS2P2Score.setText(mp.getSetScore(IBPLConstants.SET_TWO, IBPLConstants.AWAY_PLAYER));
+		etS3P2Score.setText(mp.getSetScore(IBPLConstants.SET_THREE, IBPLConstants.AWAY_PLAYER));
 
 		// Current Set Score
-		p1CurrentSetScore.setText(MatchPresenter.getCurrentSetScore(IBPLConstants.HOME_PLAYER));
-		p2CurrentSetScore.setText(MatchPresenter.getCurrentSetScore(IBPLConstants.AWAY_PLAYER));
+		p1CurrentSetScore.setText(mp.getCurrentSetScore(IBPLConstants.HOME_PLAYER));
+		p2CurrentSetScore.setText(mp.getCurrentSetScore(IBPLConstants.AWAY_PLAYER));
 
 		// Match Score
-		p1MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(IBPLConstants.HOME_PLAYER)));
-		p2MatchScore.setText(Integer.toString(MatchPresenter.getMatchScore(IBPLConstants.AWAY_PLAYER)));
+		p1MatchScore.setText(Integer.toString(mp.getMatchScore(IBPLConstants.HOME_PLAYER)));
+		p2MatchScore.setText(Integer.toString(mp.getMatchScore(IBPLConstants.AWAY_PLAYER)));
     }
 
 public void refreshDisplay()

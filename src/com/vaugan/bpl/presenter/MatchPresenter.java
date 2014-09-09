@@ -60,11 +60,20 @@ public class MatchPresenter{
 
 	
 
-	
-	public static MatchPresenter getInstance(){
+
+    private MatchPresenter(Context ctx) {
+        
+        mDbHelper = new MatchDbAdapter(ctx);
+        mDbHelper.open();
+        playerDbHelper = new PlayerDbAdapter(ctx);
+        playerDbHelper.open();
+        
+    }
+    
+	public static MatchPresenter getInstance(Context ctx){
 		
 		if (instance == null){
-			instance = new MatchPresenter();
+			instance = new MatchPresenter(ctx);
 		}
 		return instance;
 	}
@@ -74,14 +83,10 @@ public class MatchPresenter{
 		
 		mRowID = matchRowID;
 
-		mDbHelper = new MatchDbAdapter(context);
-        mDbHelper.open();
 
         Cursor matchCursor = mDbHelper.fetchMatch(mRowID);
 
         //Populate player name and picture
-        playerDbHelper = new PlayerDbAdapter(context);
-        playerDbHelper.open();
 
         playerIDs[0] = player1RowID;
         playerIDs[1] = player2RowID;
@@ -130,7 +135,7 @@ public class MatchPresenter{
 		}
 	}
 
-	public static ListAdapter getSet(int player, int set) {
+	public ListAdapter getSet(int player, int set) {
 		if (player == IBPLConstants.HOME_PLAYER) {
 			return aP1Sets[set];
 		}
@@ -145,13 +150,15 @@ public class MatchPresenter{
 	}
 	
 	
+	
 	public void closeMatch(){
 		
+	    //TODO: Should we always keep this connection open and use it from everywhere in the app?
         mDbHelper.close();
         playerDbHelper.close();
 	}
 
-	public static void saveMatch() {
+	public void saveMatch() {
         String set1Result = aP1Sets[0].getSetScoreString();
         String set2Result = aP1Sets[1].getSetScoreString();
         String set3Result = aP1Sets[2].getSetScoreString();
@@ -161,7 +168,7 @@ public class MatchPresenter{
         }
 	}
 	
-	public static String getPlayerName(int player)
+	public String getPlayerName(int player)
 	{
         if (playerIDs[player] != null) {
 
@@ -173,7 +180,7 @@ public class MatchPresenter{
 		
 	}
 
-	public static Bitmap getPlayerImage(int player) {
+	public Bitmap getPlayerImage(int player) {
 
 		if (playerIDs[player] != null) {
 
@@ -192,7 +199,7 @@ public class MatchPresenter{
 		return bmp;
 	}
 
-	public static CharSequence getSetScore(int set, int player) {
+	public CharSequence getSetScore(int set, int player) {
 		int score = 0;
 		if (player == IBPLConstants.HOME_PLAYER) {
 			score = aP1Sets[set].getScoreInteger();
@@ -204,7 +211,7 @@ public class MatchPresenter{
 		return Integer.toString(score);
 	}
 
-	public static void updateSetScore(int player, int pos, int set, int frameCode){
+	public void updateSetScore(int player, int pos, int set, int frameCode){
 		
 	    Log.v(TAG, "updateSetScore: player=" + player);
 	    Log.v(TAG, "updateSetScore: set=" + set);
@@ -245,7 +252,7 @@ public class MatchPresenter{
 	    }
 	}
 
-	public static String getCurrentSetScore(int player) {
+	public String getCurrentSetScore(int player) {
 		if (player == IBPLConstants.HOME_PLAYER) {
 			return Integer.toString(p1CurrentSetScore);
 		} 	
@@ -253,12 +260,24 @@ public class MatchPresenter{
 		return Integer.toString(p2CurrentSetScore);
 	
 	}
-	public static void resetCurrentSetScore() {
+	public void resetCurrentSetScore() {
 		p1CurrentSetScore=0;
 		p2CurrentSetScore=0;
 	}
 	
-	public static boolean isSetFinished(int set) {
+	public boolean isSetFinished(int set) {
 		return aP1Sets[set].isSetFinished();
 	}
+	
+	public Cursor fetchAllMatches() {
+        return mDbHelper.fetchAllMatches();
+    }
+    	
+    public boolean deleteMatch(long rowId) {
+        return mDbHelper.deleteMatch(rowId);
+    }
+
+    public Cursor fetchMatch(long rowId) {
+        return mDbHelper.fetchMatch(rowId);
+    }
 }
