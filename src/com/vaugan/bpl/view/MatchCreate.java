@@ -65,14 +65,14 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
             mp = MatchPresenter.getInstance(this.getApplicationContext());
 	        fillData();
 	
-	        mRowId = (savedInstanceState == null) ? null :
-	            (Long) savedInstanceState.getSerializable(MatchDbAdapter.KEY_ROWID);
-	        
-			if (mRowId == null) {
-				Bundle extras = getIntent().getExtras();
-				mRowId = extras != null ? extras.getLong(MatchDbAdapter.KEY_ROWID)
-										: null;
-			}
+//	        mRowId = (savedInstanceState == null) ? null :
+//	            (Long) savedInstanceState.getSerializable(MatchDbAdapter.KEY_ROWID);
+//	        
+//			if (mRowId == null) {
+//				Bundle extras = getIntent().getExtras();
+//				mRowId = extras != null ? extras.getLong(MatchDbAdapter.KEY_ROWID)
+//										: null;
+//			}
 	
 			populateFields();
 	
@@ -81,7 +81,7 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
 
                 @Override
                 public void onClick(View view) {
-                    saveState();
+                    saveMatch();
                     Intent i = new Intent(MatchCreate.this, MatchDisplay.class);
                     Log.v(TAG,"mRowID="+mRowId);
                     Log.v(TAG,"MatchDbAdapter.KEY_ROWID="+MatchDbAdapter.KEY_ROWID);
@@ -99,9 +99,15 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
 
                 @Override
                 public void onClick(View view) {
+                    if (mRowId != null)
+                    {
+                        mp.deleteMatch(mRowId);
+                    }
+                        
                     Intent i = new Intent(MatchCreate.this, MainMenu.class);
                     startActivityForResult(i, ACTIVITY_MAIN_MENU);    
                 }
+
             });   
 
 //            Button changeDateButton = (Button) findViewById(R.id.btnChangeDate);
@@ -146,14 +152,14 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        saveState();
-        outState.putSerializable(MatchDbAdapter.KEY_ROWID, mRowId);
+//        saveMatch();
+//        outState.putSerializable(MatchDbAdapter.KEY_ROWID, mRowId);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        saveState();
+//        saveMatch();
     }
 
     @Override
@@ -162,7 +168,7 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
         populateFields();
     }
 
-    private void saveState() {
+    private void saveMatch() {
     	
     	int position = ((Spinner) findViewById(R.id.spinnerPlayer1)).getSelectedItemPosition();
     	Cursor cursor = (Cursor) sca.getItem(position);
@@ -239,6 +245,5 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
         matchDate.setText(formattedDate);
         
     }    
-
     
 }
