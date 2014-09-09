@@ -50,10 +50,10 @@ public class MatchList extends ListActivity {
 
         
         // Create an array to specify the fields we want to display in the list (only TITLE)
-        String[] from = new String[]{"home_player", "away_player", "venue"};
+        String[] from = new String[]{"home_player", "away_player", "venue", "date"};
 
         // and an array of the fields we want to bind those fields to
-        int[] to = new int[]{R.id.p1, R.id.p2, R.id.rowvenue};
+        int[] to = new int[]{R.id.p1, R.id.p2, R.id.rowvenue, R.id.dateTime};
 
         // Now create a simple cursor adapter and set it to display
         SimpleCursorAdapter matches = 

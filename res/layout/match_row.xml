@@ -11,15 +11,21 @@
 	    android:layout_height="wrap_content" android:text="dd/m/yyyy"/>
 	    
 	<TextView
-		android:id="@+id/p1"
-		android:layout_height="wrap_content"
-	    android:layout_below="@id/dateTime" android:text="Player1" android:layout_width="wrap_content"/>
-
-	<TextView
-		android:id="@+id/p2"
+	    android:id="@+id/p1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@id/p1" android:text="Player2"/>
+	    android:layout_below="@id/dateTime"
+	    android:text="Player1"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	<TextView
+	    android:id="@+id/p2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/p1"
+	    android:text="Player2"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
 	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentTop="false" android:layout_alignParentRight="true" android:text="Venue" android:id="@+id/rowvenue"></TextView>
 
 </RelativeLayout>

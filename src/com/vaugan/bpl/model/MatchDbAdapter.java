@@ -14,6 +14,7 @@ import android.util.Log;
 public class MatchDbAdapter {
 
 
+    public static final String KEY_DATE = "date";
     public static final String KEY_P1 = "player1";
     public static final String KEY_P2 = "player2";
     public static final String KEY_SET1_RESULT = "set1_result";
@@ -31,7 +32,7 @@ public class MatchDbAdapter {
      */
     private static final String DATABASE_CREATE =
         "create table matches (_id integer primary key autoincrement, "
-        + "player1 integer not null, player2 integer not null, set1_result text not null, set2_result text not null, set3_result text not null);";
+        + "date text not null, player1 integer not null, player2 integer not null, set1_result text not null, set2_result text not null, set3_result text not null);";
     
 //    private static final String DATABASE_FETCH_ALL_MATCHES = 
 //    "select m._id, p.name from matches m join bpl.players p on m.player1=p.name join players on m.player2=p.name";
@@ -39,6 +40,7 @@ public class MatchDbAdapter {
     private static final String DATABASE_FETCH_ALL_MATCHES = 
     "select " +
     "m._id, " +
+    "m.date, " +
     "p1.name as home_player, " +
     "p1.club as venue, " +
     "p2.name as away_player " +
@@ -128,9 +130,10 @@ public class MatchDbAdapter {
      * @param set3Result - the csf result code of player 1, set 3 as a string
      * @return rowId or -1 if failed
      */
-    public long createMatch(long p1RowId, long p2RowId, String set1Result, String set2Result, String set3Result) {
+    public long createMatch(long p1RowId, long p2RowId, String set1Result, String set2Result, String set3Result, String date) {
         ContentValues initialValues = new ContentValues();
 
+        initialValues.put(KEY_DATE, date);
         initialValues.put(KEY_P1, p1RowId);
         initialValues.put(KEY_P2, p2RowId);
         initialValues.put(KEY_SET1_RESULT, set1Result);
@@ -175,7 +178,7 @@ public class MatchDbAdapter {
         Cursor mCursor =
 
             mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-            		KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, KEY_ROWID + "=" + rowId, null,
+            		KEY_DATE, KEY_P1, KEY_P2, KEY_SET1_RESULT, KEY_SET2_RESULT, KEY_SET3_RESULT}, KEY_ROWID + "=" + rowId, null,
                     null, null,null, null);
 
         if (mCursor != null) {
@@ -197,9 +200,10 @@ public class MatchDbAdapter {
      * @param set3Result - the csf result code of player 1, set 3 as a string
      * @return true if the match was successfully updated, false otherwise
      */
-    public boolean updateMatch(long rowId, long p1, long p2, String set1Result, String set2Result, String set3Result) {
+    public boolean updateMatch(long rowId, long p1, long p2, String set1Result, String set2Result, String set3Result, String date) {
         ContentValues args = new ContentValues();
 
+        args.put(KEY_DATE, date);
         args.put(KEY_P1, p1);
         args.put(KEY_P2, p2);
         args.put(KEY_SET1_RESULT, set1Result);

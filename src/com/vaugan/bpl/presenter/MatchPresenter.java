@@ -283,13 +283,13 @@ public class MatchPresenter{
     }
 
     public long createMatch(Long mP1RowId2, Long mP2RowId2, String set1Result,
-            String set2Result, String set3Result) {
-        return matchesDbHelper.createMatch(mP1RowId2, mP2RowId2, set1Result, set2Result, set3Result);
+            String set2Result, String set3Result, String date) {
+        return matchesDbHelper.createMatch(mP1RowId2, mP2RowId2, set1Result, set2Result, set3Result, date);
     }
 
     public void updateMatch(Long mRowId2, Long mP1RowId2, Long mP2RowId2,
-            String set1Result, String set2Result, String set3Result) {
-        matchesDbHelper.updateMatch(mRowId2, mP1RowId2, mP2RowId2, set1Result, set2Result, set3Result);
+            String set1Result, String set2Result, String set3Result, String date) {
+        matchesDbHelper.updateMatch(mRowId2, mP1RowId2, mP2RowId2, set1Result, set2Result, set3Result, date);
     }
 
     public Cursor fetchAllPlayers() {

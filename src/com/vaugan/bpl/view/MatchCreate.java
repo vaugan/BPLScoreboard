@@ -178,12 +178,12 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
         String set3Result = "MMMMMMM";
 
         if (mRowId == null) {
-            long id = mp.createMatch(mP1RowId, mP2RowId, set1Result, set2Result, set3Result);
+            long id = mp.createMatch(mP1RowId, mP2RowId, set1Result, set2Result, set3Result, (String)matchDate.getText());
             if (id > 0) {
                 mRowId = id;
             }
         } else {
-            mp.updateMatch(mRowId, mP1RowId, mP2RowId, set1Result, set2Result, set3Result);
+            mp.updateMatch(mRowId, mP1RowId, mP2RowId, set1Result, set2Result, set3Result, (String)matchDate.getText());
         }
     }
 
