@@ -320,7 +320,7 @@ public class MatchDisplay extends Activity {
 			}
 
 			//Enable next set if applicable
-			if (set < IBPLConstants.SET_THREE) {
+			if ((set < IBPLConstants.SET_THREE) && (!mp.isMatchFinished())) {
 				set += 1;
 				findViewById(aSetsUI[set]).setVisibility(View.VISIBLE);
 			}

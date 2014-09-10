@@ -266,10 +266,14 @@ public class MatchPresenter{
 		p2CurrentSetScore=0;
 	}
 	
-	public boolean isSetFinished(int set) {
-		return aP1Sets[set].isSetFinished();
+	public boolean isMatchFinished() {
+		return MatchLogic.isMatchOver(aP1Sets, aP2Sets);
 	}
 	
+	public boolean isSetFinished(int set) {
+        return aP1Sets[set].isSetFinished();
+    }
+    
 	public Cursor fetchAllMatches() {
         return matchesDbHelper.fetchAllMatches();
     }
