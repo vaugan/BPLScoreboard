@@ -51,8 +51,6 @@ public class MatchPresenter{
 	private static SetLogic aP1Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
 	private static SetLogic aP2Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
 	private static Long mRowID;
-	private static Long mP1RowId;
-	private static Long mP2RowId;
 	private static Long playerIDs[] = new Long[2];
 
 	static int p1CurrentSetScore = 0;
@@ -298,5 +296,12 @@ public class MatchPresenter{
 
     public Cursor fetchAllPlayers() {
         return playerDbHelper.fetchAllPlayers();
+    }
+
+    public boolean isCurrentSet(int set) {
+        if (set == MatchLogic.getCurrentSet(aP1Sets)) {
+            return true;
+        }
+        return false;
     }
 }
