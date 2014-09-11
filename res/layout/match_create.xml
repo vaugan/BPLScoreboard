@@ -62,12 +62,13 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/darker_gray" />
 
-                <Spinner
-                    android:id="@+id/spinnerPlayer1"
+                <Button
+                    android:id="@+id/btnHomePlayer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_weight="0.3"
+                    android:text="@string/select_home_player"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>
@@ -89,12 +90,13 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/darker_gray" />
 
-                <Spinner
-                    android:id="@+id/spinnerPlayer2"
+                <Button
+                    android:id="@+id/btnAwayPlayer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_weight="0.3"
+                    android:text="@string/select_away_player"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>

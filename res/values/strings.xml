@@ -13,5 +13,7 @@
     <string name="viewplayers">View Players</string>
     <string name="newmatch">New Match</string>
     <string name="viewstats">View All Matches</string>
-    <string name="menu_delete_player">Delete Player</string>    
+    <string name="menu_delete_player">Delete Player</string>
+    <string name="select_home_player">Select home player</string>
+    <string name="select_away_player">Select away player</string>    
 </resources>

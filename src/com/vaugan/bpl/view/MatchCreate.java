@@ -10,9 +10,11 @@ import com.vaugan.bpl.model.PlayerDbAdapter;
 import com.vaugan.bpl.presenter.MatchPresenter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,6 +46,8 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
     private SimpleDateFormat df; 
     TextView matchDate;
     private DatePickerFragment picker;
+    private Button homePlayerButton;
+    private Button awayPlayerButton;
  
     protected static final int ACTIVITY_MATCH_DISPLAY = 0;
     protected static final int ACTIVITY_MAIN_MENU = 4;
@@ -109,7 +114,8 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
                 }
 
             });   
-
+            
+ 
 //            Button changeDateButton = (Button) findViewById(R.id.btnChangeDate);
 //            changeDateButton.setOnClickListener(new View.OnClickListener() {
 //
@@ -169,15 +175,6 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
     }
 
     private void saveMatch() {
-    	
-    	int position = ((Spinner) findViewById(R.id.spinnerPlayer1)).getSelectedItemPosition();
-    	Cursor cursor = (Cursor) sca.getItem(position);
-    	mP1RowId = cursor.getLong(cursor.getColumnIndex(PlayerDbAdapter.KEY_ROWID));
-    	
-    	position = ((Spinner) findViewById(R.id.spinnerPlayer2)).getSelectedItemPosition();
-    	cursor = (Cursor) sca.getItem(position);
-    	mP2RowId = cursor.getLong(cursor.getColumnIndex(PlayerDbAdapter.KEY_ROWID));
-    	
         
         String set1Result = "MMMMMMM";
         String set2Result = "MMMMMMM";
@@ -194,41 +191,68 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
     }
 
     private void fillData() {
-        Cursor playersCursor = mp.fetchAllPlayers();
-        startManagingCursor(playersCursor);
-        
-        playersCursor.moveToFirst();
-        // make an adapter from the cursor
-        // Create an array to specify the fields we want to display in the list (only TITLE)
-        String[] from = new String[]{PlayerDbAdapter.KEY_NAME};
-        // and an array of the fields we want to bind those fields to (in this case just text1)
-        int[] to = new int[]{R.id.firstName};
-        // Now create a simple cursor adapter and set it to display
-        
-        sca = new SimpleCursorAdapter(this, R.layout.player_row, playersCursor, from, to);
 
-        // set layout for activated adapter
-        sca.setDropDownViewResource(R.layout.player_row);    
-        
-        // get xml file spinner and set adapter 
-        Spinner spinnerViewP1 = (Spinner) this.findViewById(R.id.spinnerPlayer1);
-        Spinner spinnerViewP2 = (Spinner) this.findViewById(R.id.spinnerPlayer2);
-        spinnerViewP1.setAdapter(sca);
-        spinnerViewP2.setAdapter(sca);
-
-        
-        // set spinner listener to display the selected item id
-        mContext = this;
-        spinnerViewP1.setOnItemSelectedListener(new OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-                Toast.makeText(mContext, "Selected ID=" + id, Toast.LENGTH_LONG).show();
-            }
-            public void onNothingSelected(AdapterView<?> parent) {}
-            });      
-    
+        //Date
         df = new SimpleDateFormat("EEE, d MMM yyyy");
         String date = df.format(Calendar.getInstance().getTime());
         matchDate.setText(date);
+
+        //Players
+        //Get players cursor and create an adapter
+        Cursor playersCursor = mp.fetchAllPlayers();
+        startManagingCursor(playersCursor);
+        playersCursor.moveToFirst();
+        String[] from = new String[]{PlayerDbAdapter.KEY_NAME};
+        int[] to = new int[]{R.id.firstName};
+        sca = new SimpleCursorAdapter(this, R.layout.player_row, playersCursor, from, to);
+        sca.setDropDownViewResource(R.layout.player_row);    
+        
+        mContext = this;
+        
+        homePlayerButton = (Button) findViewById(R.id.btnHomePlayer);
+        awayPlayerButton = (Button) findViewById(R.id.btnAwayPlayer);
+
+        //This is a button which displays a drop down dialog.
+        //Done this way because with the Spinner, its not easy to set "Select Player" as the
+        //initial text on the spinner.
+        homePlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(mContext)
+                .setTitle("Select Home Player:")
+                .setAdapter(sca, new DialogInterface.OnClickListener() {
+
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                        mP1RowId = (long) which + 1; // Player IDs start at 1
+                        dialog.dismiss();
+                        if (mP1RowId != null) {
+                            homePlayerButton.setText(mp.getPlayerNameUsingID(mP1RowId.intValue()));
+                        }
+                    }
+                }).create().show();   
+            }
+        });
+
+        awayPlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(mContext)
+                .setTitle("Select Away Player:")
+                .setAdapter(sca, new DialogInterface.OnClickListener() {
+
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                        mP2RowId = (long) which + 1; // Player IDs start at 1
+                        dialog.dismiss();
+                        if (mP2RowId != null) {
+                            awayPlayerButton.setText(mp.getPlayerNameUsingID(mP2RowId.intValue()));
+                        }
+                    }
+                }).create().show();   
+            }
+        });
+        
     }
 
     @Override
@@ -237,6 +261,7 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
+// Keep this for when we need to add time
 //        cal.set(Calendar.HOUR_OF_DAY, 0);
 //        cal.set(Calendar.MINUTE, 0);
 //        cal.set(Calendar.SECOND, 0);

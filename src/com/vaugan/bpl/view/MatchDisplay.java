@@ -435,8 +435,8 @@ public class MatchDisplay extends Activity {
     private void populateFields() {
 
         // Player Info
-        mP1Text.setText(mp.getPlayerName(IBPLConstants.HOME_PLAYER));
-        mP2Text.setText(mp.getPlayerName(IBPLConstants.AWAY_PLAYER));
+        mP1Text.setText(mp.getPlayerNameUsingHomeOrAway(IBPLConstants.HOME_PLAYER));
+        mP2Text.setText(mp.getPlayerNameUsingHomeOrAway(IBPLConstants.AWAY_PLAYER));
         mP1Image.setImageBitmap(mp.getPlayerImage(IBPLConstants.HOME_PLAYER));
         mP2Image.setImageBitmap(mp.getPlayerImage(IBPLConstants.AWAY_PLAYER));
 

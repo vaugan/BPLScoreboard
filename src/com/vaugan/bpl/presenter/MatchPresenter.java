@@ -51,7 +51,7 @@ public class MatchPresenter{
 	private static SetLogic aP1Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
 	private static SetLogic aP2Sets[] = new SetLogic[IBPLConstants.MAX_SETS_IN_MATCH];
 	private static Long mRowID;
-	private static Long playerIDs[] = new Long[2];
+	private static Long homeAndAwayPlayerIDs[] = new Long[2];
 
 	static int p1CurrentSetScore = 0;
 	static int p2CurrentSetScore = 0;
@@ -87,8 +87,8 @@ public class MatchPresenter{
 
         //Populate player name and picture
 
-        playerIDs[0] = player1RowID;
-        playerIDs[1] = player2RowID;
+        homeAndAwayPlayerIDs[0] = player1RowID;
+        homeAndAwayPlayerIDs[1] = player2RowID;
         		
         for (int i=0;i<IBPLConstants.MAX_SETS_IN_MATCH;i++)
         {
@@ -167,11 +167,11 @@ public class MatchPresenter{
         }
 	}
 	
-	public String getPlayerName(int player)
+	public String getPlayerNameUsingHomeOrAway(int homeOrAwayPlayer)
 	{
-        if (playerIDs[player] != null) {
+        if (homeAndAwayPlayerIDs[homeOrAwayPlayer] != null) {
 
-        	Cursor playerCursor = playerDbHelper.fetchPlayer(playerIDs[player]);
+        	Cursor playerCursor = playerDbHelper.fetchPlayer(homeAndAwayPlayerIDs[homeOrAwayPlayer]);
         	return playerCursor.getString(playerCursor.getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME));         
         }
         
@@ -179,11 +179,17 @@ public class MatchPresenter{
 		
 	}
 
+    public String getPlayerNameUsingID(int playerID)
+    {
+            Cursor playerCursor = playerDbHelper.fetchPlayer(playerID);
+            return playerCursor.getString(playerCursor.getColumnIndexOrThrow(PlayerDbAdapter.KEY_NAME));         
+    }
+	
 	public Bitmap getPlayerImage(int player) {
 
-		if (playerIDs[player] != null) {
+		if (homeAndAwayPlayerIDs[player] != null) {
 
-			Cursor playerCursor = playerDbHelper.fetchPlayer(playerIDs[player]);
+			Cursor playerCursor = playerDbHelper.fetchPlayer(homeAndAwayPlayerIDs[player]);
 			byte[] byteArray = playerCursor.getBlob(playerCursor
 					.getColumnIndexOrThrow(PlayerDbAdapter.KEY_PICTURE));
 
