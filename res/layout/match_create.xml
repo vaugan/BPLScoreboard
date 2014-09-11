@@ -34,13 +34,12 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/darker_gray" />
 
-                <TextView
+                <Button
                     android:id="@+id/matchDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_weight="0.3"
-                    android:background="@android:color/background_light"
                     android:clickable="true"
                     android:text="Current Date"
                     android:textAppearance="?android:attr/textAppearanceLargeInverse" />

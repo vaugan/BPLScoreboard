@@ -60,7 +60,7 @@ public class MatchCreate extends Activity implements DatePickerDialog.OnDateSetL
 	        setContentView(R.layout.match_create);
 	        setTitle(R.string.create_match);
 
-            matchDate = (TextView) findViewById(R.id.matchDate);
+            matchDate = (Button) findViewById(R.id.matchDate);
 
             mp = MatchPresenter.getInstance(this.getApplicationContext());
 	        fillData();
